@@ -26,6 +26,10 @@ const api = axios.create({
 }) as AxiosInstanceExtended;
 
 api.interceptors.request.use(AuthInterceptor);
+api.interceptors.response.use(undefined, (error) => {
+  console.log(`[error] ===>${error.config.baseURL}/${error.config.url}`);
+  return Promise.reject(error);
+});
 
 export const AUTH_HEADER = "useAuthHeader";
 
