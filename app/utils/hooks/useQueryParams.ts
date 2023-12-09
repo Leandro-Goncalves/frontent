@@ -1,7 +1,12 @@
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  ReadonlyURLSearchParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from "next/navigation";
 
 export const useQueryParams = () => {
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams() as ReadonlyURLSearchParams;
   const router = useRouter();
   const pathname = usePathname();
 

@@ -36,7 +36,9 @@ const create = async (product: CreateProductValidation) => {
 
 const search = async (query: string, category: string) => {
   return api
-    .get<ProductsImage[]>(`products/search?q=${query}&c=${category}`)
+    .get<ProductsImage[]>(`products/search`, {
+      params: { q: query, c: category },
+    })
     .then(serviceAdapter);
 };
 

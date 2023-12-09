@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
 import products from "./products.json";
 import { QuickScore } from "quick-score";
 
@@ -8,15 +7,12 @@ const qs = new QuickScore(productsArray, ["name", "categoryName"]);
 const Query = (q: string | string[] | undefined) =>
   Array.isArray(q) ? q[0] : q === "undefined" ? "" : q ?? "";
 
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<any | Error>
-) {
-  const { q, c } = req.query;
+export default function SearchHandler(queryString: { q?: string; c?: string }) {
+  const { q, c } = queryString;
   const query = Query(q);
   const categoryQuery = Query(c);
 
   const searchArray = qs.search(categoryQuery || query);
 
-  res.status(200).json(searchArray.map((i) => i.item));
+  return [200, searchArray.map((i) => i.item)] as const;
 }
