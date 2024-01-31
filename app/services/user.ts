@@ -37,9 +37,28 @@ const resetPassword = async (password: string, guid: string) => {
     .then(serviceAdapter);
 };
 
+const refreshToken = async (userId: string, refreshToken: string) => {
+  return api
+    .get<{ token: string; refreshToken: string }>(
+      `user/refreshToken/${userId}/${refreshToken}`
+    )
+    .then(serviceAdapter);
+};
+
+const update = async (name: string, password?: string) => {
+  return api
+    .putAuth<User>(`user`, {
+      name,
+      password,
+    })
+    .then(serviceAdapter);
+};
+
 export const userService = {
   login,
   register,
   generateResetPasswordLink,
   resetPassword,
+  update,
+  refreshToken,
 };

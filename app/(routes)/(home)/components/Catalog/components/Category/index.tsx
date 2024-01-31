@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Title } from "@/app/components/Title";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Products } from "@/app/models/products";
+import { formatProducts } from "@/app/utils/misc/formatProducts";
 
 interface CategoryProps {
   category: ICategory;
@@ -16,6 +18,7 @@ export const Category: React.FC<CategoryProps> = ({
   installments,
 }) => {
   const router = useRouter();
+  const productsFormatted = formatProducts(category.Products).slice(0, 10);
 
   return (
     <div className="mb-16 last:mb-0">
@@ -26,11 +29,12 @@ export const Category: React.FC<CategoryProps> = ({
           "grid-cols-5 max-[1650px]:grid-cols-4 max-[1400px]:grid-cols-3 max-[1080px]:grid-cols-2 max-[705px]:grid-cols-1"
         )}
       >
-        {category.Products.map((product) => (
+        {productsFormatted.map((product) => (
           <Product
             key={product.uuid}
             product={product}
             installments={installments}
+            selectedVariant={product.selectedVariant}
           />
         ))}
       </div>

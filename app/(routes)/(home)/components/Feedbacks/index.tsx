@@ -12,7 +12,7 @@ interface FeedbacksProps {}
 
 export const Feedbacks: React.FC<FeedbacksProps> = () => {
   const section = useRef<HTMLDivElement>(null);
-  const percent = 0.2;
+  const percent = 0.5;
   const [padding, setPadding] = useState(0);
 
   const carouselRef = useRef<AliceCarousel>(null);
@@ -28,11 +28,11 @@ export const Feedbacks: React.FC<FeedbacksProps> = () => {
   const items = useMemo(
     () =>
       feedbackData.map((feedback, i) => (
-        <div className="pl-4 pr-4" key={i}>
-          <Feedback />
+        <div className="pl-4 pr-4 h-[450px]" key={i}>
+          <Feedback feedback={feedback} />
         </div>
       )),
-    [feedbackData]
+    []
   );
 
   const handlePrevious = () => {

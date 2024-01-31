@@ -35,6 +35,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
   };
 
   const handleChangeSize = (guid: string, size: ProductsSize) => {
+    updateQuantity(guid, 1);
     updateSize(guid, size);
   };
 
@@ -43,8 +44,9 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
       <div className="flex flex-col gap-5">
         {cart.map((productCart) => {
           const { product, quantity, guid } = productCart;
-          const image = product.Image[0]?.imageId;
+          const image = productCart.variant?.Image;
           const sizeIsFocused = focusSizeGuids.includes(guid);
+
           return (
             <div
               key={product.uuid}
@@ -55,19 +57,19 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
                   {image && (
                     <Image
                       alt="Product"
-                      src={`${env.CDN_URL}/${image}`}
+                      src={`${env.CDN_URL}/${image[0].imageId}`}
                       width={65}
                       height={83}
                       className="rounded-sm"
                     />
                   )}
 
-                  <div className="mx-10 w-[1px] bg-[#FFAEC5]" />
+                  <div className="mx-3 w-[1px] bg-[#FFAEC5]" />
                 </>
               )}
 
-              <div className="max-[1000px]:items-center max-[1000px]:text-center max-[1000px]:flex-col max-[1000px]:flex">
-                <h3 className="text-sm font-bold mb-2 overflow-ellipsis whitespace-nowrap overflow-hidden w-[200px]">
+              <div className="max-[1000px]:items-center max-[1000px]:text-center max-[1000px]:flex-col max-[1000px]:flex flex flex-col">
+                <h3 className="text-sm font-bold overflow-ellipsis whitespace-nowrap overflow-hidden w-[200px]">
                   {product.name}
                 </h3>
                 <h4
@@ -78,14 +80,21 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
                     WebkitBoxOrient: "vertical",
                   }}
                 >
-                  {product.description}
+                  Estampa: {productCart.variant?.name}
                 </h4>
-                <p>{toCurrencyValue(product.price)}</p>
+                <p>
+                  {toCurrencyValue(
+                    productCart.variant?.promotionalPrice ??
+                      productCart.variant?.price ??
+                      0
+                  )}
+                </p>
               </div>
 
               <div className="flex items-center ml-auto gap-20 max-[1000px]:flex-wrap max-[1000px]:w-full max-[1000px]:justify-center max-[1000px]:mt-4 max-[1000px]:gap-y-4">
                 <div className="flex items-center gap-[90px]">
                   <QuantitySelector
+                    maxQuantity={productCart.size?.quantity ?? 0}
                     quantity={quantity}
                     updateQuantity={(q) => handleUpdateQuantity(guid, q)}
                   />
@@ -93,7 +102,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
                 <div>
                   <Sizes
                     isFocused={sizeIsFocused}
-                    sizes={product.sizes}
+                    sizes={productCart.variant?.size ?? []}
                     updateSize={(newSize) => {
                       removeItemFromFocusSizeGuids(guid);
                       handleChangeSize(guid, newSize);

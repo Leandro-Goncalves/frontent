@@ -1,18 +1,20 @@
 import { create } from "zustand";
-import { ProductsImage, ProductsSize } from "../models/products";
+import { Products, ProductsSize, Variant } from "../models/products";
 import { v4 as uuidV4 } from "uuid";
 
 export interface ProductCart {
   guid: string;
-  product: ProductsImage;
+  product: Products;
   quantity: number;
   size?: ProductsSize;
+  variant: Variant;
 }
 
-interface AddProductDTO {
-  product: ProductsImage;
+export interface AddProductDTO {
+  product: Products;
   quantity: number;
   size?: ProductsSize;
+  variant: Variant;
 }
 
 interface useCartProps {

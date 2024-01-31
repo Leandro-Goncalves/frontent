@@ -10,13 +10,13 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: "localhost",
-        port: "3000",
-        pathname: "/mockImages/**",
+        port: "3333",
+        pathname: "/imgs/**",
       },
       {
-        protocol: "https",
-        hostname: "cacau-store-imgs.s3.sa-east-1.amazonaws.com",
-        port: "443",
+        protocol: "http",
+        hostname: "caacaustore.com",
+        port: "3333",
         pathname: "/imgs/**",
       },
     ],
@@ -24,3 +24,4 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
+http://149.102.249.204:3333/

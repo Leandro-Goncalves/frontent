@@ -10,7 +10,7 @@ export const ActionsCart: React.FC<ActionsCartProps> = ({ handleRemove }) => {
     <div className="flex flex-col items-start">
       <p className="mb-2 text-sm font-extrabold">Ações:</p>
       <div className="flex gap-7 justify-center w-full">
-        <RemoveButton handleRemove={handleRemove} />
+        <RemoveButton title="Remover produto" handleRemove={handleRemove} />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import env from "@/app/env";
 import { categoryService } from "@/app/services/category";
 import { Category } from "./components/Category";
 import { establishmentService } from "@/app/services/establishment";
+import { CategoryFilter } from "./components/CategoryFilter";
 
 export const Catalog: React.FC = async () => {
   const { data: categories } = await categoryService.gelAll(
@@ -18,6 +19,7 @@ export const Catalog: React.FC = async () => {
 
   return (
     <div>
+      <CategoryFilter categories={removeEmptyCategories} />
       {removeEmptyCategories.map((category) => (
         <Category
           key={category.uuid}

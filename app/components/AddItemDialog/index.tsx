@@ -47,7 +47,7 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({ dialogRef }) => {
   return (
     <div
       className={cn(
-        isOpen ? "opacity-100" : "opacity-0",
+        isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
         "absolute bottom-[-110px] right-[40px] bg-[#DC024F] p-4 rounded-sm text-white font-semibold w-[240px]",
         "transition-opacity animate-bounce",
         "after:content-[''] after:absolute after:top-[-18px] after:right-0 after:w-5 after:h-5 after:bg-black",

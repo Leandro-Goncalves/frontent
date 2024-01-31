@@ -9,41 +9,44 @@ interface DoubtsProps {}
 
 const doubts = [
   {
-    question: "Quais são os tecidos mais confortáveis para pijamas?",
+    question: "Qual o tecido utilizado nos pijamas?",
     answer:
-      "Recomendamos tecidos como algodão, flanela e modal, pois são macios, respiráveis e ideais para uma boa noite de sono.",
+      "Suede. Um tecido leve, fluido e que não esquenta. Muito confortável, de textura agradável e macia, ideal para pijamas.",
   },
-
   {
-    question: "Como escolher o tamanho correto de pijama?",
-    answer:
-      "Sugerimos que consulte nossa tabela de tamanhos, geralmente disponível online, e leve em consideração suas medidas para encontrar o pijama que ofereça o ajuste perfeito.",
+    question: "Qual o tamanho das peças?",
+    answer: "varia do 36 ao 60 dependendo do modelo.",
   },
-
   {
-    question: "Vocês têm opções de pijamas para todas as estações do ano?",
+    question: "Possui loja física?",
     answer:
-      "Sim, oferecemos uma variedade de pijamas leves para o verão e opções mais quentes para o inverno. Assim, você pode encontrar a peça perfeita independentemente da estação.",
+      "Sim, possuímos um espaço físico (Rua José Alves, 210 - Francisco Garófalo , Mococa-SP), que fica ao dispor das nossas Cacauzetes de Segunda a Sexta, das 9h ás 18h. Sábado das 9h30 ás 15h.",
   },
-
   {
-    question:
-      "É possível personalizar ou gravar nomes nos pijamas como presente?",
+    question: "Quais as formas de pagamento?",
     answer:
-      "Sim, oferecemos serviços de personalização, incluindo a opção de gravar nomes. Isso torna os pijamas um presente único e especial.",
+      "Pix, dinheiro em espécie, débito e crédito (parcelamos em até 10x sem juros).",
   },
-
   {
-    question:
-      "Como cuidar adequadamente dos pijamas para garantir durabilidade?",
+    question: "Quais as formas de entrega?",
     answer:
-      "Recomendamos lavar os pijamas de acordo com as instruções de cuidado na etiqueta, geralmente em água fria, para preservar as cores e a textura. Evite o uso de alvejantes e seque as peças ao ar livre ou em temperatura baixa.",
+      "Enviamos para todo Brasil, via delivery, correios e transportadora.",
+  },
+  {
+    question: "Cobram taxa de entrega?",
+    answer:
+      "Todas as entregas de MOCOCA-SP são gratuítas e as compras acima de R$500,00 também. Cotamos os melhores fretes para todo Brasil.",
+  },
+  {
+    question: "Qual o prazo de entrega?",
+    answer:
+      "Trabalhamos com pronta entrega e nossos envios via correios ou transportadora são diários.",
   },
 ];
 
 export const Doubts: React.FC<DoubtsProps> = () => {
   return (
-    <Accordion type="single" collapsible className="border-t-[1px]">
+    <Accordion type="multiple" className="border-t-[1px]">
       {doubts.map((doubt) => (
         <AccordionItem value={doubt.question} key={doubt.question}>
           <AccordionTrigger>{doubt.question}</AccordionTrigger>

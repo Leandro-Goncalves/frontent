@@ -12,7 +12,7 @@ export const Informations: React.FC<InformationsProps> = () => {
       <Title>Nossos modelos</Title>
       <Models />
 
-      <Title className="mt-[70px]">Nossos tamanhos</Title>
+      {/* <Title className="mt-[70px]">Nossos tamanhos</Title>
       <Image
         className="mt-10 w-full"
         src={"/images/banner1.png"}
@@ -22,7 +22,7 @@ export const Informations: React.FC<InformationsProps> = () => {
       />
 
       <Title className="mt-[70px]">Nosso tecido</Title>
-      <Models />
+      <Models /> */}
 
       <h3 className="text-2xl font-bold  mt-[70px] mb-3">DÚVIDAS FREQUENTES</h3>
       <Doubts />

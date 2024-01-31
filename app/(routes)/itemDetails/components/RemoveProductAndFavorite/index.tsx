@@ -10,12 +10,14 @@ interface RemoveProductAndFavoriteProps {
 export const RemoveProductAndFavorite: React.FC<
   RemoveProductAndFavoriteProps
 > = ({ guid }) => {
-  const removeFavorite = useFavorites((state) => state.removeFavorite);
+  const removeFavoriteByGuid = useFavorites(
+    (state) => state.removeFavoriteByGuid
+  );
   const removeProduct = useCart((state) => state.removeProduct);
 
   useEffect(() => {
     if (guid) {
-      removeFavorite(guid);
+      removeFavoriteByGuid(guid);
       removeProduct(guid);
     }
   }, [guid]); // eslint-disable-line

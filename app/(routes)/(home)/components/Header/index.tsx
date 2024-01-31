@@ -11,12 +11,7 @@ export const Header: React.FC<HeaderProps> = async () => {
 
   return (
     <div>
-      {establishment.alert && (
-        <p className="py-2 px-4 text-center bg-[#DC024F] text-white text-xs font-semibold italic">
-          {establishment.alert}
-        </p>
-      )}
-      <Content phone={establishment.phone} />
+      <Content phone={establishment.phone} alert={establishment.alert} />
     </div>
   );
 };

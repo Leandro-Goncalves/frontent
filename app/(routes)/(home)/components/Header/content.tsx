@@ -1,7 +1,7 @@
 "use client";
 import { IconInput } from "@/components/ui/iconInput";
 import { Search, MessageSquare, ShoppingCart } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { IconButton } from "./components/IconButton";
 import { sendWhatsappMessage } from "@/app/utils/misc/sendWhatsappMessage";
 import { useScrollPosition } from "@/app/utils/hooks/useScrollPosition";
@@ -14,17 +14,22 @@ import {
   AddItemDialog,
   AddItemDialogRef,
 } from "@/app/components/AddItemDialog";
+import { AccountButton } from "./components/AccountButton";
 
 interface ContentProps {
   phone: string;
+  alert?: string;
 }
 
-export const Content: React.FC<ContentProps> = ({ phone }) => {
+const hideRoutes = ["/register", "/login", "/resetPassword", "/painel"];
+
+export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
   const router = useRouter();
   const { cart } = useCart();
   const pageScroll = useScrollPosition();
   const dialogRef = useRef<AddItemDialogRef>();
   const lastCartLength = useRef<number>(0);
+  const pathname = usePathname();
 
   const isFixed = useMemo(() => {
     return pageScroll > 60;
@@ -46,17 +51,29 @@ export const Content: React.FC<ContentProps> = ({ phone }) => {
     lastCartLength.current = cart.length;
   }, [cart]);
 
+  const needToHide = useMemo(() => {
+    return hideRoutes.some((r) => pathname?.startsWith(r));
+  }, [pathname]);
+
+  if (needToHide) {
+    return <></>;
+  }
+
   return (
     <>
+      {alert && (
+        <p className="py-2 px-4 text-center bg-[#DC024F] text-white text-xs font-semibold italic">
+          {alert}
+        </p>
+      )}
       <header
         className={cn(
-          "relative w-full h-[162px] bg-[#F8DEE5] flex items-center justify-between p-6 z-20 max-[1000px]:flex-col",
-          isFixed &&
-            "fixed top-0 left-0 right-0 h-[120px] shadow-md max-[1000px]:p-1"
+          "relative w-full h-[162px] bg-background shadow-md flex items-center justify-between p-6 z-20 max-[1000px]:flex-col",
+          isFixed && "fixed top-0 left-0 right-0 h-[120px] max-[1000px]:p-1"
         )}
       >
         <div
-          className="w-[208.44px] cursor-pointer max-[1000px]:h-0 max-[1000px]:opacity-0"
+          className="w-[208.44px] cursor-pointer max-[1000px]:h-0 max-[1000px]:opacity-0 max-[1000px]:pointer-events-none"
           onClick={goHome}
         >
           <Image
@@ -95,6 +112,7 @@ export const Content: React.FC<ContentProps> = ({ phone }) => {
             }}
             title="Atendimento"
           />
+          <AccountButton />
         </div>
       </header>
       <div

@@ -12,24 +12,31 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Trash } from "lucide-react";
+import React from "react";
 
 interface RemoveButtonProps {
+  title: string;
   handleRemove: () => void;
+  removeButton?: React.ReactNode;
 }
 
-export const RemoveButton: React.FC<RemoveButtonProps> = ({ handleRemove }) => {
+export const RemoveButton: React.FC<RemoveButtonProps> = ({
+  title,
+  handleRemove,
+  removeButton = (
+    <Button className="w-6 h-6" variant="outline" size="icon">
+      <Trash size={14} />
+    </Button>
+  ),
+}) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button className="w-6 h-6" variant="outline" size="icon">
-          <Trash size={14} />
-        </Button>
-      </AlertDialogTrigger>
+      <AlertDialogTrigger asChild>{removeButton}</AlertDialogTrigger>
       <AlertDialogContent className="bg-white">
         <AlertDialogHeader>
-          <AlertDialogTitle>Remover produto</AlertDialogTitle>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
-            Essa ação é permatente e não podera ser desfeita
+            Essa ação é permanente e não poderá ser desfeita
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

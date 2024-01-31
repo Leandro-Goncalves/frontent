@@ -6,8 +6,6 @@ import { establishmentService } from "@/app/services/establishment";
 import { Metadata } from "next";
 import { CollapsibleInfos } from "../components/CollapsibleInfos";
 import { BackToHomeButton } from "@/app/components/BackToHomeButton";
-import { useFavorites } from "@/app/states/favorites.state";
-import { useCart } from "@/app/states/cart.state";
 import { RemoveProductAndFavorite } from "../components/RemoveProductAndFavorite";
 interface ItemGuidProps {
   params: { itemGuid: string };

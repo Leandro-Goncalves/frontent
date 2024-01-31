@@ -10,13 +10,18 @@ const currencyFormatter = (value: any, prefix: boolean): string => {
   return `${amount}`;
 };
 
-export const CurrencyInput = React.forwardRef<any, NumberFormatBaseProps>(
-  ({ onChange, ...props }) => {
+interface CurrencyInputProps extends NumberFormatBaseProps {
+  error?: string;
+}
+
+export const CurrencyInput = React.forwardRef<any, CurrencyInputProps>(
+  ({ onChange, error, ...props }) => {
     return (
       <NumberFormatBase
         {...props}
         value={props.value ?? 0}
         customInput={Input}
+        error={error}
         format={(e) => currencyFormatter(e, true)}
       />
     );

@@ -34,7 +34,9 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = () => {
               key={item.uuid}
               className="p-0"
               onClick={() => {
-                routes.push(`/itemDetails/${item.uuid}`);
+                routes.push(
+                  `/itemDetails/${item.uuid}?v=${item.selectedVariant.guid}`
+                );
               }}
             >
               <p className="text-sm overflow-ellipsis whitespace-nowrap overflow-hidden max-w-[300px]">

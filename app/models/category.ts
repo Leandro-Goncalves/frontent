@@ -1,7 +1,7 @@
-import { ProductsImage } from "./products";
+import { Products } from "./products";
 
 export interface Category {
   uuid: string;
   name: string;
-  Products: Omit<ProductsImage, "description">[];
+  Products: Products[];
 }

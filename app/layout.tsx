@@ -8,6 +8,7 @@ import { Header } from "./(routes)/(home)/components/Header";
 import { Suspense } from "react";
 import { HeaderFallback } from "./(routes)/(home)/components/Header/HeaderFallback";
 import { OnBeforeUnload } from "./components/OnBeforeUnload";
+import { useQueryClient } from "@tanstack/react-query";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,12 +30,14 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <Suspense fallback={<HeaderFallback />}>
-          <Header />
-        </Suspense>
-        <QueryProvider>{children}</QueryProvider>
-        <ToastContainer />
-        <OnBeforeUnload />
+        <QueryProvider>
+          <Suspense fallback={<HeaderFallback />}>
+            <Header />
+          </Suspense>
+          {children}
+          <ToastContainer />
+          <OnBeforeUnload />
+        </QueryProvider>
       </body>
     </html>
   );

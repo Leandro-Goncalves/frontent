@@ -1,23 +1,25 @@
 export interface ProductsSize {
   uuid: string;
   name: string;
+  quantity: number;
+}
+
+export interface Variant {
+  guid: string;
+  name: string;
+  price: number;
+  promotionalPrice: number;
+  size: ProductsSize[];
+  Image: Image[];
 }
 
 export interface Products {
   uuid: string;
   name: string;
   description: string;
-  value: number;
-  price: number;
-  quantity: number;
   isActive: boolean;
-  sizes: ProductsSize[];
+  variants: Variant[];
 }
-
-export interface ProductsImage extends Products {
-  Image: Image[];
-}
-
 export interface Image {
   imageId: string;
 }
