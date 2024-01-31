@@ -1,9 +1,0 @@
-{
-  "redirects": [
-    {
-      "source": "/api/*",
-      "destination": "http://149.102.249.204:3333/",
-      "permanent": true
-    }
-  ]
-}
