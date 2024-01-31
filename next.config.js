@@ -24,4 +24,3 @@ const nextConfig = {
 };
 
 module.exports = withBundleAnalyzer(nextConfig);
-http://149.102.249.204:3333/
