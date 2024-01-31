@@ -5,6 +5,14 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  rewrites: () => {
+    return [
+      {
+        source: "/api/:path*",
+        destination: "http://149.102.249.204:3333/:path*",
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
