@@ -16,8 +16,8 @@ const nextConfig = {
       },
       {
         protocol: "http",
-        hostname: "caacaustore.com",
-        port: "3333",
+        hostname: "api2.caacaustore.com",
+        port: "443",
         pathname: "/imgs/**",
       },
     ],
