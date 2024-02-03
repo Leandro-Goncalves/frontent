@@ -7,20 +7,7 @@ const nextConfig = {
   reactStrictMode: false,
   trailingSlash: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "http",
-        hostname: "localhost",
-        port: "3333",
-        pathname: "/imgs/**",
-      },
-      {
-        protocol: "http",
-        hostname: "api2.caacaustore.com",
-        port: "443",
-        pathname: "/imgs/**",
-      },
-    ],
+    domains: ["api2.caacaustore.com"],
   },
 };
 
