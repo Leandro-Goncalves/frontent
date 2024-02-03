@@ -23,7 +23,7 @@ type alertDataObjectFunction = (
 const alertDataObject: alertDataObjectFunction = (isTakeout, trackId) => {
   const paymentSuccessText = () => {
     if (isTakeout) {
-      return "";
+      return "aguardando retirada";
     }
 
     if (trackId) {
