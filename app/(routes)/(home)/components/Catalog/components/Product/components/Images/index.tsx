@@ -40,8 +40,8 @@ export const Images: React.FC<ImagesProps> = ({
         <Image
           src={`${env.CDN_URL}/${firstImage.imageId}`}
           alt="productImage"
-          width={274}
-          height={390}
+          width={300}
+          height={400}
           style={{
             width: "auto",
             height: "100%",
@@ -59,8 +59,8 @@ export const Images: React.FC<ImagesProps> = ({
         <Image
           src={`${env.CDN_URL}/${lastImage.imageId}`}
           alt="productImage"
-          width={320}
-          height={480}
+          width={300}
+          height={400}
           style={{
             width: "auto",
             height: "100%",
