@@ -31,7 +31,7 @@ export const Images: React.FC<ImagesProps> = ({
         borderRadius: "0.5rem",
         overflow: "hidden",
         position: "relative",
-        height: "390px",
+        height: "400px",
         width: "100%",
         cursor: "pointer",
       }}

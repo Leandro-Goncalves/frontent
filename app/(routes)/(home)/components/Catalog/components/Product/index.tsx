@@ -37,7 +37,7 @@ export const Product: React.FC<ProductProps> = ({
   };
 
   return (
-    <div className="w-[275px] flex flex-col relative">
+    <div className="w-[300px] flex flex-col relative">
       <div className="absolute z-10 right-0 bg-[#f38bb0] h-[40px] rounded-bl-md rounded-tr-md">
         <FavoriteButton
           product={product}
