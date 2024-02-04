@@ -35,10 +35,10 @@ export const SearchCep: React.FC<SearchCepProps> = ({
         products: cart.map(({ product, quantity }) => ({
           id: product.uuid,
           quantity,
-          height: 10,
+          width: 30,
+          height: 5,
+          length: 40,
           weight: 10,
-          length: 10,
-          width: 10,
         })),
       });
       setFreights(freightList);

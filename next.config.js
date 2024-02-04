@@ -7,7 +7,7 @@ const nextConfig = {
   reactStrictMode: false,
   trailingSlash: true,
   images: {
-    domains: ["api2.caacaustore.com"],
+    domains: ["api2.caacaustore.com", "localhost"],
   },
 };
 
