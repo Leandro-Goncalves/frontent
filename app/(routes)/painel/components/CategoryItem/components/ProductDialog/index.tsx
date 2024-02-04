@@ -102,6 +102,8 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     handleSubmit,
   } = form;
 
+  console.log(errors);
+
   const product = useMutationError({
     mutationFn: async (data: ProductModelWithoutImage) => {
       if (productToEdit) {

@@ -21,7 +21,7 @@ export const ProductImages: React.FC<ProductImagesProps> = ({
 
   return (
     <div className="flex">
-      <div className="flex flex-col gap-2 h-[585px] overflow-y-auto pr-1 max-[1000px]:w-0">
+      <div className="flex flex-col gap-2 h-[400px] overflow-y-auto pr-1 max-[1000px]:w-0">
         {images.map(({ imageId }, index) => (
           <button key={imageId} onClick={() => setSelectedImageIndex(index)}>
             <Image
@@ -65,11 +65,11 @@ export const ProductImages: React.FC<ProductImagesProps> = ({
           <Image
             src={`${env.CDN_URL}/${selectedImage.imageId}`}
             alt="imagem do produto"
-            width={329}
-            height={585}
+            width={300}
+            height={400}
             style={{
               borderRadius: "8px",
-              height: "585px",
+              height: "400px",
               objectFit: "cover",
               marginLeft: "4px",
             }}
