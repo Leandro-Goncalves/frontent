@@ -20,6 +20,7 @@ import { Label } from "@/components/ui/label";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AddProductValidation } from "./validation";
 import env from "@/app/env";
+import { toast } from "react-toastify";
 
 interface ProductDialogProps {
   productToEdit?: Products;
@@ -117,7 +118,13 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     onError: () => {
       // form.setFocus("email");
     },
-    onSuccess: (user) => {},
+    onSuccess: (user) => {
+      if (productToEdit) {
+        toast.success("Produto editado com sucesso");
+      } else {
+        toast.success("Produto criado com sucesso");
+      }
+    },
   });
 
   const urlToObject = async (imageUrl: string) => {
@@ -212,7 +219,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
   }, [reset, productToEdit]);
 
   const ActionButton = productToEdit ? (
-    <Button className="w-6 h-6 ml-4" variant="outline" size="icon">
+    <Button className="w-6 h-6" variant="outline" size="icon">
       <Edit size={14} />
     </Button>
   ) : (

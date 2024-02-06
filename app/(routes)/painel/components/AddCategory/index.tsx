@@ -13,6 +13,7 @@ import { categoryService } from "@/app/services/category";
 import { useState } from "react";
 import { queryClient } from "@/app/components/QueryProvider";
 import { Category } from "@/app/models/category";
+import { toast } from "react-toastify";
 
 interface AddCategoryProps {
   categoryToEdit?: Category;
@@ -37,6 +38,11 @@ export const AddCategory: React.FC<AddCategoryProps> = ({ categoryToEdit }) => {
       // form.setFocus("email");
     },
     onSuccess: (user) => {
+      if (categoryToEdit) {
+        toast.success("Categoria editada com sucesso");
+      } else {
+        toast.success("Categoria criada com sucesso");
+      }
       setIsOpen(false);
       setName("");
       queryClient.invalidateQueries(["categories"]);
