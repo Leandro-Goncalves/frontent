@@ -56,6 +56,7 @@ export const AccountButton: React.FC<AccountButtonProps> = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <IconButton
+          limitMaxText
           icon={<UserCircle className="w-6 h-6 text-[#1B123D]" />}
           title="Login"
         />

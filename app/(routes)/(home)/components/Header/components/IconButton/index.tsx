@@ -1,15 +1,17 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface IconButtonProps {
   icon: React.ReactNode;
   title: string;
   onClick?: () => void;
   badge?: number;
+  limitMaxText?: boolean;
 }
 
 export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ icon, title, onClick, badge }, ref) => {
+  ({ icon, title, onClick, badge, limitMaxText }, ref) => {
     return (
       <Button
         ref={ref}
@@ -18,7 +20,12 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         className="flex-col h-auto p-2 text-[#1B123D] relative"
       >
         {icon}
-        <p className="text-xs font-bold max-w-[70px] overflow-hidden whitespace-nowrap text-ellipsis">
+        <p
+          className={cn(
+            limitMaxText ? "max-w-[70px]" : "",
+            "text-xs font-bold overflow-hidden whitespace-nowrap text-ellipsis"
+          )}
+        >
           {title}
         </p>
         {badge ? (

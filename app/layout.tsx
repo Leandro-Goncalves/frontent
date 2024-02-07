@@ -19,7 +19,25 @@ export const metadata: Metadata = {
     template: "%s | Cacau Store",
     default: "Cacau Store",
   },
-  description: "Cacau Store",
+  description: "✨Estilo é conforto e conforto também é estilo!",
+  openGraph: {
+    type: "website",
+    url: "https://www.caacaustore.com/",
+    title: "Cacau Store",
+    description: "✨Estilo é conforto e conforto também é estilo!",
+    emails: ["sac@caacaustore.com"],
+    phoneNumbers: ["+5519991824852"],
+    siteName: "Cacau Store",
+    images: [
+      {
+        url: "https://www.caacaustore.com/android-chrome-512x512.png",
+        width: 512,
+        height: 512,
+        alt: "Cacau Store logo",
+        type: "image/png",
+      },
+    ],
+  },
 };
 
 export const revalidate = 1;
