@@ -101,14 +101,27 @@ export const CategoryItem: React.FC<CategoryItemProps> = ({
                   {toCurrencyValue(calculatePrice(product))}
                 </TableCell>
                 <TableCell align="right">
-                  <RemoveButton
-                    title="Remover Produto"
-                    handleRemove={() => handleRemoveProduct(product.uuid)}
-                  />
-                  <ProductDialog
-                    categoryId={category.uuid}
-                    productToEdit={product}
-                  />
+                  <div className="flex gap-4 justify-end items-center">
+                    <VisibilitySwitch
+                      isVisible={!!product.isActive}
+                      onVisibilityChange={async () => {
+                        await productService.changeIsActive(
+                          product.uuid,
+                          !product.isActive
+                        );
+
+                        queryClient.invalidateQueries(["categories"]);
+                      }}
+                    />
+                    <RemoveButton
+                      title="Remover Produto"
+                      handleRemove={() => handleRemoveProduct(product.uuid)}
+                    />
+                    <ProductDialog
+                      categoryId={category.uuid}
+                      productToEdit={product}
+                    />
+                  </div>
                 </TableCell>
               </TableRow>
             ))}

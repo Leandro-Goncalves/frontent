@@ -1,5 +1,6 @@
+"use client";
 import { cn } from "@/lib/utils";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface VisibilitySwitchProps {
   isVisible: boolean;
@@ -12,17 +13,21 @@ export const VisibilitySwitch: React.FC<VisibilitySwitchProps> = ({
 }) => {
   const activeRef = useRef<HTMLDivElement>(null);
   const inactiveRef = useRef<HTMLDivElement>(null);
-
-  const elementActive = isVisible ? activeRef.current : inactiveRef.current;
-
-  const position = {
-    width: elementActive?.offsetWidth,
-    left: isVisible ? inactiveRef.current?.offsetWidth : 0,
-  };
+  const [position, setPosition] = useState({ width: 0, left: 0 });
 
   const handleClick = () => {
     onVisibilityChange(!isVisible);
   };
+
+  useEffect(() => {
+    const elementActive = isVisible ? activeRef.current : inactiveRef.current;
+    if (elementActive) {
+      setPosition({
+        width: elementActive?.offsetWidth,
+        left: isVisible ? inactiveRef.current?.offsetWidth ?? 0 : 0,
+      });
+    }
+  }, [isVisible]);
 
   return (
     <button

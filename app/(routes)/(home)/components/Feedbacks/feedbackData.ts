@@ -6,57 +6,39 @@ export interface FeedbacksData {
 
 export const feedbackData: FeedbacksData[] = [
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top2",
+    name: "",
+    feedbackTitle: "Erica Machado",
     feedback:
-      "E eu estou passando pra dizer que amei seus pijamas, além de lindos, super confortáveis, já ansiosa na nova coleção e imaginando seus pijamas de inverno que sonho que deve ser 🥰🥰",
+      "Quanto amor sinto em receber meus pijamas! Vai muito além de uma compra, vocês fazem a diferença na vida das suas clientes. Muito obrigada por todo carinho e atenção.",
   },
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
+    name: "",
+    feedbackTitle: "Paula Letícia",
     feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
+      "Amei meus pijamas novos! Que super atendimento, top! Fora a qualidade dos pijamas... super recomendo!",
   },
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
+    name: "",
+    feedbackTitle: "Fernanda Prioli",
     feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
+      "Eu achava que tinha pijamas confortáveis, mas caramba... amei! Ganhou uma cliente fiel!",
   },
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
+    name: "",
+    feedbackTitle: "Nathalia Motta",
     feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
+      "Nossa, eu dormi até mais gostoso essa noite! O tecido é muito fresquinho, super confortável",
   },
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
+    name: "",
+    feedbackTitle: "Suzana Cipolini",
     feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
+      "Que maravilhoso! O tecido, meu Deus, é perfeito! Acabamento ótimo, a qualidade impecável!",
   },
   {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
+    name: "",
+    feedbackTitle: "Valesca Baliber",
     feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
-  },
-  {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
-    feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
-  },
-  {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
-    feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
-  },
-  {
-    name: "nauas burguer",
-    feedbackTitle: "Muito top",
-    feedback:
-      "ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae aut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis eoloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo inventore veritatis et quasi architecto beatae vitaeb illo inventore veritatis et quasi art quasi architecto beatae vitae",
+      "Tudo que é bom merece ser compartilhado! Nesse caso o produto é ótimo! A qualidade do tecido é impecável, estampas lindas, acabamento perfeito, maciez... sem comentários!",
   },
 ];

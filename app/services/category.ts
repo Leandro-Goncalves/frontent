@@ -12,6 +12,10 @@ const gelAllAuthenticated = async () => {
   return api.getAuth<Category[]>(`category`).then(serviceAdapter);
 };
 
+const gelAllAuthenticatedAdmin = async () => {
+  return api.getAuth<Category[]>(`category/admin`).then(serviceAdapter);
+};
+
 const create = async (name: string) => {
   return api
     .postAuth(`category`, {
@@ -40,6 +44,7 @@ const reorder = async (guids: string[]) => {
 
 export const categoryService = {
   gelAll,
+  gelAllAuthenticatedAdmin,
   gelAllAuthenticated,
   create,
   remove,

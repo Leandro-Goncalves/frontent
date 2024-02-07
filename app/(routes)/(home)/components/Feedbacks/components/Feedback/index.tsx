@@ -19,18 +19,11 @@ export const Feedback: React.FC<FeedbackProps> = ({ feedback }) => {
         "max-[1500px]:items-center"
       )}
     >
-      <div className="max-w-[300px] mr-16 flex-shrink-0 max-[1500px]:mr-0  max-[1500px]:mt-4">
+      <div className="max-w-[300px] mr-16 flex-shrink-0 max-[1500px]:mr-0  max-[1500px]:mt-4 flex flex-col">
         <h2 className="text-2xl font-bold mb-2">{feedback.feedbackTitle}</h2>
-        <p className="text-xs font-bold mb-8">{feedback.feedback}</p>
+        <p className="text-sm font-bold mb-8">{feedback.feedback}</p>
 
-        <div>
-          <p className="text-xs font-bold leading-3">nauas burguer</p>
-          <p className="text-[#959595] text-[10px] font-bold  leading-3">
-            @nauasburguer
-          </p>
-        </div>
-
-        <div className="flex flex-row gap-2 mt-8">
+        <div className="flex flex-row gap-2 mt-auto">
           <Tag>Confortavel</Tag>
           <Tag>Confortavel</Tag>
           <Tag>Confortavel</Tag>

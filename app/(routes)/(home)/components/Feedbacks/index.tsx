@@ -28,7 +28,7 @@ export const Feedbacks: React.FC<FeedbacksProps> = () => {
   const items = useMemo(
     () =>
       feedbackData.map((feedback, i) => (
-        <div className="pl-4 pr-4 h-[450px]" key={i}>
+        <div className="pl-4 pr-4 h-[300px]" key={i}>
           <Feedback feedback={feedback} />
         </div>
       )),

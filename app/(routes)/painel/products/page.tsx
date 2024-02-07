@@ -15,7 +15,8 @@ import { queryClient } from "@/app/components/QueryProvider";
 export default function Products() {
   const { data: categories, isLoading } = useQuery({
     queryKey: ["categories"],
-    queryFn: () => categoryService.gelAllAuthenticated().then((v) => v.data),
+    queryFn: () =>
+      categoryService.gelAllAuthenticatedAdmin().then((v) => v.data),
   });
 
   const onDragEnd: OnDragEndResponder = async ({ source, destination }) => {

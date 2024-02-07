@@ -21,7 +21,7 @@ const deleteProduct = async (productId: string) => {
 
 const changeIsActive = async (productId: string, isActive: boolean) => {
   return api
-    .patchAuth<Products>(`products/${productId}`, {
+    .patchAuth<Products>(`products/${productId}/isActive`, {
       isActive,
     })
     .then(serviceAdapter);
@@ -66,4 +66,5 @@ export const productService = {
   updateImage,
   remove,
   update,
+  changeIsActive,
 };

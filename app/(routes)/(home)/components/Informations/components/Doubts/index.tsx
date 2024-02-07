@@ -9,38 +9,37 @@ interface DoubtsProps {}
 
 const doubts = [
   {
-    question: "Qual o tecido utilizado nos pijamas?",
+    question: "Qual o tecido dos pijamas?",
     answer:
-      "Suede. Um tecido leve, fluido e que não esquenta. Muito confortável, de textura agradável e macia, ideal para pijamas.",
+      "Suede. Um tecido macio, confortável, de textura muito agradável. Ideal para pijamas, pois possui boa elasticidade, promovendo muita comodidade na hora do sono ou no seu dia-a-dia. Não dá bolinhas e não encolhe após as lavagens. Estampas são em sublimação digital.",
   },
   {
-    question: "Qual o tamanho das peças?",
-    answer: "varia do 36 ao 60 dependendo do modelo.",
+    question: "Quais tamanhos vocês trabalham?",
+    answer:
+      "Atendemos desde o infantil feminino, vestindo 02 a 10 anos quanto o adulto feminino, vestindo do 36 ao tamanho 60 (plus size).",
   },
   {
-    question: "Possui loja física?",
-    answer:
-      "Sim, possuímos um espaço físico (Rua José Alves, 210 - Francisco Garófalo , Mococa-SP), que fica ao dispor das nossas Cacauzetes de Segunda a Sexta, das 9h ás 18h. Sábado das 9h30 ás 15h.",
+    question: "Não trabalham com produtos masculinos?",
+    answer: "No momento, não. Atendemos apenas o público feminino.",
   },
   {
     question: "Quais as formas de pagamento?",
-    answer:
-      "Pix, dinheiro em espécie, débito e crédito (parcelamos em até 10x sem juros).",
+    answer: "Pix (5% de desconto), boleto, cartão de crédito e débito.",
   },
   {
-    question: "Quais as formas de entrega?",
+    question: "Quais as formas de envio?",
     answer:
-      "Enviamos para todo Brasil, via delivery, correios e transportadora.",
+      "Trabalhamos com Delivery atendendo toda região de Mococa-SP, e enviamos com as melhores taxas via correios ou transportadora para todo Brasil.",
   },
   {
-    question: "Cobram taxa de entrega?",
+    question: "Qual o prazo de envio?",
     answer:
-      "Todas as entregas de MOCOCA-SP são gratuítas e as compras acima de R$500,00 também. Cotamos os melhores fretes para todo Brasil.",
+      "Realizamos envios diariamente, ou seja, seu pedido é enviado com menos de 24hrs úteis após confirmação de pagamento.",
   },
   {
-    question: "Qual o prazo de entrega?",
+    question: "Sobre o Delivery",
     answer:
-      "Trabalhamos com pronta entrega e nossos envios via correios ou transportadora são diários.",
+      "Trabalhamos com delivery de segunda à sábado em dois horários: 11:30hrs / 17:30hrs.",
   },
 ];
 
