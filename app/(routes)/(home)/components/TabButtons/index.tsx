@@ -31,6 +31,7 @@ export const TabButtons: React.FC<TabButtonsProps> = () => {
       <TabsList className="absolute left-1/2 translate-x-[-50%] shadow-xl !bg-[#FBDCEB] rounded-xl mt-[-62px] max-md:mt-[-30px] gap-1 h-auto p-0 bg-transparent">
         {buttons.map(({ name, label }) => (
           <TabsTrigger
+            id={`tab-${name}`}
             key={name}
             value={name}
             className={cn(

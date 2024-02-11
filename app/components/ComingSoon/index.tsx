@@ -1,5 +1,6 @@
 "use client";
 
+import { getCookie } from "cookies-next";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useMediaQuery } from "react-responsive";
@@ -8,11 +9,26 @@ interface ComingSoonProps {}
 
 export const ComingSoon: React.FC<ComingSoonProps> = () => {
   const params = useSearchParams();
-  const shouldShow = true;
+
+  const showCookie = getCookie("show");
+
+  const shouldShow = params?.get("show") === "true" || showCookie === "true";
   const isMobile = useMediaQuery({ query: "(max-width: 850px)" });
 
   if (shouldShow) {
-    return <></>;
+    return (
+      <>
+        <style>
+          {`
+          #content {
+            height: auto;
+            overflow: auto;
+            filter: none;
+          }
+        `}
+        </style>
+      </>
+    );
   }
 
   return (
