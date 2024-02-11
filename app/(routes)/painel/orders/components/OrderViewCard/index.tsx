@@ -7,20 +7,24 @@ import { ptBR } from "date-fns/locale";
 import { CancelOrderButton } from "../CancelOrderButton";
 import { useMemo } from "react";
 import { ArchiveRestore, Truck } from "lucide-react";
+import { FinishedOrderButton } from "../FinishedOrderButton";
 
 interface OrderViewCardProps {
   order: Order;
   isDelivery: boolean;
   isCancelled: boolean;
+  isFinished: boolean;
 }
 
 export const OrderViewCard: React.FC<OrderViewCardProps> = ({
   order,
   isDelivery,
   isCancelled,
+  isFinished,
 }) => {
   const Status = useMemo(() => {
     if (isCancelled) return <></>;
+    if (isFinished) return <></>;
 
     if (isDelivery) {
       return (
@@ -37,7 +41,7 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
         <p className="text-sm font-bold">ESPERANDO RETIRADA</p>
       </div>
     );
-  }, [isDelivery, isCancelled]);
+  }, [isDelivery, isCancelled, isFinished]);
 
   return (
     <div className="group rounded-lg overflow-hidden border-[#DC024F] cursor-pointer border-[2px] border-opacity-10">
@@ -63,10 +67,14 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
               {toCurrencyValue(order.total)}
             </p>
           </div>
-          <div className="mt-auto">
-            {order.status !== OrderStatus.cancelled && (
-              <CancelOrderButton orderId={order.guid} />
-            )}
+          <div className="mt-auto flex gap-4">
+            {![OrderStatus.finished, OrderStatus.cancelled].includes(
+              order.status
+            ) && <CancelOrderButton orderId={order.guid} />}
+
+            {![OrderStatus.finished, OrderStatus.cancelled].includes(
+              order.status
+            ) && <FinishedOrderButton orderId={order.guid} />}
           </div>
         </div>
       </div>

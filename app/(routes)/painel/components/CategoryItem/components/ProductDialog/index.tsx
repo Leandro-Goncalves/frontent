@@ -101,9 +101,10 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     register,
     reset,
     handleSubmit,
+    getValues,
   } = form;
 
-  console.log(errors);
+  console.log(errors, getValues());
 
   const product = useMutationError({
     mutationFn: async (data: ProductModelWithoutImage) => {

@@ -1,4 +1,5 @@
 "use client";
+import { Title } from "@/app/components/Title";
 import { Category } from "@/app/models/category";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -17,7 +18,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
 
   return (
     <div>
-      <p className="text-lg font-bold">Categorias</p>
+      <Title>Categorias</Title>
       <div className="flex gap-2">
         {categories.map((category) => (
           <Button

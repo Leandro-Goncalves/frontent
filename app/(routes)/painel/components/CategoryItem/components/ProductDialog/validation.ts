@@ -24,11 +24,12 @@ export const AddProductValidation = z.object({
           .array(
             z.object({
               sizeGuid: z.string(),
-              quantity: z.number(),
+              quantity: z.number().optional(),
             })
           )
           .refine(
-            (data) => data.reduce((acc, cur) => acc + cur.quantity, 0) > 0,
+            (data) =>
+              data.reduce((acc, cur) => acc + (cur.quantity ?? 0), 0) > 0,
             {
               message: "Pelo menos um tamanho deve ser selecionado",
             }

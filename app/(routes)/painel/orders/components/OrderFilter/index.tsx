@@ -7,10 +7,10 @@ interface OrderFilterProps {
   takeout: number;
   delivery: number;
   canceled: number;
-  completed: number;
-  selectedFilter: "delivery" | "takeout" | "canceled" | "completed";
+  finished: number;
+  selectedFilter: "delivery" | "takeout" | "canceled" | "finished";
   onChangeFilter: (
-    filter: "delivery" | "takeout" | "canceled" | "completed"
+    filter: "delivery" | "takeout" | "canceled" | "finished"
   ) => void;
 }
 
@@ -18,7 +18,7 @@ export const OrderFilter: React.FC<OrderFilterProps> = ({
   takeout,
   delivery,
   canceled,
-  completed,
+  finished,
   selectedFilter,
   onChangeFilter,
 }) => {
@@ -57,12 +57,12 @@ export const OrderFilter: React.FC<OrderFilterProps> = ({
       <Button
         className={cn(
           "rounded-full transition-opacity",
-          selectedFilter !== "completed" && "opacity-50"
+          selectedFilter !== "finished" && "opacity-50"
         )}
-        onClick={() => onChangeFilter("completed")}
+        onClick={() => onChangeFilter("finished")}
       >
         PEDIDOS CONCLUÍDOS{" "}
-        {completed > 0 && <p className="ml-4 text-lg font-bold">{completed}</p>}
+        {finished > 0 && <p className="ml-4 text-lg font-bold">{finished}</p>}
       </Button>
     </div>
   );

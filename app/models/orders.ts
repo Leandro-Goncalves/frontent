@@ -4,6 +4,7 @@ export enum OrderStatus {
   pending = "pending",
   success = "success",
   cancelled = "cancelled",
+  finished = "finished",
 }
 
 interface ProductOrder {

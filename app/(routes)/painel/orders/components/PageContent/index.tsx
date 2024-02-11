@@ -13,7 +13,7 @@ interface PageContentProps {
 
 export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
   const [selectedFilter, setSelectedFilter] = useState<
-    "delivery" | "takeout" | "canceled" | "completed"
+    "delivery" | "takeout" | "canceled" | "finished"
   >("delivery");
 
   const { data: orders } = useQuery({
@@ -36,6 +36,10 @@ export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
       return orders.cancelled;
     }
 
+    if (selectedFilter === "finished") {
+      return orders.finished;
+    }
+
     return [];
   }, [selectedFilter, orders]);
 
@@ -45,7 +49,7 @@ export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
         delivery={orders.delivery.length}
         takeout={orders.takeout.length}
         canceled={orders.cancelled.length}
-        completed={0}
+        finished={orders.finished.length}
         onChangeFilter={setSelectedFilter}
         selectedFilter={selectedFilter}
       />
@@ -56,6 +60,7 @@ export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
             order={o}
             isDelivery={selectedFilter === "delivery"}
             isCancelled={selectedFilter === "canceled"}
+            isFinished={selectedFilter === "finished"}
           />
         ))}
       </div>

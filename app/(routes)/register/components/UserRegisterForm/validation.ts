@@ -3,6 +3,7 @@ import z from "zod";
 export const registerValidation = z
   .object({
     email: z.string().email({ message: "Email inválido" }),
+    phone: z.string().min(10, { message: "Número inválido" }),
     name: z
       .string()
       .trim()

@@ -11,12 +11,18 @@ const login = async (email: string, password: string) => {
     .then(serviceAdapter);
 };
 
-const register = async (name: string, email: string, password: string) => {
+const register = async (
+  name: string,
+  email: string,
+  password: string,
+  phone: string
+) => {
   return api
     .post<void>("user/register", {
       name,
       email,
       password,
+      phone,
     })
     .then(serviceAdapter);
 };

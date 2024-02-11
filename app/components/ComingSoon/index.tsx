@@ -8,7 +8,7 @@ interface ComingSoonProps {}
 
 export const ComingSoon: React.FC<ComingSoonProps> = () => {
   const params = useSearchParams();
-  const shouldShow = params?.get("show") === "true";
+  const shouldShow = true;
   const isMobile = useMediaQuery({ query: "(max-width: 850px)" });
 
   if (shouldShow) {

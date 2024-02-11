@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterValidation, registerValidation } from "./validation";
-import { useForm } from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import {
   registerExtendedError,
   registerExtendedErrorReturn,
@@ -14,19 +14,32 @@ export interface useUserRegisterFormProps {
   isLoading: boolean;
   register: registerExtendedErrorReturn<RegisterValidation>;
   handleRegister: () => FormEventHandler<HTMLFormElement> | undefined;
+  form: UseFormReturn<
+    {
+      email: string;
+      phone: string;
+      name: string;
+      password: string;
+      confirmPassword: string;
+    },
+    any,
+    undefined
+  >;
 }
 
 export const useUserRegisterForm = (
   backToLogin: () => void
 ): useUserRegisterFormProps => {
-  const { formState, ...form } = useForm<RegisterValidation>({
+  const f = useForm<RegisterValidation>({
     resolver: zodResolver(registerValidation),
   });
+
+  const { formState, ...form } = f;
 
   const register = useMutationError({
     mutationFn: async (data: RegisterValidation) => {
       return userService
-        .register(data.name, data.email, data.password)
+        .register(data.name, data.email, data.password, data.phone)
         .then((data) => data.data);
     },
     onError: () => {
@@ -40,8 +53,10 @@ export const useUserRegisterForm = (
   });
 
   return {
+    form: f,
     isLoading: register.isLoading,
     register: registerExtendedError(form.register, formState),
-    handleRegister: () => form.handleSubmit((e) => register.mutate(e)),
+    handleRegister: () =>
+      form.handleSubmit((e) => register.mutate(e), console.log),
   };
 };

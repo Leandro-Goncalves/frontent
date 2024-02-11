@@ -65,80 +65,87 @@ export const Filters: React.FC<FiltersProps> = ({
 
   return (
     <>
-      <div className="flex flex-col gap-8 p-4 max-w-[600px] mx-auto mb-4">
+      <div className="flex  gap-8 p-4 flex-col max-w-[900px] items-center mx-auto mb-4">
         <h2 className="text-2xl font-extrabold">FILTROS</h2>
 
-        <div>
-          <h3>Tamanho</h3>
-          <ToggleGroup
-            type="multiple"
-            className="justify-start"
-            onValueChange={(s) => {
-              form.setValue("sizes", s);
-            }}
-            value={form.watch("sizes")}
-          >
-            {allSizesArray.map(({ guid, name }) => (
-              <ToggleGroupItem
-                key={guid}
-                value={guid}
-                className="bg-[#fa9dc0] hover:text-white data-[state=on]:text-white data-[state=on]:bg-primary hover:bg-primary"
-              >
-                {name.toLocaleUpperCase()}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
-        </div>
-        {/* <Selector
+        <div className="flex max-[800px]:flex-col gap-4 items-start">
+          <div>
+            <h3>Tamanho</h3>
+            <ToggleGroup
+              type="multiple"
+              className="justify-start"
+              onValueChange={(s) => {
+                form.setValue("sizes", s);
+              }}
+              value={form.watch("sizes")}
+            >
+              {allSizesArray.map(({ guid, name }) => (
+                <ToggleGroupItem
+                  key={guid}
+                  value={guid}
+                  className="bg-[#fa9dc0] hover:text-white data-[state=on]:text-white data-[state=on]:bg-primary hover:bg-primary"
+                >
+                  {name.toLocaleUpperCase()}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+          </div>
+          {/* <Selector
         placeholder="Categoria"
         options={categories.map((c) => c.name)}
         value={form.watch("c")}
         onChange={(c) => form.setValue("c", c)}
       /> */}
 
-        <div>
-          <h3>Preço</h3>
-          <div className="flex gap-4">
-            <NumericFormat
-              decimalSeparator=","
-              thousandSeparator="."
-              prefix="R$ "
-              placeholder="Mínimo:"
-              value={min}
-              customInput={Input}
-              onValueChange={(e) => {
-                setMin(Number(e.value));
+          <div>
+            <h3>Preço</h3>
+            <div className="flex gap-4">
+              <NumericFormat
+                decimalSeparator=","
+                thousandSeparator="."
+                prefix="R$ "
+                placeholder="Mínimo:"
+                value={min}
+                customInput={Input}
+                onValueChange={(e) => {
+                  setMin(Number(e.value));
+                }}
+              />
+              <NumericFormat
+                decimalSeparator=","
+                thousandSeparator="."
+                prefix="R$ "
+                placeholder="Máximo:"
+                value={max}
+                customInput={Input}
+                onValueChange={(e) => {
+                  setMax(Number(e.value));
+                }}
+              />
+            </div>
+            <Slider
+              className="mt-6"
+              value={[min, max]}
+              minStepsBetweenThumbs={4}
+              max={500}
+              step={5}
+              onValueChange={([min, max]) => {
+                setMin(min);
+                setMax(max);
               }}
-            />
-            <NumericFormat
-              decimalSeparator=","
-              thousandSeparator="."
-              prefix="R$ "
-              placeholder="Máximo:"
-              value={max}
-              customInput={Input}
-              onValueChange={(e) => {
-                setMax(Number(e.value));
+              onValueCommit={([min, max]) => {
+                form.setValue("min", String(min));
+                form.setValue("max", String(max));
               }}
             />
           </div>
-          <Slider
-            className="mt-6"
-            value={[min, max]}
-            minStepsBetweenThumbs={4}
-            max={500}
-            step={5}
-            onValueChange={([min, max]) => {
-              setMin(min);
-              setMax(max);
-            }}
-            onValueCommit={([min, max]) => {
-              form.setValue("min", String(min));
-              form.setValue("max", String(max));
-            }}
-          />
+          <Button
+            onClick={handleGoToCategory}
+            className="w-full max-[800px]:max-w-[458px] mt-[25px] max-[800px]:mt-0 max-w-[200px]"
+          >
+            Aplicar Filtro
+          </Button>
         </div>
-        <Button onClick={handleGoToCategory}>Aplicar Filtro</Button>
       </div>
       <div className="grid grid-cols-5 justify-items-center max-2xl:grid-cols-4 max-[1150px]:grid-cols-3 max-[880px]:grid-cols-2 max-[850px]:grid-cols-1 overflow-hidden">
         {products.map((product) => (

@@ -42,6 +42,7 @@ export interface getAllOrdersReturn {
   delivery: Order[];
   takeout: Order[];
   cancelled: Order[];
+  finished: Order[];
 }
 
 const getAllOrders = async () => {
@@ -72,6 +73,12 @@ const cancelOrder = async (orderId: string) => {
     .then(serviceAdapter);
 };
 
+const finishedOrder = async (orderId: string) => {
+  return api
+    .getAuth<any>(`checkout/orders/finished/${orderId}`)
+    .then(serviceAdapter);
+};
+
 export const checkoutService = {
   getOrders,
   generatePaymentLink,
@@ -79,4 +86,5 @@ export const checkoutService = {
   getAllOrders,
   getAllTakeoutOrders,
   cancelOrder,
+  finishedOrder,
 };

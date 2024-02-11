@@ -16,7 +16,7 @@ const routes = [
   {
     name: "Produtos",
     icon: <Package className="w-4 h-4 mr-1" />,
-    href: "/products",
+    href: "/products/",
   },
   // {
   //   name: "Loja",
@@ -31,7 +31,7 @@ const routes = [
   {
     name: "pedidos",
     icon: <ShoppingBasket className="w-4 h-4 mr-1" />,
-    href: "/orders",
+    href: "/orders/",
   },
 ];
 
@@ -48,6 +48,7 @@ export const LateralBar: React.FC<LateralBarProps> = () => {
       <Image src="/logo.png" alt="Logo" width={200} height={200} />
       <div className="w-full flex flex-col gap-4">
         {routes.map((route) => {
+          console.log(path);
           const isActive = path === `/painel${route.href}`;
           const Icon = route.icon;
 

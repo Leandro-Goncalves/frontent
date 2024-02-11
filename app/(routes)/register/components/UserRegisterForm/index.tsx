@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback } from "react";
+import React from "react";
 
 import { cn } from "@/lib/utils";
 import { Icons } from "@/components/icons";
@@ -13,6 +13,7 @@ import FocusTrap from "focus-trap-react";
 import { Form } from "@/app/components/Form";
 import { ArrowLeftCircle } from "lucide-react";
 import Image from "next/image";
+import { PatternFormat } from "react-number-format";
 
 type UserRegisterFormProps = React.HTMLAttributes<HTMLDivElement> &
   MotionProps & {
@@ -24,9 +25,10 @@ export function UserRegisterForm({
   backToLogin,
   ...props
 }: UserRegisterFormProps) {
-  const { register, handleRegister, isLoading } =
+  const { form, register, handleRegister, isLoading } =
     useUserRegisterForm(backToLogin);
-  const { push } = useRouter();
+
+  const phone = form.watch("phone");
 
   return (
     <FocusTrap>
@@ -64,6 +66,17 @@ export function UserRegisterForm({
                   autoComplete="email"
                   autoCorrect="off"
                   {...register("email")}
+                />
+              </div>
+              <div className="grid gap-1">
+                <PatternFormat
+                  className="w-full"
+                  format="(##) #####-####"
+                  allowEmptyFormatting
+                  mask="_"
+                  customInput={Input}
+                  value={phone}
+                  onValueChange={(e) => form.setValue("phone", e.value)}
                 />
               </div>
               <div className="grid gap-1">

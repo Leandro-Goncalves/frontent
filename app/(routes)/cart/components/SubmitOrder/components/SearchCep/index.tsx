@@ -15,6 +15,36 @@ interface SearchCepProps {
   setSelectedCEP: React.Dispatch<React.SetStateAction<string>>;
 }
 
+const createVolumes = (itens: any[]) => {
+  const volumes: any[] = [];
+
+  const addItem = (uuid: string) => {
+    const lastItem = volumes[volumes.length - 1];
+
+    if (lastItem === undefined || lastItem?.height === 20) {
+      volumes.push({
+        id: uuid,
+        quantity: 1,
+        width: 30,
+        height: 5,
+        length: 40,
+        weight: 0.5,
+      });
+    } else {
+      lastItem.weight += 0.5;
+      lastItem.height += 5;
+    }
+  };
+
+  itens.forEach(({ product, quantity }) => {
+    for (let i = 0; i < quantity; i++) {
+      addItem(product.uuid);
+    }
+  });
+
+  return volumes;
+};
+
 export const SearchCep: React.FC<SearchCepProps> = ({
   selectedFreight,
   setSelectedFreight,
@@ -29,17 +59,12 @@ export const SearchCep: React.FC<SearchCepProps> = ({
     if (selectedCEP.length !== 8 || isFetching) return;
     setIsFetching(true);
     try {
+      const volumes: any[] = createVolumes(cart);
+
       const { data: freightList } = await freightService.calculate({
         from: "13736815",
         to: selectedCEP,
-        products: cart.map(({ product, quantity }) => ({
-          id: product.uuid,
-          quantity,
-          width: 30,
-          height: 5,
-          length: 40,
-          weight: 10,
-        })),
+        volumes,
       });
       setFreights(freightList);
     } finally {

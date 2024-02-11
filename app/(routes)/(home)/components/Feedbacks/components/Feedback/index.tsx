@@ -32,7 +32,7 @@ export const Feedback: React.FC<FeedbackProps> = ({ feedback }) => {
 
       <div className={cn("h-[296px] w-[353px] my-auto", "max-[1500px]:hidden")}>
         <Image
-          className="w-full h-auto rounded-3xl bg-red-400"
+          className="w-full h-auto rounded-3xl bg-red-400 max-w-[225px]"
           src="/removeImages/1.png"
           alt="ToDo"
           width={353}

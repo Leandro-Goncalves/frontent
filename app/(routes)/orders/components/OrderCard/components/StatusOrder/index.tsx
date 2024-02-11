@@ -6,6 +6,10 @@ interface StatusOrderProps {
 }
 
 export const StatusOrder: React.FC<StatusOrderProps> = ({ status }) => {
+  if (status === OrderStatus.finished) {
+    return <></>;
+  }
+
   if (status === OrderStatus.success) {
     return (
       <div className="px-2 py-1 rounded-md bg-[#4bb543] flex items-center text-white">

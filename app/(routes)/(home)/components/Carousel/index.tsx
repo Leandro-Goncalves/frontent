@@ -77,14 +77,14 @@ export const Carousel: React.FC<CarouselProps> = ({ images }) => {
         ref={carousel}
       />
 
-      <CarouselButton
+      {/* <CarouselButton
         className="absolute left-6 bottom-[50%] translate-y-[50%]"
         onClick={(e) => carousel?.current?.slidePrev(e)}
       />
       <CarouselButton
         className="absolute right-6 bottom-[50%] translate-y-[50%]"
         onClick={(e) => carousel?.current?.slideNext(e)}
-      />
+      /> */}
     </div>
   );
 };

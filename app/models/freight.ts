@@ -1,7 +1,7 @@
 export interface SearchFreightDto {
   from: string;
   to: string;
-  products: Product[];
+  volumes: Product[];
 }
 
 interface Product {
