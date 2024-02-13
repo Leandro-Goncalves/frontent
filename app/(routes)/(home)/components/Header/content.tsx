@@ -1,6 +1,6 @@
 "use client";
 import { IconInput } from "@/components/ui/iconInput";
-import { Search, MessageSquare, ShoppingCart } from "lucide-react";
+import { Search, ShoppingBasket, ShoppingCart } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { IconButton } from "./components/IconButton";
 import { sendWhatsappMessage } from "@/app/utils/misc/sendWhatsappMessage";
@@ -15,6 +15,7 @@ import {
   AddItemDialogRef,
 } from "@/app/components/AddItemDialog";
 import { AccountButton } from "./components/AccountButton";
+import { MessageCircleHeart } from "@/app/assets/MessageCircleHeart";
 
 interface ContentProps {
   phone: string;
@@ -98,7 +99,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           <div className="relative">
             <IconButton
               badge={cart.length}
-              icon={<ShoppingCart className="w-6 h-6 text-[#1B123D]" />}
+              icon={<ShoppingBasket className="w-6 h-6 text-[#1B123D]" />}
               onClick={handleOpenCart}
               title="Carrinho"
             />
@@ -106,11 +107,11 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           </div>
           <FavoriteButton />
           <IconButton
-            icon={<MessageSquare className="w-6 h-6 text-[#1B123D]" />}
+            icon={<MessageCircleHeart className="w-6 h-6 text-[#1B123D]" />}
             onClick={() => {
               sendWhatsappMessage(phone, "Olá, gostaria de mais informações");
             }}
-            title="Atendimento"
+            title="WHATSAPP"
           />
           <AccountButton />
         </div>

@@ -71,6 +71,14 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVariantTab, setIsVariantTab] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [uploadQuantity, setUploadQuantity] = useState<
+    | {
+        quantity: number;
+        total: number;
+      }
+    | undefined
+  >();
 
   const form = useForm<ProductModel>({
     resolver: zodResolver(AddProductValidation),
@@ -104,8 +112,6 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     getValues,
   } = form;
 
-  console.log(errors, getValues());
-
   const product = useMutationError({
     mutationFn: async (data: ProductModelWithoutImage) => {
       if (productToEdit) {
@@ -132,59 +138,81 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     const response = await fetch(imageUrl);
     const blob = await response.blob();
     const file = new File([blob], "image.jpg", { type: blob.type });
-    console.log(file);
     return file;
   };
 
   const handleLogin = () => {
     handleSubmit(
       async (data) => {
-        console.log(data);
-        const dataWithGuid = {
-          ...data,
-          variants: data.variants.map((variant) => ({
-            ...variant,
-            guid: variant.guid ?? uuidV4(),
-          })),
-        };
+        try {
+          setIsLoading(true);
+          const dataWithGuid = {
+            ...data,
+            variants: data.variants.map((variant) => ({
+              ...variant,
+              guid: variant.guid ?? uuidV4(),
+            })),
+          };
 
-        const dataToSend: ProductModelWithoutImage = {
-          ...dataWithGuid,
-          variants: dataWithGuid.variants.map((variant) => ({
-            guid: variant.guid,
-            name: variant.name,
-            price: variant.price,
-            promotionalPrice: variant.promotionalPrice,
-            sizes: variant.sizes,
-            isFavorite: variant.isFavorite,
-          })),
-        };
+          const dataToSend: ProductModelWithoutImage = {
+            ...dataWithGuid,
+            variants: dataWithGuid.variants.map((variant) => ({
+              guid: variant.guid,
+              name: variant.name,
+              price: variant.price,
+              promotionalPrice: variant.promotionalPrice,
+              sizes: variant.sizes,
+              isFavorite: variant.isFavorite,
+            })),
+          };
 
-        const productReturn = await product.mutateAsync(dataToSend);
+          const productReturn = await product.mutateAsync(dataToSend);
 
-        dataWithGuid.variants.forEach(async (variant) => {
-          const imagesArray = Object.values(variant.images).filter(
-            (v) => v !== undefined
-          ) as (File | string)[];
+          const variantsWithImage = dataWithGuid.variants.filter((v) =>
+            Object.values(v.images).some((v) => v !== undefined)
+          );
 
-          const imagesPromise = imagesArray.map(async (image) => {
-            if (typeof image === "string") {
-              return await urlToObject(`${env.CDN_URL}/${image}`);
-            }
-
-            return image;
+          setUploadQuantity({
+            quantity: 0,
+            total: variantsWithImage.length,
           });
 
-          const imagesArrayFormatted = await Promise.all(imagesPromise);
+          for await (let variant of variantsWithImage) {
+            const imagesArray = Object.values(variant.images).filter(
+              (v) => v !== undefined
+            ) as (File | string)[];
 
-          productService.updateImage(variant.guid, imagesArrayFormatted);
-        });
+            const imagesPromise = imagesArray.map(async (image) => {
+              if (typeof image === "string") {
+                return await urlToObject(`${env.CDN_URL}/${image}`);
+              }
 
-        await categoryService.link([productReturn.uuid], categoryId);
+              return image;
+            });
 
-        setIsOpen(false);
-        reset();
-        queryClient.invalidateQueries(["categories"]);
+            const imagesArrayFormatted = await Promise.all(imagesPromise);
+
+            await productService
+              .updateImage(variant.guid, imagesArrayFormatted)
+              .then(() => {
+                setUploadQuantity((v) => ({
+                  total: v?.total ?? 0,
+                  quantity: (v?.quantity ?? 0) + 1,
+                }));
+              });
+          }
+          setUploadQuantity(undefined);
+
+          await categoryService.link([productReturn.uuid], categoryId);
+
+          setIsLoading(false);
+          setIsOpen(false);
+          reset();
+          queryClient.invalidateQueries(["categories"]);
+        } catch {
+          setIsLoading(false);
+          setUploadQuantity(undefined);
+        }
       },
       (err) => {
         if (!err.description && !err.name) {
@@ -281,7 +309,16 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
                     {...register("description")}
                     error={errors.description?.message}
                   />
-                  <Button type="submit" className="h-12" onClick={handleLogin}>
+                  <Button
+                    type="submit"
+                    className="h-12"
+                    onClick={handleLogin}
+                    isLoading={isLoading}
+                    loadingText={
+                      uploadQuantity &&
+                      `${uploadQuantity.quantity} de ${uploadQuantity.total}`
+                    }
+                  >
                     {productToEdit ? "Salvar" : "Confirmar"}
                   </Button>
                 </div>

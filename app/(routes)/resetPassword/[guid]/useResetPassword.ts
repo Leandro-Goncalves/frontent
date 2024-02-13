@@ -34,7 +34,7 @@ export const useResetPassword = (guid: string): useResetPasswordProps => {
     },
     onSuccess: () => {
       toast.success("User password reset successfully");
-      push("/login");
+      push("/");
       form.reset();
     },
   });
