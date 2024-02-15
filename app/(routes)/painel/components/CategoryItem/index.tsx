@@ -24,7 +24,6 @@ import {
 import { Products } from "@/app/models/products";
 import { toCurrencyValue } from "@/app/utils/misc/toCurrencyValue";
 import { productService } from "@/app/services/products";
-import { useState } from "react";
 
 interface CategoryItemProps {
   category: Category;

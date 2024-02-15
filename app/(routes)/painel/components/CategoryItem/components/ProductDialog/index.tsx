@@ -184,7 +184,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
 
             const imagesPromise = imagesArray.map(async (image) => {
               if (typeof image === "string") {
-                return await urlToObject(`${env.CDN_URL}/${image}`);
+                return await urlToObject(`${env.API_URL}/images/${image}`);
               }
 
               return image;
