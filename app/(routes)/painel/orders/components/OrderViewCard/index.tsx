@@ -53,7 +53,7 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
         <p className="text-sm font-bold">ESPERANDO RETIRADA</p>
       </div>
     );
-  }, [isDelivery, isCancelled, isFinished]);
+  }, [isDelivery, isCancelled, isFinished, isFixedFee]);
 
   return (
     <div className="group rounded-lg overflow-hidden border-[#DC024F] cursor-pointer border-[2px] border-opacity-10">
@@ -89,6 +89,10 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
             ) && <FinishedOrderButton orderId={order.guid} />}
           </div>
         </div>
+        <p className="text-base font-semibold">
+          Endereço: {(order as any).neighborhood},{(order as any).street} -{" "}
+          {(order as any).number}
+        </p>
       </div>
       {order.products.map((product, index) => {
         const size = allSizesArray.find((s) => s.guid === product.sizeGuid);
