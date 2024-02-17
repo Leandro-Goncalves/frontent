@@ -43,6 +43,8 @@ export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
     return [];
   }, [selectedFilter, orders]);
 
+  console.log(selectedOrders);
+
   return (
     <div className="py-24 px-16">
       <OrderFilter
@@ -61,6 +63,7 @@ export const PageContent: React.FC<PageContentProps> = ({ ordersInitial }) => {
             isDelivery={selectedFilter === "delivery"}
             isCancelled={selectedFilter === "canceled"}
             isFinished={selectedFilter === "finished"}
+            isFixedFee={(o as any).isFixedFee}
           />
         ))}
       </div>

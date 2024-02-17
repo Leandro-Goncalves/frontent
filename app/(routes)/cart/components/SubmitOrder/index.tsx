@@ -38,7 +38,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
   const productsTotal = cart.reduce(
     (total, { variant, quantity }) =>
-      total + (variant.promotionalPrice ?? variant.price) * quantity,
+      total + (variant.promotionalPrice || variant.price) * quantity,
     0
   );
 

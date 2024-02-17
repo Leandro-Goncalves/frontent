@@ -6,14 +6,16 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CancelOrderButton } from "../CancelOrderButton";
 import { useMemo } from "react";
-import { ArchiveRestore, Truck } from "lucide-react";
+import { ArchiveRestore, Bike, Truck } from "lucide-react";
 import { FinishedOrderButton } from "../FinishedOrderButton";
+import { allSizesArray } from "@/app/(routes)/itemDetails/components/Sizes";
 
 interface OrderViewCardProps {
   order: Order;
   isDelivery: boolean;
   isCancelled: boolean;
   isFinished: boolean;
+  isFixedFee?: boolean;
 }
 
 export const OrderViewCard: React.FC<OrderViewCardProps> = ({
@@ -21,10 +23,20 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
   isDelivery,
   isCancelled,
   isFinished,
+  isFixedFee = false,
 }) => {
   const Status = useMemo(() => {
     if (isCancelled) return <></>;
     if (isFinished) return <></>;
+
+    if (isFixedFee) {
+      return (
+        <div className="px-2 py-1 rounded-md bg-[#FFCC6D] flex items-center text-black">
+          <Bike className="mr-1 w-4 h-4" />
+          <p className="text-sm font-bold">ESTREGA PARA MOCOCA</p>
+        </div>
+      );
+    }
 
     if (isDelivery) {
       return (
@@ -78,24 +90,29 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
           </div>
         </div>
       </div>
-      {order.products.map((product, index) => (
-        <div
-          key={product.id}
-          className="p-4 text-start border-t-[2px] border-[#DC024F] border-opacity-10 group-hover:border-opacity-100 transition-all"
-          style={{
-            borderTopWidth: index === 0 ? 0 : 2,
-          }}
-        >
-          <div>
-            <p className="text-sm font-medium">
-              x{product.quantity} - {product.title}
-            </p>
-            <p className="text-sm font-medium">
-              {toCurrencyValue(product.unit_price)}
-            </p>
+      {order.products.map((product, index) => {
+        const size = allSizesArray.find((s) => s.guid === product.sizeGuid);
+
+        return (
+          <div
+            key={product.id}
+            className="p-4 text-start border-t-[2px] border-[#DC024F] border-opacity-10 group-hover:border-opacity-100 transition-all"
+            style={{
+              borderTopWidth: index === 0 ? 0 : 2,
+            }}
+          >
+            <div>
+              <p className="text-sm font-medium">
+                x{product.quantity} ({size?.name.toLocaleUpperCase()}){" "}
+                {product.title} - {product.variant.name}
+              </p>
+              <p className="text-sm font-medium">
+                {toCurrencyValue(product.unit_price)}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

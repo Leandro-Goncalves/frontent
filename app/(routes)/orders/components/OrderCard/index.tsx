@@ -17,10 +17,15 @@ interface OrderCardProps {
 
 type alertDataObjectFunction = (
   isTakeout: boolean,
-  trackId?: string
+  trackId?: string,
+  isFixedFee?: boolean
 ) => Record<OrderStatus, { text: string; color: string; textColor?: string }>;
 
-const alertDataObject: alertDataObjectFunction = (isTakeout, trackId) => {
+const alertDataObject: alertDataObjectFunction = (
+  isTakeout,
+  trackId,
+  isFixedFee
+) => {
   const paymentSuccessText = () => {
     if (isTakeout) {
       return "aguardando retirada";
@@ -28,6 +33,10 @@ const alertDataObject: alertDataObjectFunction = (isTakeout, trackId) => {
 
     if (trackId) {
       return "clique aqui para rastrear sua encomenda";
+    }
+
+    if (isFixedFee) {
+      return "dentro de alguns dias voce receberá sua encomenda";
     }
 
     return "dentro de alguns dias voce receberá o código de rastreio.";
@@ -58,7 +67,8 @@ const alertDataObject: alertDataObjectFunction = (isTakeout, trackId) => {
 export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   const alertData = alertDataObject(
     (order as any).freightId === undefined,
-    order.tracking
+    order.tracking,
+    (order as any).isFixedFee
   )[order.status];
   const { addProduct } = useCart();
 
@@ -219,24 +229,29 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           </div>
         </div>
       </div>
-      {order.products.map((product, index) => (
-        <div
-          key={product.id}
-          className="p-4 text-start border-t-[2px] border-[#DC024F] border-opacity-10 group-hover:border-opacity-100 transition-all"
-          style={{
-            borderTopWidth: index === 0 ? 0 : 2,
-          }}
-        >
-          <div>
-            <p className="text-sm font-medium">
-              x{product.quantity} - {product.title}
-            </p>
-            <p className="text-sm font-medium">
-              {toCurrencyValue(product.unit_price)}
-            </p>
+      {order.products.map((product, index) => {
+        const size = allSizesArray.find((s) => s.guid === product.sizeGuid);
+
+        return (
+          <div
+            key={product.id}
+            className="p-4 text-start border-t-[2px] border-[#DC024F] border-opacity-10 group-hover:border-opacity-100 transition-all"
+            style={{
+              borderTopWidth: index === 0 ? 0 : 2,
+            }}
+          >
+            <div>
+              <p className="text-sm font-medium">
+                x{product.quantity} ({size?.name.toLocaleUpperCase()}){" "}
+                {product.title} - {product.variant.name}
+              </p>
+              <p className="text-sm font-medium">
+                {toCurrencyValue(product.unit_price)}
+              </p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </button>
   );
 };

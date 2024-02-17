@@ -15,7 +15,7 @@ interface ProductWithSelectedVariant extends Products {
 }
 
 const value = (p: ProductWithSelectedVariant) =>
-  p.selectedVariant.promotionalPrice ?? p.variants[0].price;
+  p.selectedVariant.promotionalPrice || p.variants[0].price;
 
 export const filterProducts = (
   products: ProductWithSelectedVariant[],

@@ -31,7 +31,7 @@ interface CategoryItemProps {
 }
 
 const calculatePrice = (products: Products) => {
-  return products.variants[0].promotionalPrice ?? products.variants[0].price;
+  return products.variants[0].promotionalPrice || products.variants[0].price;
 };
 
 export const CategoryItem: React.FC<CategoryItemProps> = ({

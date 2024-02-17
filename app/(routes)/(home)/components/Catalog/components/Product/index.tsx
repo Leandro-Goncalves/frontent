@@ -22,7 +22,7 @@ export const Product: React.FC<ProductProps> = ({
   const [hover, setHover] = useState(false);
 
   const installmentsPrice =
-    (selectedVariant.promotionalPrice ?? selectedVariant.price) / installments;
+    (selectedVariant.promotionalPrice || selectedVariant.price) / installments;
 
   const imagesArray = selectedVariant
     ? [...selectedVariant.Image]
@@ -58,7 +58,7 @@ export const Product: React.FC<ProductProps> = ({
         </p>
         <p className="text-3xl">
           {toCurrencyValue(
-            selectedVariant.promotionalPrice ?? selectedVariant.price
+            selectedVariant.promotionalPrice || selectedVariant.price
           )}
         </p>
         <p className="text-xs">

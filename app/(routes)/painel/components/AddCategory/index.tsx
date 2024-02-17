@@ -90,7 +90,12 @@ export const AddCategory: React.FC<AddCategoryProps> = ({ categoryToEdit }) => {
                       onChange={(e) => setName(e.target.value)}
                     />
                   </div>
-                  <Button type="submit" className="h-12" onClick={handleLogin}>
+                  <Button
+                    type="submit"
+                    className="h-12"
+                    onClick={handleLogin}
+                    disabled={login.isLoading || !isOpen}
+                  >
                     {categoryToEdit ? "Editar" : "Confirmar"}
                   </Button>
                 </div>

@@ -84,8 +84,8 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
                 </h4>
                 <p>
                   {toCurrencyValue(
-                    productCart.variant?.promotionalPrice ??
-                      productCart.variant?.price ??
+                    (productCart.variant?.promotionalPrice ||
+                      productCart.variant?.price) ??
                       0
                   )}
                 </p>

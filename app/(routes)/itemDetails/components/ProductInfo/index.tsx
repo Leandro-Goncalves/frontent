@@ -68,14 +68,16 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
       />
       <div className="max-w-xs flex flex-col max-[1000px]:max-w-2xl w-full">
         <p className="text-2xl font-medium">{product.name}</p>
-        {selectedVariant.promotionalPrice && (
+        {selectedVariant.promotionalPrice ? (
           <p className="text-base font-semibold mt-8 text-[#292929] leading-3 line-through">
             {toCurrencyValue(selectedVariant.price)}
           </p>
+        ) : (
+          <></>
         )}
         <p className="text-4xl font-extrabold text-[#292929]">
           {toCurrencyValue(
-            selectedVariant.promotionalPrice ?? selectedVariant.price
+            selectedVariant.promotionalPrice || selectedVariant.price
           )}
         </p>
         <p className="text-sm font-extrabold">Em {installments}x sem juros</p>
