@@ -11,7 +11,7 @@ export const DeliveryOrTakeout: React.FC<DeliveryOrTakeoutProps> = ({
 }) => {
   return (
     <button
-      className="flex border-2 rounded-lg"
+      className="flex border-2 rounded-lg w-full"
       onClick={() => setIsDelivery(!isDelivery)}
     >
       <div
