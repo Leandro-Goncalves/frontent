@@ -12,6 +12,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Head from "next/head";
 // import { ComingSoon } from "./components/ComingSoon";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { ComingSoon } from "./components/ComingSoon";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -71,7 +72,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
       </Head>
       <body className={inter.className}>
-        {/* <ComingSoon /> */}
+        <ComingSoon />
         <div id="content">
           <QueryProvider>
             <Suspense fallback={<HeaderFallback />}>
