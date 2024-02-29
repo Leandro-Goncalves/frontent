@@ -15,7 +15,7 @@ import { Size } from "../Size";
 import { cn } from "@/lib/utils";
 
 interface VariantProps {
-  form: UseFormReturn<ProductModel, any, undefined>;
+  form: UseFormReturn<ProductModel, any>;
   index: number;
   onRemove: () => void;
 }
