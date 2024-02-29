@@ -120,7 +120,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
       </div>
       {isCartEmpty && (
         <div className="flex flex-col items-center my-4">
-          <p className="text-lg font-bold">Seu carrinho esta vazio :(</p>
+          <p className="text-lg font-bold">Seu carrinho está vazio :(</p>
         </div>
       )}
     </>

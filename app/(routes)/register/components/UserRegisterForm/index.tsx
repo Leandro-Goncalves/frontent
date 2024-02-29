@@ -25,10 +25,11 @@ export function UserRegisterForm({
   backToLogin,
   ...props
 }: UserRegisterFormProps) {
-  const { form, register, handleRegister, isLoading } =
+  const { form, register, handleRegister, isLoading, errors } =
     useUserRegisterForm(backToLogin);
 
   const phone = form.watch("phone");
+  const cpf = form.watch("cpf");
 
   return (
     <FocusTrap>
@@ -80,6 +81,22 @@ export function UserRegisterForm({
                 />
               </div>
               <div className="grid gap-1">
+                <PatternFormat
+                  format={cpf?.length === 11 ? "###.###.###-##" : "###########"}
+                  customInput={Input}
+                  className="h-12"
+                  id="CPF"
+                  placeholder="CPF"
+                  type="text"
+                  autoCapitalize="none"
+                  autoComplete="CPF"
+                  autoCorrect="off"
+                  value={cpf}
+                  onValueChange={({ value }) => form.setValue("cpf", value)}
+                  error={errors.cpf?.message}
+                />
+              </div>
+              <div className="grid gap-1">
                 <Input
                   id="password"
                   placeholder="Senha"
@@ -101,6 +118,7 @@ export function UserRegisterForm({
                   {...register("confirmPassword")}
                 />
               </div>
+
               <Button disabled={isLoading} type="submit">
                 {isLoading && (
                   <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />

@@ -23,15 +23,15 @@ const routes = [
   //   icon: <ShoppingCart className="w-4 h-4 mr-1" />,
   //   href: "/store",
   // },
-  // {
-  //   name: "Cupom de desconto",
-  //   icon: <BadgePercent className="w-4 h-4 mr-1" />,
-  //   href: "/coupon",
-  // },
   {
     name: "pedidos",
     icon: <ShoppingBasket className="w-4 h-4 mr-1" />,
     href: "/orders/",
+  },
+  {
+    name: "Cupom de desconto",
+    icon: <BadgePercent className="w-4 h-4 mr-1" />,
+    href: "/coupon/",
   },
 ];
 

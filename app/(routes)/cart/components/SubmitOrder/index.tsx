@@ -7,9 +7,8 @@ import {
 } from "@/components/ui/tooltip";
 import { useCart } from "@/app/states/cart.state";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { SearchCep } from "./components/SearchCep";
-import { toCurrencyValue } from "@/app/utils/misc/toCurrencyValue";
 import { checkoutService } from "@/app/services/checkount";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/app/states/useUser.state";
@@ -17,14 +16,16 @@ import { useLoginDialog } from "@/app/utils/hooks/useLoginDialog";
 import { useSelectAddress } from "@/app/utils/hooks/useSelectAddress";
 import { DeliveryOrTakeout } from "./components/DeliveryOrTakeout";
 import { TakeoutItem } from "./TakeoutItem";
-import { PatternFormat } from "react-number-format";
+import { SelectCouponSection } from "./components/SelectCouponSection";
+import { OrderIndicators } from "./components/OrderIndicators";
+import Swal from "sweetalert2";
 
 interface SubmitOrderProps {
   phone: string;
 }
 
 export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
-  const { cart, cleanCart } = useCart();
+  const { cart, cleanCart, coupon, removeCoupon } = useCart();
   const router = useRouter();
   const isCartEmpty = cart.length === 0;
   const [selectedFreight, setSelectedFreight] = useState<any>();
@@ -36,34 +37,48 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
   const userIsNotLogged = user === undefined;
 
-  const productsTotal = cart.reduce(
-    (total, { variant, quantity }) =>
-      total + (variant.promotionalPrice || variant.price) * quantity,
-    0
-  );
+  const isLessThenMinimumValue = useMemo(() => {
+    const subtotal = cart.reduce(
+      (total, { variant, quantity }) =>
+        total + (variant.promotionalPrice || variant.price) * quantity,
+      0
+    );
 
-  const orderTotal = Number(productsTotal) + Number(selectedFreight?.price);
+    if (!coupon || !coupon.minimumValue) return false;
 
+    if (subtotal < coupon.minimumValue) return true;
+
+    return false;
+  }, [cart, coupon]);
   const handleTakeout = async () => {
-    const address = await handleSelectAddress({ type: "takeout" });
-
-    const { data: checkoutUrl } =
-      await checkoutService.generateTakeoutPaymentLink({
-        cpf: address.cpf,
+    await checkoutService
+      .generateTakeoutPaymentLink({
+        couponCode: coupon?.code,
         items: cart.map((c) => ({
           quantity: c.quantity,
           productGuid: c.product.uuid,
           variantGuid: c.variant.guid,
           sizeGuid: c.size?.uuid ?? "",
         })),
+      })
+      .then(({ data: checkoutUrl }) => {
+        cleanCart();
+        removeCoupon();
+
+        window.open(checkoutUrl.url);
+        setTimeout(() => {
+          router.push("/orders");
+        }, 100);
+      })
+      .catch((err) => {
+        if (err.response.data?.message) {
+          removeCoupon();
+          Swal.fire({
+            icon: "error",
+            text: err.response.data.message,
+          });
+        }
       });
-
-    cleanCart();
-
-    window.open(checkoutUrl.url);
-    setTimeout(() => {
-      router.push("/orders");
-    }, 100);
   };
 
   const handleSubmit = async () => {
@@ -82,23 +97,36 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
     });
     if (!selectedFreight.id) return;
 
-    const { data: checkoutUrl } = await checkoutService.generatePaymentLink({
-      to: address,
-      freightId: selectedFreight.id,
-      items: cart.map((c) => ({
-        quantity: c.quantity,
-        productGuid: c.product.uuid,
-        variantGuid: c.variant.guid,
-        sizeGuid: c.size?.uuid ?? "",
-      })),
-    });
+    await checkoutService
+      .generatePaymentLink({
+        to: address,
+        freightId: selectedFreight.id,
+        couponCode: coupon?.code,
+        items: cart.map((c) => ({
+          quantity: c.quantity,
+          productGuid: c.product.uuid,
+          variantGuid: c.variant.guid,
+          sizeGuid: c.size?.uuid ?? "",
+        })),
+      })
+      .then(({ data: checkoutUrl }) => {
+        cleanCart();
+        removeCoupon();
 
-    cleanCart();
-
-    window.open(checkoutUrl.url);
-    setTimeout(() => {
-      router.push("/orders");
-    }, 100);
+        window.open(checkoutUrl.url);
+        setTimeout(() => {
+          router.push("/orders");
+        }, 100);
+      })
+      .catch((err) => {
+        if (err.response.data?.message) {
+          removeCoupon();
+          Swal.fire({
+            icon: "error",
+            text: err.response.data.message,
+          });
+        }
+      });
   };
 
   if (isCartEmpty) {
@@ -110,16 +138,12 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
       {SelectAddressDialog}
       {LoginDialog}
       <div className="ml-auto max-xl:ml-0 max-xl:mr-auto p-5 border-2 rounded-3xl w-full max-w-[444px]">
-        <div className="flex justify-between">
-          <h3 className="text-primary text-sm font-bold">Produtos</h3>
-          <h3 className="text-sm font-bold">
-            {toCurrencyValue(productsTotal)}
-          </h3>
-        </div>
-        <div className="w-full h-[1px] bg-secondary mt-6 mb-3" />
         <DeliveryOrTakeout
           isDelivery={isDelivery}
-          setIsDelivery={setIsDelivery}
+          setIsDelivery={(isDelivery) => {
+            setSelectedFreight(undefined);
+            setIsDelivery(isDelivery);
+          }}
         />
         {isDelivery ? (
           <>
@@ -147,26 +171,17 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
               setSelectedCEP={setSelectedCEP}
               selectedCEP={selectedCEP}
             />
-            {selectedFreight && (
-              <>
-                <div className="w-full h-[1px] bg-secondary my-4" />
-                <div className="flex justify-between">
-                  <h3 className="text-primary text-base font-extrabold">
-                    Total
-                  </h3>
-                  <h3 className="text-base font-extrabold">
-                    {toCurrencyValue(orderTotal)}
-                  </h3>
-                </div>
-                <div className="w-full h-[1px] bg-secondary mt-4 mb-1" />
-              </>
-            )}
+            <div className="w-full h-[1px] bg-secondary my-4" />
+            <SelectCouponSection />
+            <div className="w-full h-[1px] bg-secondary my-4" />
+            <OrderIndicators fee={selectedFreight?.price} />
+            <div className="w-full h-[1px] bg-secondary my-4" />
 
             <TooltipProvider delayDuration={0}>
               <Tooltip>
                 <TooltipTrigger className="w-full">
                   <Button
-                    disabled={!selectedFreight}
+                    disabled={!selectedFreight || isLessThenMinimumValue}
                     className="w-full rounded-lg h-12 mt-3"
                     onClick={handleSubmit}
                   >
@@ -192,16 +207,14 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
             </h3>
             <TakeoutItem />
             <div className="w-full h-[1px] bg-secondary my-4" />
-            <div className="flex justify-between">
-              <h3 className="text-primary text-base font-extrabold">Total</h3>
-              <h3 className="text-base font-extrabold">
-                {toCurrencyValue(productsTotal)}
-              </h3>
-            </div>
-            <div className="w-full h-[1px] bg-secondary mt-4 mb-1" />
+            <SelectCouponSection />
+            <div className="w-full h-[1px] bg-secondary my-4" />
+            <OrderIndicators />
+            <div className="w-full h-[1px] bg-secondary my-4" />
             <Button
               className="w-full rounded-lg h-12 mt-3"
               onClick={handleSubmit}
+              disabled={isLessThenMinimumValue}
             >
               {userIsNotLogged
                 ? "FAZER LOGIN E CONTINUAR"

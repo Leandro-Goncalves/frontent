@@ -30,7 +30,7 @@ export const SelectAddressForm: React.FC<SelectAddressFormProps> = ({
 }) => {
   const showOnlyCPF = type === "takeout";
 
-  const { handleCheckout, register, watch, form, erros } = useSelectAddressForm(
+  const { handleCheckout, register } = useSelectAddressForm(
     cep,
     type === "delivery",
     onSelectAddress
@@ -39,8 +39,6 @@ export const SelectAddressForm: React.FC<SelectAddressFormProps> = ({
     .replace(/\D/g, "")
     .replace(/(\d{5})(\d)/, "$1-$2")
     .replace(/(-\d{3})\d+?$/, "$1");
-
-  const cpf = watch("cpf");
 
   return (
     <FocusTrap>
@@ -136,22 +134,6 @@ export const SelectAddressForm: React.FC<SelectAddressFormProps> = ({
                   </div>
                 </>
               )}
-              <div className="grid gap-1">
-                <PatternFormat
-                  format={cpf?.length === 11 ? "###.###.###-##" : "###########"}
-                  customInput={Input}
-                  className="h-12"
-                  id="CPF"
-                  placeholder="CPF"
-                  type="text"
-                  autoCapitalize="none"
-                  autoComplete="CPF"
-                  autoCorrect="off"
-                  value={cpf}
-                  onValueChange={({ value }) => form.setValue("cpf", value)}
-                  error={erros.cpf?.message}
-                />
-              </div>
               <Button type="submit" className="h-12">
                 Confirmar
               </Button>

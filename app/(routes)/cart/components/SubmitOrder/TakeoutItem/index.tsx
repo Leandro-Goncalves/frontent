@@ -19,7 +19,7 @@ export const TakeoutItem: React.FC<TakeoutItemProps> = () => {
           <div>
             <p className="text-base font-normal text-start">Retirar na rua</p>
             <p className="text-sm font-bold text-start">
-              José Alves N234 - COHAB 2
+              José Alves N210 - COHAB 2
             </p>
           </div>
           <p className="text-base font-bold text-[#00691D] italic">gratuíto</p>

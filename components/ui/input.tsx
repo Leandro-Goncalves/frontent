@@ -5,12 +5,13 @@ import { cn } from "@/lib/utils";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
   error?: string;
+  containerClassName?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, ...props }, ref) => {
+  ({ className, type, error, containerClassName, ...props }, ref) => {
     return (
-      <div className="flex flex-col gap-1">
+      <div className={cn("flex flex-col gap-1", containerClassName)}>
         <input
           type={type}
           className={cn(

@@ -16,7 +16,7 @@ export const DeliveryOrTakeout: React.FC<DeliveryOrTakeoutProps> = ({
     >
       <div
         className={cn(
-          "transition-colors w-full px-[55px] py-[11px] rounded-lg h-[39px] flex items-center justify-center",
+          "transition-colors w-full rounded-lg h-[39px] flex items-center justify-center",
           !isDelivery ? "bg-transparent" : "bg-[#FFAEC5]"
         )}
       >
@@ -24,7 +24,7 @@ export const DeliveryOrTakeout: React.FC<DeliveryOrTakeoutProps> = ({
       </div>
       <div
         className={cn(
-          "transition-colors w-full px-[55px] py-[11px] rounded-lg h-[39px] flex items-center justify-center",
+          "transition-colors w-full rounded-lg h-[39px] flex items-center justify-center",
           isDelivery ? "bg-transparent" : "bg-[#FFAEC5]"
         )}
       >

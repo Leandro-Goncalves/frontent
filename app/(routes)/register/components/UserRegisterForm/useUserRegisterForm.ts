@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterValidation, registerValidation } from "./validation";
-import { UseFormReturn, useForm } from "react-hook-form";
+import { FieldErrors, UseFormReturn, useForm } from "react-hook-form";
 import {
   registerExtendedError,
   registerExtendedErrorReturn,
@@ -14,17 +14,8 @@ export interface useUserRegisterFormProps {
   isLoading: boolean;
   register: registerExtendedErrorReturn<RegisterValidation>;
   handleRegister: () => FormEventHandler<HTMLFormElement> | undefined;
-  form: UseFormReturn<
-    {
-      email: string;
-      phone: string;
-      name: string;
-      password: string;
-      confirmPassword: string;
-    },
-    any,
-    undefined
-  >;
+  form: UseFormReturn<RegisterValidation, any>;
+  errors: FieldErrors<RegisterValidation>;
 }
 
 export const useUserRegisterForm = (
@@ -39,7 +30,7 @@ export const useUserRegisterForm = (
   const register = useMutationError({
     mutationFn: async (data: RegisterValidation) => {
       return userService
-        .register(data.name, data.email, data.password, data.phone)
+        .register(data.name, data.email, data.password, data.phone, data.cpf)
         .then((data) => data.data);
     },
     onError: () => {
@@ -54,6 +45,7 @@ export const useUserRegisterForm = (
 
   return {
     form: f,
+    errors: formState.errors,
     isLoading: register.isLoading,
     register: registerExtendedError(form.register, formState),
     handleRegister: () =>

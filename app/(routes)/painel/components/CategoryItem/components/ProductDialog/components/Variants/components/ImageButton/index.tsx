@@ -1,11 +1,12 @@
 import { ImageCropper } from "@/app/components/ImageCropper";
 import env from "@/app/env";
-import { PlusCircle } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { PlusCircle, X, XCircle } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
 interface ImageButtonProps {
-  setImage: (file: File) => void;
+  setImage: (file: File | undefined) => void;
   image?: File | string;
 }
 
@@ -14,6 +15,7 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
   image,
 }) => {
   const [isOpen, setIsOpen] = useState<File>();
+  const [isHovered, setIsHovered] = useState(false);
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
@@ -40,30 +42,59 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
         />
       )}
       <div
-        {...getRootProps()}
-        className="mx-auto flex items-center justify-center w-28 h-28 rounded-lg bg-[#FFCFCF] cursor-pointer"
+        className="relative w-28 h-28 mx-auto"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
-        <input {...getInputProps()} />
-        {image ? (
-          <>
-            {typeof image === "string" ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={`${env.CDN_URL}/${image}`}
-                className="w-full h-full object-cover rounded-lg"
-                alt="Imagem"
-              />
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={URL.createObjectURL(image)}
-                className="w-full h-full object-cover rounded-lg"
-                alt="Imagem"
-              />
+        <div
+          {...getRootProps()}
+          className="mx-auto flex items-center justify-center w-28 h-28 rounded-lg bg-[#FFCFCF] cursor-pointer"
+        >
+          <input {...getInputProps()} />
+          {image ? (
+            <>
+              {typeof image === "string" ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={`${env.CDN_URL}/${image}`}
+                  className={cn(
+                    "w-full h-full object-cover rounded-lg z-10 transition-all",
+                    {
+                      "rounded-r-none": isHovered,
+                    }
+                  )}
+                  alt="Imagem"
+                />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={URL.createObjectURL(image)}
+                  className={cn(
+                    "w-full h-full object-cover rounded-lg z-10 transition-all",
+                    {
+                      "rounded-r-none": isHovered,
+                    }
+                  )}
+                  alt="Imagem"
+                />
+              )}
+            </>
+          ) : (
+            <PlusCircle color="#e16767" />
+          )}
+        </div>
+        {image && (
+          <button
+            className={cn(
+              "absolute bg-red-700 top-0 bottom-0 right-[-30px] w-[30px] rounded-r-lg transition-all flex",
+              { "right-0": !isHovered }
             )}
-          </>
-        ) : (
-          <PlusCircle color="#e16767" />
+            onClick={() => {
+              setImage(undefined);
+            }}
+          >
+            <XCircle className="text-white m-auto" />
+          </button>
         )}
       </div>
     </>

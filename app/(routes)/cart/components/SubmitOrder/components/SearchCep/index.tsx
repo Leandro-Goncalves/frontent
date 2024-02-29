@@ -75,9 +75,12 @@ export const SearchCep: React.FC<SearchCepProps> = ({
 
   return (
     <div className="mt-2">
-      <div className="flex gap-2">
+      <div className="flex gap-2 w-full">
         <PatternFormat
-          className="w-full"
+          style={{
+            width: "100%",
+          }}
+          containerClassName="w-full"
           format="#####-###"
           allowEmptyFormatting
           mask="_"
@@ -91,6 +94,7 @@ export const SearchCep: React.FC<SearchCepProps> = ({
           }}
         />
         <Button
+          className="w-[105px] flex-shrink-0"
           onClick={handleCalculateFreight}
           disabled={selectedCEP.length !== 8 || isFetching}
         >

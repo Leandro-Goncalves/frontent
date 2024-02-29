@@ -32,25 +32,6 @@ const api = axios.create({
   baseURL: env.API_URL,
 }) as AxiosInstanceExtended;
 
-// var mock = new MockAdapter(api);
-
-// mock
-//   .onGet(`establishment/${env.ESTABLISHMENT_ID}`)
-//   .reply(...establishmentHandler());
-
-// mock.onGet(`carousel/${env.ESTABLISHMENT_ID}`).reply(...carouselHandler());
-// mock.onGet(`category/${env.ESTABLISHMENT_ID}`).reply(...categoryHandler());
-// mock.onGet(`products/search`).reply((configs) => {
-//   return [...SearchHandler(configs.params)];
-// });
-
-// const url = new RegExp(`products/${env.ESTABLISHMENT_ID}/*`);
-// mock.onGet(url).reply((configs) => {
-//   const [_, __, productGuid] = configs.url?.split("/") ?? [];
-
-//   return [...productHandler({ guid: productGuid })];
-// });
-
 api.interceptors.request.use(AuthInterceptor);
 
 export const AUTH_HEADER = "useAuthHeader";

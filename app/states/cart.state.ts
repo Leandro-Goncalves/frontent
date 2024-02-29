@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { Products, ProductsSize, Variant } from "../models/products";
 import { v4 as uuidV4 } from "uuid";
+import { Cupom } from "../models/cupom";
 
 export interface ProductCart {
   guid: string;
@@ -19,6 +20,11 @@ export interface AddProductDTO {
 
 interface useCartProps {
   cart: ProductCart[];
+
+  coupon?: Cupom;
+  addCoupon: (coupon: Cupom) => void;
+  removeCoupon: () => void;
+
   addProduct: (product: AddProductDTO) => void;
   removeProduct: (productGuid: string) => void;
   updateQuantity: (productGuid: string, quantity: number) => void;
@@ -31,6 +37,18 @@ interface useCartProps {
 }
 
 export const useCart = create<useCartProps>((set) => ({
+  addCoupon: (coupon: Cupom) => {
+    set((state) => ({
+      coupon,
+    }));
+  },
+
+  removeCoupon: () => {
+    set(() => ({
+      coupon: undefined,
+    }));
+  },
+
   cart: [],
   addProduct: async (productDTO) => {
     const product: ProductCart = {

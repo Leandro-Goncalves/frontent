@@ -10,12 +10,12 @@ export interface Address {
   number: string;
   state: string;
   complement: string | null;
-  cpf: string;
 }
 
 interface GeneratePaymentLinkDTO {
   to: Address;
   freightId: string;
+  couponCode?: string;
   items: Array<{
     quantity: number;
     productGuid: string;
@@ -25,7 +25,7 @@ interface GeneratePaymentLinkDTO {
 }
 
 interface GeneratePaymentTakeoutLinkDTO {
-  cpf: string;
+  couponCode?: string;
   items: Array<{
     quantity: number;
     productGuid: string;

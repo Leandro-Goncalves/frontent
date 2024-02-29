@@ -10,11 +10,6 @@ export const selectAddressValidation = z.object({
     .min(1, { message: "O número deve ter pelo menos 1 caractere" }),
   complement: z.string().nullable(),
   state: z.string().min(1, { message: "O estado deve ser informado" }),
-  cpf: z
-    .string({ required_error: "O CPF deve ser informado" })
-    .refine((v) => cpf.format(v), {
-      message: "CPF inválido",
-    }),
 });
 
 export const takeoutValidation = z.object({

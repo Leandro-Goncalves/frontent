@@ -15,7 +15,8 @@ const register = async (
   name: string,
   email: string,
   password: string,
-  phone: string
+  phone: string,
+  cpf: string
 ) => {
   return api
     .post<void>("user/register", {
@@ -23,6 +24,7 @@ const register = async (
       email,
       password,
       phone,
+      cpf,
     })
     .then(serviceAdapter);
 };

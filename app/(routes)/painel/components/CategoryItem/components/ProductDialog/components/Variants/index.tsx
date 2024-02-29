@@ -5,7 +5,7 @@ import { ProductModel } from "../..";
 import { Variant } from "./components/Variant";
 
 interface VariantsProps {
-  form: UseFormReturn<ProductModel, any, undefined>;
+  form: UseFormReturn<ProductModel, any>;
 }
 
 export const Variants: React.FC<VariantsProps> = ({ form }) => {
@@ -40,7 +40,7 @@ export const Variants: React.FC<VariantsProps> = ({ form }) => {
           {fields.map((variant, index) => (
             <Variant
               key={variant.id}
-              form={form}
+              form={form as any}
               index={index}
               onRemove={() => remove(index)}
             />
