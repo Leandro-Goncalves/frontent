@@ -17,6 +17,7 @@ import { CupomValidation, cupomValidation } from "./validation";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,6 +35,12 @@ import { queryClient } from "@/app/components/QueryProvider";
 import { Edit } from "lucide-react";
 import { toast } from "react-toastify";
 import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface CupomDialogProps {
   cupomToEdit?: Cupom;
@@ -41,12 +48,18 @@ interface CupomDialogProps {
 
 const InputLabel: React.FC<{
   label: string;
+  description?: string;
   children?: React.ReactNode;
-}> = ({ label, children }) => {
+}> = ({ label, description, children }) => {
   return (
-    <FormItem>
+    <FormItem
+      style={{
+        overflow: "hidden",
+      }}
+    >
       <FormLabel>{label}</FormLabel>
       <FormControl>{children}</FormControl>
+      <FormDescription>{description}</FormDescription>
       <FormMessage />
     </FormItem>
   );
@@ -81,35 +94,46 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
   const finalDate = form.watch("finalDate");
   const discountType = form.watch("discountType");
   const isUnlimited = form.watch("isUnlimited");
+
   const isPercentage = discountType === DiscountType.PERCENTAGE;
 
   const onSubmit = async (cupom: CupomValidation) => {
     await coupon.mutateAsync(cupom);
   };
 
-  useEffect(() => {
-    if (cupomToEdit) {
-      form.reset({
-        ...cupomToEdit,
-        initialDate: cupomToEdit.initialDate
-          ? new Date(cupomToEdit.initialDate)
-          : undefined,
-        finalDate: cupomToEdit.finalDate
-          ? new Date(cupomToEdit.finalDate)
-          : undefined,
-      });
-    } else {
-      form.reset({
-        cupomType: CupomType.GENERAL,
-        discountType: DiscountType.PERCENTAGE,
-        discountValue: 0,
-        quantity: 0,
-      });
+  const handleOpen = (open: boolean) => {
+    if (!open) {
+      form.reset();
     }
-  }, [cupomToEdit]); // eslint-disable-line
+    setOpen(open);
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    form.reset(
+      cupomToEdit
+        ? {
+            ...cupomToEdit,
+            minimumValue: cupomToEdit.minimumValue ?? 0,
+            maxDiscount: cupomToEdit.maxDiscount ?? 0,
+            initialDate: cupomToEdit.initialDate
+              ? new Date(cupomToEdit.initialDate)
+              : undefined,
+            finalDate: cupomToEdit.finalDate
+              ? new Date(cupomToEdit.finalDate)
+              : undefined,
+          }
+        : {
+            cupomType: CupomType.GENERAL,
+            discountType: DiscountType.PERCENTAGE,
+            discountValue: 0,
+            quantity: 0,
+          }
+    );
+  }, [cupomToEdit, open]); // eslint-disable-line
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpen}>
       <DialogTrigger>
         {cupomToEdit ? (
           <Button className="w-full">
@@ -156,7 +180,7 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
                             value={field.value}
                             onValueChange={({ floatValue }) => {
                               if (!floatValue) {
-                                field.onChange(null);
+                                field.onChange(0);
                                 return;
                               }
 
@@ -222,7 +246,7 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
                             defaultValue={field.value}
                             onValueChange={(v) => {
                               form.setValue("discountValue", 0);
-                              form.setValue("maxDiscount", undefined);
+                              form.setValue("maxDiscount", 0);
                               field.onChange(v);
                             }}
                           >
@@ -302,9 +326,7 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
                             prefix={"R$ "}
                             value={field.value}
                             onValueChange={({ floatValue }) => {
-                              field.onChange(
-                                floatValue === undefined ? null : floatValue
-                              );
+                              field.onChange(!floatValue ? 0 : floatValue);
                             }}
                           />
                         </InputLabel>
@@ -317,44 +339,67 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
                       disabled={!isPercentage}
                       render={({ field }) => (
                         <InputLabel label="Valor máximo de desconto">
-                          <NumericFormat
-                            disabled={!isPercentage}
-                            customInput={Input}
-                            placeholder={"R$ 0"}
-                            allowNegative={false}
-                            prefix={"R$ "}
-                            value={field.value}
-                            onValueChange={({ floatValue }) => {
-                              field.onChange(
-                                floatValue === undefined ? null : floatValue
-                              );
-                            }}
-                          />
+                          <TooltipProvider>
+                            <Tooltip
+                              open={isPercentage ? false : undefined}
+                              delayDuration={0}
+                            >
+                              <TooltipTrigger>
+                                <NumericFormat
+                                  disabled={!isPercentage}
+                                  customInput={Input}
+                                  placeholder={"R$ 0"}
+                                  allowNegative={false}
+                                  prefix={"R$ "}
+                                  value={field.value}
+                                  onValueChange={({ floatValue }) => {
+                                    field.onChange(
+                                      !floatValue ? 0 : floatValue
+                                    );
+                                  }}
+                                />
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>
+                                  Valor máximo so é aplicado se o tipo de
+                                  desconto for porcentagem
+                                </p>
+                              </TooltipContent>
+                            </Tooltip>
+                          </TooltipProvider>
                         </InputLabel>
                       )}
                     />
 
-                    <FormField
-                      disabled={isUnlimited}
-                      control={form.control}
-                      name="quantity"
-                      render={({ field }) => (
-                        <InputLabel label="Quantidade de cupons disponível">
-                          <NumericFormat
-                            disabled={isUnlimited}
-                            customInput={Input}
-                            value={field.value}
-                            onValueChange={({ floatValue }) => {
-                              if (floatValue === undefined) {
-                                field.onChange(0);
-                                return;
-                              }
-                              field.onChange(floatValue);
-                            }}
-                          />
-                        </InputLabel>
-                      )}
-                    />
+                    <div
+                      style={{
+                        display: "grid",
+                        transition: "grid-template-rows 0.5s ease",
+                        gridTemplateRows: isUnlimited ? "0fr" : "1fr",
+                      }}
+                    >
+                      <FormField
+                        control={form.control}
+                        name="quantity"
+                        render={({ field }) => (
+                          <InputLabel label="Quantidade de cupons disponível">
+                            <NumericFormat
+                              disabled={isUnlimited}
+                              customInput={Input}
+                              value={field.value}
+                              onValueChange={({ floatValue }) => {
+                                if (floatValue === undefined) {
+                                  field.onChange(0);
+                                  return;
+                                }
+                                field.onChange(floatValue);
+                              }}
+                            />
+                          </InputLabel>
+                        )}
+                      />
+                    </div>
+
                     <div />
 
                     <FormField

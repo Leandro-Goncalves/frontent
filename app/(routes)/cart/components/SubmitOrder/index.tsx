@@ -137,7 +137,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
     <>
       {SelectAddressDialog}
       {LoginDialog}
-      <div className="ml-auto max-xl:ml-0 max-xl:mr-auto p-5 border-2 rounded-3xl w-full max-w-[444px]">
+      <div className="ml-auto max-[1420px]:ml-0 max-[1420px]:mr-auto p-5 border-2 rounded-3xl w-full max-w-[444px]">
         <DeliveryOrTakeout
           isDelivery={isDelivery}
           setIsDelivery={(isDelivery) => {

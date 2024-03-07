@@ -24,7 +24,12 @@ export const Informations: React.FC<InformationsProps> = () => {
       <Title className="mt-[70px]">Nosso tecido</Title>
       <Models /> */}
 
-      <h3 className="text-2xl font-bold  mt-[70px] mb-3">DÚVIDAS FREQUENTES</h3>
+      <h3
+        className="text-2xl font-bold mt-[70px] mb-3 scroll-mt-[200px]"
+        id="doubts"
+      >
+        DÚVIDAS FREQUENTES
+      </h3>
       <Doubts />
     </div>
   );

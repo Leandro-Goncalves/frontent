@@ -7,35 +7,35 @@ import { CacauStore } from "../CacauStore";
 
 interface TabButtonsProps {}
 
-export const TabButtons: React.FC<TabButtonsProps> = () => {
-  const buttons = [
-    {
-      name: "catalog",
-      label: "CATALOGO",
-      Component: Catalog,
-    },
-    {
-      name: "info",
-      label: "INFORMAÇÕES",
-      Component: Informations,
-    },
-    {
-      name: "cacauStore",
-      label: "CACAU STORE",
-      Component: CacauStore,
-    },
-  ];
+export const tabButtons = [
+  {
+    name: "catalog",
+    label: "CATALOGO",
+    Component: Catalog,
+  },
+  {
+    name: "info",
+    label: "INFORMAÇÕES",
+    Component: Informations,
+  },
+  {
+    name: "cacauStore",
+    label: "CACAU STORE",
+    Component: CacauStore,
+  },
+];
 
+export const TabButtons: React.FC<TabButtonsProps> = () => {
   return (
-    <Tabs defaultValue={buttons[0].name}>
+    <Tabs defaultValue={tabButtons[0].name}>
       <TabsList className="absolute left-1/2 translate-x-[-50%] shadow-xl !bg-[#FBDCEB] rounded-xl mt-[-62px] max-md:mt-[-30px] gap-1 h-auto p-0 bg-transparent">
-        {buttons.map(({ name, label }) => (
+        {tabButtons.map(({ name, label }) => (
           <TabsTrigger
             id={`tab-${name}`}
             key={name}
             value={name}
             className={cn(
-              "py-8 px-16  text-[#221A3F] rounded-xl relative",
+              "py-8 px-16  text-[#221A3F] rounded-xl relative scroll-mt-[200px]",
               "data-[state=active]:!bg-[#FA9DC0]",
               "after:absolute after:right-[-4px] after:top-5 max-md:after:top-2 after:bottom-5 max-md:after:bottom-2 after:w-1 max-md:after:w-0.5 after:rounded-full after:bg-[#FFAEC5]",
               "last:after:opacity-0",
@@ -46,7 +46,7 @@ export const TabButtons: React.FC<TabButtonsProps> = () => {
           </TabsTrigger>
         ))}
       </TabsList>
-      {buttons.map(({ name, label, Component }) => (
+      {tabButtons.map(({ name, label, Component }) => (
         <TabsContent value={name} key={name}>
           <ContentWrapper>
             <Component />

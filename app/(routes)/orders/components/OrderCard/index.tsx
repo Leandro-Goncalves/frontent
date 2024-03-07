@@ -10,6 +10,8 @@ import env from "@/app/env";
 import Swal from "sweetalert2";
 import { allSizesArray } from "@/app/(routes)/itemDetails/components/Sizes";
 import { AddProductDTO, useCart } from "@/app/states/cart.state";
+import { Progress } from "@/components/ui/progress";
+import { RemainTimeProgress } from "./components/RemainTimeProgress";
 
 interface OrderCardProps {
   order: Order;
@@ -203,6 +205,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
           <p className={cn("text-base font-medium", alertData.textColor)}>
             {alertData.text}
           </p>
+          <RemainTimeProgress order={order} />
         </div>
       )}
       <div className="flex p-4 bg-[#DC024F] bg-opacity-10 flex-col items-start">

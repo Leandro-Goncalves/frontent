@@ -23,7 +23,8 @@ export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
         <p
           className={cn(
             limitMaxText ? "max-w-[70px]" : "",
-            "text-xs font-bold overflow-hidden whitespace-nowrap text-ellipsis"
+            "text-xs font-bold overflow-hidden whitespace-nowrap text-ellipsis",
+            "max-[410px]:hidden"
           )}
         >
           {title}

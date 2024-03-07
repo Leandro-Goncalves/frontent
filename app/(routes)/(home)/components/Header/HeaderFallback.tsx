@@ -14,12 +14,13 @@ export const HeaderFallback: React.FC<{}> = ({}) => {
           "w-full h-[162px] bg-[#F8DEE5] flex items-center justify-between p-6 z-10"
         )}
       >
-        <div className="w-[208.44px]">
+        <div className="cursor-pointer max-[1000px]:h-0 max-[1000px]:opacity-0 max-[1000px]:pointer-events-none flex items-center">
           <Image
-            src={"/logo.png"}
+            src={"/logo2.png"}
             alt="Logo escrita Cacau"
             width={195}
-            height={106}
+            height={195}
+            className="w-[120px]"
           />
         </div>
         <Skeleton className="w-[700px] h-10 rounded-md" />

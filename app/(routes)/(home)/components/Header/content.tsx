@@ -74,14 +74,15 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
         )}
       >
         <div
-          className="w-[208.44px] cursor-pointer max-[1000px]:h-0 max-[1000px]:opacity-0 max-[1000px]:pointer-events-none"
+          className="cursor-pointer max-[1000px]:h-0 max-[1000px]:opacity-0 max-[1000px]:pointer-events-none flex items-center"
           onClick={goHome}
         >
           <Image
-            src={"/logo.png"}
+            src={"/logo2.png"}
             alt="Logo escrita Cacau"
             width={195}
-            height={106}
+            height={195}
+            className="w-[120px]"
           />
         </div>
         <IconInput

@@ -13,6 +13,9 @@ import Head from "next/head";
 // import { ComingSoon } from "./components/ComingSoon";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ComingSoon } from "./components/ComingSoon";
+import { Footer } from "./components/Footer";
+import { establishmentService } from "./services/establishment";
+import env from "./env";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,11 +47,15 @@ export const metadata: Metadata = {
 
 export const revalidate = 1;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: establishment } = await establishmentService.get(
+    env.ESTABLISHMENT_ID
+  );
+
   return (
     <html lang="pt-BR">
       <Head>
@@ -82,6 +89,7 @@ export default function RootLayout({
             <ToastContainer />
             <OnBeforeUnload />
           </QueryProvider>
+          <Footer phone={establishment.phone} />
         </div>
 
         <GoogleAnalytics gaId="G-K9Q7T63R83" />

@@ -1,19 +1,29 @@
 "use client";
 
+import { useComingSoon } from "@/app/states/useCommingSoon.state";
 import { getCookie } from "cookies-next";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
 
 interface ComingSoonProps {}
 
 export const ComingSoon: React.FC<ComingSoonProps> = () => {
+  const { shouldShow, setShow } = useComingSoon();
   const params = useSearchParams();
 
-  const showCookie = getCookie("show");
-
-  const shouldShow = params?.get("show") === "true" || showCookie === "true";
+  const sShow = params?.get("show") === "true";
   const isMobile = useMediaQuery({ query: "(max-width: 850px)" });
+
+  console.log(sShow, shouldShow);
+  useEffect(() => {
+    if (sShow) {
+      setShow(true);
+    } else {
+      setShow(false);
+    }
+  }, []); // eslint-disable-line
 
   if (shouldShow) {
     return (

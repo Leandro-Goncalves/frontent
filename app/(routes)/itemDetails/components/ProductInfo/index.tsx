@@ -80,7 +80,9 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             selectedVariant.promotionalPrice || selectedVariant.price
           )}
         </p>
-        <p className="text-sm font-extrabold">Em {installments}x sem juros</p>
+        <p className="text-sm font-extrabold">
+          Em até {installments}x sem juros
+        </p>
 
         <div className="mt-auto">
           <p className="text-sm font-extrabold mb-2">

@@ -15,8 +15,8 @@ export const cupomValidation = z
     discountType: z.enum([DiscountType.PERCENTAGE, DiscountType.AMOUNT], {}),
     minimumValue: z.number({}).optional(),
     maxDiscount: z.number({}).optional(),
-    initialDate: z.date({}).optional(),
-    finalDate: z.date({}).optional(),
+    initialDate: z.any({}).optional(),
+    finalDate: z.any({}).optional(),
     quantity: z.any({}),
     isUnlimited: z.boolean({}).optional(),
     discountValue: z
@@ -25,15 +25,16 @@ export const cupomValidation = z
       })
       .min(1, "O valor deve ser maior que 0."),
   })
-  .refine(
-    ({ quantity, isUnlimited }) => {
-      if (isUnlimited) return true;
-      return quantity > 0;
-    },
-    {
-      message: "A quantidade deve ser maior que 0.",
-      path: ["quantity"],
+  .superRefine(({ quantity, isUnlimited }, ctx) => {
+    console.log({ quantity, isUnlimited });
+    if (isUnlimited) return;
+    if (quantity < 1) {
+      ctx.addIssue({
+        message: "A quantidade deve ser maior que 0.",
+        code: "custom",
+        path: ["quantity"],
+      });
     }
-  );
+  });
 
 export type CupomValidation = z.infer<typeof cupomValidation>;

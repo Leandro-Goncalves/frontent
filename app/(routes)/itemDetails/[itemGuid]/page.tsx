@@ -7,6 +7,7 @@ import { Metadata } from "next";
 import { CollapsibleInfos } from "../components/CollapsibleInfos";
 import { BackToHomeButton } from "@/app/components/BackToHomeButton";
 import { RemoveProductAndFavorite } from "../components/RemoveProductAndFavorite";
+import { InfoIndicators } from "../components/InfoIndicators";
 interface ItemGuidProps {
   params: { itemGuid: string };
   searchParams: { [key: string]: string | string[] | undefined };
@@ -58,13 +59,18 @@ export default async function ItemGuid({ params }: ItemGuidProps) {
           detalhes do produto
         </Breadcrumb.Item>
       </Breadcrumb>
-      {product.data && (
-        <ProductInfo
-          product={product.data}
-          installments={establishment.data.installments}
-        />
-      )}
-      <CollapsibleInfos productDescription={product.data.description} />
+      <div>
+        <div className="flex gap-4">
+          {product.data && (
+            <ProductInfo
+              product={product.data}
+              installments={establishment.data.installments}
+            />
+          )}
+          <InfoIndicators />
+        </div>
+        <CollapsibleInfos productDescription={product.data.description} />
+      </div>
     </main>
   );
 }

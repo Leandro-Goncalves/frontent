@@ -10,7 +10,9 @@ export const CacauStore: React.FC<CacauStoreProps> = () => {
       <Title>Nossa história</Title>
       <OurStory />
 
-      <Title className="mt-[70px] mb-4">Nossa loja</Title>
+      <Title className="mt-[70px] mb-4 scroll-mt-[200px]" id="ourStore">
+        Nossa loja
+      </Title>
       <Image
         alt="cacau store"
         src={"/images/banner2.png"}

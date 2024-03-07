@@ -92,7 +92,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
               </div>
 
               <div className="flex items-center ml-auto gap-20 max-[1000px]:flex-wrap max-[1000px]:w-full max-[1000px]:justify-center max-[1000px]:mt-4 max-[1000px]:gap-y-4">
-                <div className="flex items-center gap-[90px]">
+                <div className="flex items-center">
                   <QuantitySelector
                     maxQuantity={productCart.size?.quantity ?? 0}
                     quantity={quantity}

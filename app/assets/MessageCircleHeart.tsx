@@ -1,8 +1,12 @@
 interface MessageCircleHeartProps {
   className?: string;
+  color?: string;
 }
 
-export const MessageCircleHeart = ({ className }: MessageCircleHeartProps) => {
+export const MessageCircleHeart = ({
+  className,
+  color,
+}: MessageCircleHeartProps) => {
   return (
     <svg
       width="34"
@@ -14,14 +18,14 @@ export const MessageCircleHeart = ({ className }: MessageCircleHeartProps) => {
     >
       <path
         d="M11.1917 28.3337C13.8955 29.7207 17.0058 30.0964 19.9621 29.3931C22.9184 28.6897 25.5263 26.9537 27.3159 24.4976C29.1054 22.0416 29.9589 19.0272 29.7225 15.9976C29.4862 12.968 28.1755 10.1224 26.0268 7.97366C23.878 5.8249 21.0324 4.51425 18.0028 4.2779C14.9732 4.04155 11.9588 4.89504 9.50279 6.68457C7.04678 8.47411 5.31069 11.082 4.60736 14.0383C3.90403 16.9946 4.27971 20.1049 5.66671 22.8087L2.83337 31.1671L11.1917 28.3337Z"
-        stroke="black"
+        stroke={color ?? "black"}
         strokeWidth="2.66667"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M22.3834 13.0329C21.7213 12.384 20.8312 12.0205 19.9042 12.0205C18.9772 12.0205 18.0871 12.384 17.425 13.0329L17 13.5996L16.5042 13.1746C16.1794 12.8231 15.7847 12.5434 15.3453 12.3537C14.9059 12.1639 14.4317 12.0683 13.9531 12.0729C13.4746 12.0775 13.0023 12.1822 12.5666 12.3804C12.131 12.5785 11.7417 12.8657 11.4237 13.2234C11.1057 13.5811 10.8662 14.0014 10.7205 14.4573C10.5748 14.9131 10.5261 15.3945 10.5777 15.8703C10.6292 16.3461 10.7798 16.8058 11.0198 17.2199C11.2597 17.634 11.5837 17.9933 11.9709 18.2746L17.0709 23.2329L22.1709 18.2746C23.8709 16.5746 23.7292 14.4496 22.4542 13.0329"
-        stroke="black"
+        stroke={color ?? "black"}
         strokeWidth="2.66667"
         strokeLinecap="round"
         strokeLinejoin="round"

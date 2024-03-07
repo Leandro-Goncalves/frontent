@@ -22,7 +22,7 @@ export default async function Cart() {
         Carrinho de Compras
       </h1>
 
-      <div className="flex justify-center gap-4 max-xl:flex-col">
+      <div className="flex justify-center gap-4 max-[1420px]:flex-col">
         <ProductsList />
         <SubmitOrder phone={establishment.phone} />
       </div>
