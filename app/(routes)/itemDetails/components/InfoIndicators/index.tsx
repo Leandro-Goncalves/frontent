@@ -1,10 +1,16 @@
+"use client";
 import { MessageCircleHeart } from "@/app/assets/MessageCircleHeart";
+import { sendWhatsappMessage } from "@/app/utils/misc/sendWhatsappMessage";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Box, Gift, Lock, Package } from "lucide-react";
+import { Gift, Lock, Package } from "lucide-react";
+import { Fragment } from "react";
 
-interface InfoIndicatorsProps {}
+interface InfoIndicatorsProps {
+  phone: string;
+  productName: string;
+}
 
 const itens = [
   {
@@ -23,11 +29,21 @@ const itens = [
   },
 ];
 
-export const InfoIndicators: React.FC<InfoIndicatorsProps> = () => {
+export const InfoIndicators: React.FC<InfoIndicatorsProps> = ({
+  phone,
+  productName,
+}) => {
+  const handleClick = () => {
+    sendWhatsappMessage(
+      phone,
+      `Olá, estava vendo o produto ${productName} e gostaria de mais informações`
+    );
+  };
+
   return (
-    <div className="border rounded-2xl max-w-[388px] ml-auto px-4 py-11 flex flex-col relative">
+    <div className="border rounded-2xl max-w-[388px] min-w-[320px] px-4 py-11 flex flex-col relative max-[1200px]:min-w-full max-[1200px]:max-w-full">
       {itens.map(({ Icon, title }) => (
-        <>
+        <Fragment key={title}>
           <div className="flex gap-4 items-center" key={title}>
             <Icon className="w-4 h-4 shrink-0" />
             <p
@@ -36,19 +52,23 @@ export const InfoIndicators: React.FC<InfoIndicatorsProps> = () => {
             />
           </div>
           <Separator className="my-5" />
-        </>
+        </Fragment>
       ))}
 
-      <MessageCircleHeart className="w-8 h-8 mx-auto mt-auto" color="#DC024F" />
+      <MessageCircleHeart
+        className="w-8 h-8 mx-auto mt-auto"
+        color="stroke-primary"
+      />
       <p className="text-base text-center">
         Deseja um atendimento personalizado? Entre em contato com a sua loja
         preferida.
       </p>
       <div className="absolute bottom-0 left-0 right-0 translate-y-1/2 flex justify-center">
         <Button
+          onClick={handleClick}
+          variant={"secondary"}
           className={cn(
-            "bg-secondary text-primary font-semibold rounded-full px-8",
-            "hover:bg-secondary hover:text-primary",
+            "font-semibold rounded-full px-8",
             "hover:transform hover:scale-105 transition-all duration-200"
           )}
         >

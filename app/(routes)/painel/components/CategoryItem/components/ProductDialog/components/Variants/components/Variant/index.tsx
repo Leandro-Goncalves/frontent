@@ -52,7 +52,7 @@ export const Variant: React.FC<VariantProps> = ({ form, index, onRemove }) => {
               "transition-colors",
               variant.isFavorite
                 ? "text-[#ffb753] fill-[#ffb753]"
-                : "text-black"
+                : "text-foreground"
             )}
           />
         </Button>

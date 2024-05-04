@@ -28,7 +28,7 @@ export const OrdersContainer: React.FC<OrdersContainerProps> = ({ orders }) => {
         <h2 className="text-base font-bold mr-auto">Meus pedidos</h2>
         <IconInput
           icon={<Search className="w-5 h-5" />}
-          className="max-w-[700px] bg-transparent border-black w-full"
+          className="max-w-[700px] bg-transparent border-foreground w-full"
           placeholder="O que você procura?"
           value={search}
           onChange={(e) => {

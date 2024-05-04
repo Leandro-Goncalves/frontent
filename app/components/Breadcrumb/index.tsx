@@ -24,9 +24,9 @@ const BreadcrumbItem: React.FC<BreadcrumbItemProps> = ({
     <Component
       href={path}
       className={cn(
-        "text-[rgb(95,95,95)] text-sm font-bold ml-1 first:ml-0",
+        "text-foreground/50 text-sm font-bold ml-1 first:ml-0",
         "after:content-['_>_'] after:last:content-['']",
-        "last:font-extrabold last:text-[#212121]",
+        "last:font-extrabold last:text-foreground",
         !disable && "hover:underline"
       )}
     >

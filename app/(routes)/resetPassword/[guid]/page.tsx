@@ -17,16 +17,16 @@ export default function Register() {
 
   return (
     <>
-      <div className="bg-[#FBDCDC] w-full h-screen">
+      <div className="bg-background w-full h-screen">
         <div className=" bg flex flex-col items-center justify-center h-full">
-          <Form.Container className="relative grid gap-6 min-w-[380px] bg-[#FBDCDC] shadow-2xl p-12 rounded-lg">
+          <Form.Container className="relative grid gap-6 min-w-[380px] bg-background shadow-2xl p-12 rounded-lg">
             <Form.Item>
               <div className="grid after:content-[' '] max-w-[400px] after:absolute after:top-0 after:h-[8px] after:w-[70%] after:left-[50%] after:bg-primary after:transform after:translate-x-[-50%] after:rounded">
                 <div className="flex items-center gap-3 mb-4 flex-col">
                   <h2 className="text-3xl font-bold text-primary">
                     Nova Senha
                   </h2>
-                  <h3 className="text-base font-medium text-[#221A3F] text-center">
+                  <h3 className="text-base font-medium text-foreground text-center">
                     Faça uma nova senha para o seu login e continue fazendo suas
                     compras
                   </h3>

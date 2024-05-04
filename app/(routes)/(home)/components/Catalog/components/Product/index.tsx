@@ -5,6 +5,7 @@ import { useState } from "react";
 import { toCurrencyValue } from "@/app/utils/misc/toCurrencyValue";
 import { useRouter } from "next/navigation";
 import { FavoriteButton } from "@/app/components/FavoriteButton";
+import { sendGAEvent } from "@/app/utils/GAEvents";
 
 interface ProductProps {
   product: Products;
@@ -29,6 +30,7 @@ export const Product: React.FC<ProductProps> = ({
     : product.variants.flatMap((v) => v.Image);
 
   const handleOpenItemDetails = () => {
+    sendGAEvent("products", "openProduct", { name: product.name });
     if (selectedVariant?.guid) {
       router.push(`/itemDetails/${product.uuid}?v=${selectedVariant.guid}`);
     } else {
@@ -38,7 +40,7 @@ export const Product: React.FC<ProductProps> = ({
 
   return (
     <div className="w-[300px] flex flex-col relative">
-      <div className="absolute z-10 right-0 bg-[#f38bb0] h-[40px] rounded-bl-md rounded-tr-md">
+      <div className="absolute z-10 right-0 bg-secondary h-[40px] rounded-bl-md rounded-tr-md">
         <FavoriteButton
           product={product}
           withoutCircle
@@ -52,7 +54,7 @@ export const Product: React.FC<ProductProps> = ({
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       />
-      <div className="text-[#303030] font-bold">
+      <div className="text-foreground font-bold">
         <p className="text-sm mt-2">
           {product.name} {selectedVariant && `- ${selectedVariant.name}`}
         </p>

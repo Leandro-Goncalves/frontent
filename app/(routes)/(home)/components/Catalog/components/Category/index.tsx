@@ -40,7 +40,7 @@ export const Category: React.FC<CategoryProps> = ({
       </div>
       <div className="w-full flex align-center">
         <Button
-          className="w-full rounded-full bg-[#DC024F] max-w-[800px] mx-auto text-sm font-bold hover:bg-[#b60241]"
+          className="w-full rounded-full bg-primary max-w-[800px] mx-auto text-sm font-bold"
           onClick={() => {
             router.push(`/results?c=${category.name}`);
           }}

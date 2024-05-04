@@ -1,9 +1,7 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
-import { Tag } from "../../../Feedbacks/components/Feedback/components/Tag";
 import { cn } from "@/lib/utils";
+import { fabricsService } from "@/app/services/fabrics";
+import env from "@/app/env";
 
 interface ModelsProps {}
 
@@ -30,15 +28,16 @@ const data = [
   },
 ];
 
-export const Models: React.FC<ModelsProps> = () => {
+export const Models: React.FC<ModelsProps> = async () => {
+  const fabrics = await fabricsService.get();
   return (
     <div className="mt-10 flex gap-6 max-[1250px]:flex-col flex-col">
-      {data.map((infoItem, index) => {
-        const isOdd = index % 2 === 0;
+      {fabrics.data.map(({ guid, url, description, name }, i) => {
+        const isOdd = i % 2 === 0;
 
         return (
           <div
-            key={index}
+            key={guid}
             className={cn(
               "rounded-3xl overflow-hidden flex items-center",
               isOdd ? "flex-row border-2" : "flex-row-reverse",
@@ -46,20 +45,15 @@ export const Models: React.FC<ModelsProps> = () => {
             )}
           >
             <Image
-              alt="imagem da loja"
-              src={infoItem.src}
+              alt={name}
+              src={`${env.CDN_URL}/${url}`}
               width={457}
               height={577}
               className="rounded-3xl max-[1250px]:w-full shrink-0 h-auto w-[640px]"
             />
             <div className="w-full flex items-center flex-col p-8 text-center">
-              <h2 className="text-2xl font-bold mb-8 max-w-sm">
-                {infoItem.title}
-              </h2>
-              <h3
-                className="max-w-xl text-xl"
-                dangerouslySetInnerHTML={{ __html: infoItem.text }}
-              />
+              <h2 className="text-2xl font-bold mb-8 max-w-sm">{name}</h2>
+              <h3 className="max-w-xl text-xl">{description}</h3>
             </div>
           </div>
         );

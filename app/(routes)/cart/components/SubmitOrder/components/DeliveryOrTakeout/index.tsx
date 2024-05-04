@@ -17,18 +17,32 @@ export const DeliveryOrTakeout: React.FC<DeliveryOrTakeoutProps> = ({
       <div
         className={cn(
           "transition-colors w-full rounded-lg h-[39px] flex items-center justify-center",
-          !isDelivery ? "bg-transparent" : "bg-[#FFAEC5]"
+          !isDelivery ? "bg-transparent" : "bg-primary"
         )}
       >
-        <p className="text-primary text-base font-bold uppercase">entrega</p>
+        <p
+          className={cn(
+            "text-primary text-base font-bold uppercase",
+            !isDelivery ? "text-primary" : "text-white"
+          )}
+        >
+          entrega
+        </p>
       </div>
       <div
         className={cn(
           "transition-colors w-full rounded-lg h-[39px] flex items-center justify-center",
-          isDelivery ? "bg-transparent" : "bg-[#FFAEC5]"
+          isDelivery ? "bg-transparent" : "bg-primary"
         )}
       >
-        <p className="text-primary text-base font-bold uppercase">retirada</p>
+        <p
+          className={cn(
+            "text-base font-bold uppercase",
+            isDelivery ? "text-primary" : "text-white"
+          )}
+        >
+          retirada
+        </p>
       </div>
     </button>
   );

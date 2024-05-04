@@ -32,7 +32,7 @@ export const RemoveButton: React.FC<RemoveButtonProps> = ({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{removeButton}</AlertDialogTrigger>
-      <AlertDialogContent className="bg-white">
+      <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
@@ -40,12 +40,12 @@ export const RemoveButton: React.FC<RemoveButtonProps> = ({
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-[#DC024F] text-white hover:bg-[#B40000] hover:text-white">
+          <AlertDialogCancel className="bg-primary text-white hover:bg-primary hover:text-white">
             Cancelar
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={handleRemove}
-            className="bg-white text-black border-black border-[1px] hover:bg-slate-100 hover:text-black"
+            className="bg-transparent text-foreground border-foreground border-[1px] hover:bg-transparent hover:text-foreground"
           >
             Remover
           </AlertDialogAction>

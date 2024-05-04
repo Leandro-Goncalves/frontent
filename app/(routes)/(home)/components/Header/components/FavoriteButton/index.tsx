@@ -8,11 +8,13 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { handleHydrateZustandSSR } from "@/app/utils/zustandSSR/handleHydrateZustandSSR";
 
 interface FavoriteButtonProps {}
 
 export const FavoriteButton: React.FC<FavoriteButtonProps> = () => {
   const routes = useRouter();
+  handleHydrateZustandSSR(useFavorites);
   const favorites = useFavorites((state) => state.favorites);
 
   return (
@@ -20,7 +22,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = () => {
       <PopoverTrigger asChild>
         <IconButton
           badge={favorites.length}
-          icon={<Heart className="w-6 h-6 text-[#1B123D]" />}
+          icon={<Heart className="w-6 h-6 text-foreground" />}
           onClick={() => {}}
           title="Favoritos"
         />

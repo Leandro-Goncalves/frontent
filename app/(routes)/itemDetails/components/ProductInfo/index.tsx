@@ -60,7 +60,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   const images = product.variants.flatMap((v) => v.Image);
 
   return (
-    <div className="mt-5 flex gap-8 max-[1000px]:flex-col max-[1000px]:items-center">
+    <div className="mt-5 flex gap-8 max-[1000px]:flex-col max-[1000px]:items-center flex-shrink-0">
       <ProductImages
         images={images}
         selectedImageIndex={selectedImageIndex}
@@ -69,13 +69,13 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
       <div className="max-w-xs flex flex-col max-[1000px]:max-w-2xl w-full">
         <p className="text-2xl font-medium">{product.name}</p>
         {selectedVariant.promotionalPrice ? (
-          <p className="text-base font-semibold mt-8 text-[#292929] leading-3 line-through">
+          <p className="text-base font-semibold mt-8 text-foreground leading-3 line-through">
             {toCurrencyValue(selectedVariant.price)}
           </p>
         ) : (
           <></>
         )}
-        <p className="text-4xl font-extrabold text-[#292929]">
+        <p className="text-4xl font-extrabold text-foreground">
           {toCurrencyValue(
             selectedVariant.promotionalPrice || selectedVariant.price
           )}

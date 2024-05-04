@@ -14,11 +14,13 @@ import { ExitButton } from "./components/ExitButton";
 import { useUser } from "@/app/states/useUser.state";
 import { EditButton } from "./components/EditButton";
 import { useRouter } from "next/navigation";
+import { handleHydrateZustandSSR } from "@/app/utils/zustandSSR/handleHydrateZustandSSR";
 
 interface AccountButtonProps {}
 
 export const AccountButton: React.FC<AccountButtonProps> = () => {
   const [open, setOpen] = useState(false);
+  handleHydrateZustandSSR(useUser);
   const { user } = useUser();
   const route = useRouter();
 
@@ -35,7 +37,7 @@ export const AccountButton: React.FC<AccountButtonProps> = () => {
       <Popover>
         <PopoverTrigger asChild>
           <IconButton
-            icon={<UserCircle className="w-6 h-6 text-[#1B123D]" />}
+            icon={<UserCircle className="w-6 h-6 text-foreground" />}
             title={user.name}
           />
         </PopoverTrigger>
@@ -54,10 +56,10 @@ export const AccountButton: React.FC<AccountButtonProps> = () => {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <IconButton
           limitMaxText
-          icon={<UserCircle className="w-6 h-6 text-[#1B123D]" />}
+          icon={<UserCircle className="w-6 h-6 text-foreground" />}
           title="Login"
         />
       </DialogTrigger>

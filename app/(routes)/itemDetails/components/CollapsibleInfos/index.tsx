@@ -17,7 +17,7 @@ export const CollapsibleInfos: React.FC<CollapsibleInfosProps> = ({
       <Accordion
         type="single"
         collapsible
-        className="border-t-[1px] mt-[92px] border p-8 rounded-2xl"
+        className="border-t-[1px] mt-[92px] border p-8 rounded-2xl max-sm:p-4"
       >
         <AccordionItem value="description">
           <AccordionTrigger className="font-extrabold text-sm uppercase">

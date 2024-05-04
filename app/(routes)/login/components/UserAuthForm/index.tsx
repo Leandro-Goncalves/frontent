@@ -12,14 +12,18 @@ import { Form } from "@/app/components/Form";
 import { UserRegisterForm } from "@/app/(routes)/register/components/UserRegisterForm";
 import Image from "next/image";
 
+export type Disables = "forgotPassword" | "register";
+
 type UserAuthFormProps = React.HTMLAttributes<HTMLDivElement> &
   MotionProps & {
     onSuccess: () => void;
+    disable?: Disables[];
   };
 
 export function UserAuthForm({
   className,
   onSuccess,
+  disable = [],
   ...props
 }: UserAuthFormProps) {
   const [page, setPage] = useState("login");
@@ -59,6 +63,7 @@ export function UserAuthForm({
         {page === "login" && (
           <LoginContent
             key="login"
+            disable={disable}
             useUserAuthForm={useUserAuth}
             onForgotPassword={handleOpenForgotPassword}
             onRegister={() => setPage("register")}

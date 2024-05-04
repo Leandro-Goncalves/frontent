@@ -12,12 +12,12 @@ interface FeedbacksProps {}
 
 export const Feedbacks: React.FC<FeedbacksProps> = () => {
   return (
-    <div className="p-[76px] px-[47px] bg-[#1B123D] max-[1000px]:p-4">
+    <div className="p-[76px] px-[47px] bg-primary/40 max-[1000px]:p-4">
       <div className="overflow-hidden">
-        <p className="text-[84px] leading-[69px] font-bold max-w-[823px] text-[#F2F2F2] max-[1000px]:text-3xl">
+        <p className="text-[84px] leading-[69px] font-bold max-w-[823px] text-white max-[1000px]:text-3xl">
           Feedback das nossas Cacauzetes
         </p>
-        <p className="text-2xl font-bold text-[#FBDCDC] mb-8 mt-2 max-[1000px]:text-xl max-[1000px]:mb-2">
+        <p className="text-2xl font-bold text-white mb-8 mt-2 max-[1000px]:text-xl max-[1000px]:mb-2">
           Veja oque os nossos clientes estão falando!
         </p>
 

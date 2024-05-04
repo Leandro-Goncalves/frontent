@@ -34,7 +34,9 @@ export default async function ItemGuid({ params }: ItemGuidProps) {
     .getOne(env.ESTABLISHMENT_ID, params.itemGuid)
     .catch(() => ({ data: undefined }));
 
-  const establishment = await establishmentService.get(env.ESTABLISHMENT_ID);
+  const { data: establishment } = await establishmentService.get(
+    env.ESTABLISHMENT_ID
+  );
 
   if (!product.data) {
     return (
@@ -43,7 +45,7 @@ export default async function ItemGuid({ params }: ItemGuidProps) {
 
         <main className="py-20 px-16">
           <h2 className="text-lg font-bold">
-            Esse produto nao existe ou nao esta mais disponivel :(
+            Esse produto nao existe ou nao esta mais disponível :(
           </h2>
           <BackToHomeButton className="mt-8" />
         </main>
@@ -60,14 +62,17 @@ export default async function ItemGuid({ params }: ItemGuidProps) {
         </Breadcrumb.Item>
       </Breadcrumb>
       <div>
-        <div className="flex gap-4">
+        <div className="flex gap-4 justify-between max-[1200px]:flex-col">
           {product.data && (
             <ProductInfo
               product={product.data}
-              installments={establishment.data.installments}
+              installments={establishment.installments}
             />
           )}
-          <InfoIndicators />
+          <InfoIndicators
+            phone={establishment.phone}
+            productName={product.data.name}
+          />
         </div>
         <CollapsibleInfos productDescription={product.data.description} />
       </div>

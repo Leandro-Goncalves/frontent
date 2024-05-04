@@ -50,7 +50,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
           return (
             <div
               key={product.uuid}
-              className="px-10 py-6 rounded-xl bg-[#FECDDF] flex max-[1000px]:flex-col"
+              className="px-10 py-6 rounded-xl bg-card flex max-[1000px]:flex-col"
             >
               {!isMobile && (
                 <>
@@ -64,7 +64,7 @@ export const ProductsList: React.FC<ProductsListProps> = () => {
                     />
                   )}
 
-                  <div className="mx-3 w-[1px] bg-[#FFAEC5]" />
+                  <div className="mx-3 w-[1px] bg-border" />
                 </>
               )}
 

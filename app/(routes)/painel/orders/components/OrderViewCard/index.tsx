@@ -56,10 +56,10 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
   }, [isDelivery, isCancelled, isFinished, isFixedFee]);
 
   return (
-    <div className="group rounded-lg overflow-hidden border-[#DC024F] cursor-pointer border-[2px] border-opacity-10">
-      <div className="flex p-4 bg-[#DC024F] bg-opacity-10 flex-col items-start">
+    <div className="group rounded-lg overflow-hidden border-primary/20 cursor-pointer border-[2px]">
+      <div className="flex p-4 bg-primary/20 flex-col items-start">
         <div className="flex w-full justify-between align-top mb-2 max-[500px]:flex-col max-[500px]:gap-2">
-          <p className="text-sm font-normal text-start px-2 py-1 bg-[#EAAEBF] rounded-md">
+          <p className="text-sm font-normal text-start px-2 py-1 bg-card rounded-md">
             PEDIDO N° {order.guid.split("-").slice(0, 2).join("-")}
           </p>
           {Status}
@@ -100,7 +100,7 @@ export const OrderViewCard: React.FC<OrderViewCardProps> = ({
         return (
           <div
             key={product.id}
-            className="p-4 text-start border-t-[2px] border-[#DC024F] border-opacity-10 group-hover:border-opacity-100 transition-all"
+            className="p-4 text-start border-t-[2px] border-primary/20 group-hover:border-primary transition-all"
             style={{
               borderTopWidth: index === 0 ? 0 : 2,
             }}

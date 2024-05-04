@@ -40,7 +40,7 @@ export const Informative: React.FC<InformativeProps> = () => {
           <div>
             <h2
               className={cn(
-                "text-base font-bold text-[#DC024F]",
+                "text-base font-bold text-primary",
                 link && "cursor-pointer"
               )}
               onClick={() => {

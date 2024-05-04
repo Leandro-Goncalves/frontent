@@ -11,7 +11,11 @@ export const Header: React.FC<HeaderProps> = async () => {
 
   return (
     <div>
-      <Content phone={establishment.phone} alert={establishment.alert} />
+      <Content
+        phone={establishment.phone}
+        alert={establishment.alert}
+        icon={establishment.icon}
+      />
     </div>
   );
 };

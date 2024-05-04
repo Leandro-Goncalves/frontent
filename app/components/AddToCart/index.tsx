@@ -1,5 +1,6 @@
 import { Products, ProductsSize, Variant } from "@/app/models/products";
 import { useCart } from "@/app/states/cart.state";
+import { sendGAEvent } from "@/app/utils/GAEvents";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -28,11 +29,18 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   const addProduct = useCart((state) => state.addProduct);
 
   const handleCartProduct = () => {
+    sendGAEvent("cart", "addProduct", {
+      name: product.name,
+      price: variant.promotionalPrice || variant.price,
+      variant: variant.name,
+      quantity: quantity,
+      size: selectedSize?.name,
+    });
     addProduct({
       product: product as any,
       quantity,
       size: selectedSize,
-      variant,
+      variant: variant,
     });
     onAddToCart?.();
   };
@@ -41,7 +49,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
     return (
       <TooltipProvider delayDuration={0}>
         <Tooltip>
-          <TooltipTrigger className="w-full">
+          <TooltipTrigger className="w-full" asChild>
             <Button
               disabled
               className="rounded-full font-bold text-xs w-full relative overflow-hidden"

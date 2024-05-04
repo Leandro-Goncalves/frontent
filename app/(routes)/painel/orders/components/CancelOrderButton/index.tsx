@@ -44,7 +44,7 @@ export const CancelOrderButton: React.FC<CancelOrderButtonProps> = ({
       <AlertDialogTrigger>
         <Button className="bg-red-600 hover:bg-red-800">Cancelar pedido</Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-white">
+      <AlertDialogContent className="bg-background">
         <AlertDialogHeader>
           <AlertDialogCancel asChild className="absolute right-6">
             <Button
@@ -60,7 +60,7 @@ export const CancelOrderButton: React.FC<CancelOrderButtonProps> = ({
             <br />
             para confirmar digite <b>&quot;cancelar&quot;</b>
             <Input
-              className="mt-4"
+              className="mt-4 z"
               autoFocus
               placeholder="cancelar"
               value={code}

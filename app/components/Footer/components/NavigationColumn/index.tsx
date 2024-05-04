@@ -1,4 +1,9 @@
-type item =
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
+export type Item =
   | {
       name: string;
       link: string;
@@ -13,36 +18,25 @@ type item =
 
 interface NavigationColumnProps {
   title: string;
-  itens: item[];
+  itens: Item[];
   className?: string;
+  onClick: (item: Item) => void;
 }
 export const NavigationColumn: React.FC<NavigationColumnProps> = ({
   title,
   itens,
   className,
+  onClick,
 }) => {
-  const focus = (item: item) => () => {
-    if (item.type === "external") {
-      window.open(item.link, "_blank");
-      return;
+  const searchParams = useSearchParams();
+  const link = searchParams?.get("link");
+
+  useEffect(() => {
+    if (link) {
+      const item = itens.find((item) => item.link === link);
+      if (item) onClick(item);
     }
-
-    const element = document.getElementById(item.link);
-    if (!element) return;
-    element.focus({ preventScroll: true });
-
-    if (item.scrollId) {
-      setTimeout(() => {
-        if (!item.scrollId) return;
-        const scrollElement = document.getElementById(item.scrollId);
-        if (!scrollElement) return;
-        scrollElement.scrollIntoView({ behavior: "smooth" });
-      }, 50);
-      return;
-    }
-
-    element.scrollIntoView({ behavior: "smooth" });
-  };
+  }, [link, onClick, itens]);
 
   return (
     <div className={className}>
@@ -51,8 +45,8 @@ export const NavigationColumn: React.FC<NavigationColumnProps> = ({
         {itens.map((item, index) => (
           <button
             key={index}
-            className="group text-sm text-[#1B123D] mr-auto"
-            onClick={focus(item)}
+            className="group text-sm text-foreground mr-auto"
+            onClick={() => onClick(item)}
           >
             <span className="relative">
               <span className="absolute left-0 right-0 bottom-0 bg-primary transition-all h-0.5 w-0 group-hover:w-full"></span>

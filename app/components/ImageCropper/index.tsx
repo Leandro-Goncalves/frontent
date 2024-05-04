@@ -9,6 +9,8 @@ interface ImageCropperProps {
   onOpenChange: (open: boolean) => void;
   imagePath: File;
   onSave: (cropImage: File) => void;
+  height: number;
+  aspectRatio: number;
 }
 
 export const ImageCropper: React.FC<ImageCropperProps> = ({
@@ -16,6 +18,8 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
   onOpenChange,
   imagePath,
   onSave,
+  height,
+  aspectRatio,
 }) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -35,7 +39,8 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
     const croppedImage = await getCroppedImage(
       image,
       croppedAreaPixels!,
-      rotation
+      rotation,
+      imagePath.type
     );
 
     if (!croppedImage) return;
@@ -58,7 +63,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
         <div
           className="relative"
           style={{
-            height: "501px",
+            height: height,
           }}
         >
           {initCrop && (
@@ -67,7 +72,7 @@ export const ImageCropper: React.FC<ImageCropperProps> = ({
               crop={crop}
               zoom={zoom}
               rotation={rotation}
-              aspect={3 / 4}
+              aspect={aspectRatio}
               onCropChange={setCrop}
               onCropComplete={onCropComplete}
               onZoomChange={setZoom}

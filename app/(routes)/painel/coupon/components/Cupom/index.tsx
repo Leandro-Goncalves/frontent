@@ -63,7 +63,7 @@ export const Cupom: React.FC<CupomProps> = ({ cupom }) => {
   }, [cupom]);
 
   return (
-    <div className="p-8 shadow-xl bg-[#FFE4E4] rounded-lg w-full relative">
+    <div className="p-8 shadow-xl bg-card rounded-lg w-full relative">
       <div
         className={cn(
           "absolute inset-0 bg-[#ffffff9b] flex z-10 opacity-0 transition-opacity",
@@ -80,24 +80,26 @@ export const Cupom: React.FC<CupomProps> = ({ cupom }) => {
 
         <TooltipProvider delayDuration={0}>
           <Tooltip>
-            <TooltipTrigger>
-              <Switch
-                className="data-[state=unchecked]:bg-slate-500"
-                checked={cupom.isActive}
-                disabled={couponIsZero}
-                onCheckedChange={async () => {
-                  setIsLoading(true);
-                  try {
-                    await couponService.updateActive(cupom.guid, {
-                      isActive: !cupom.isActive,
-                    });
+            <TooltipTrigger asChild>
+              <div>
+                <Switch
+                  className="data-[state=unchecked]:bg-slate-500"
+                  checked={cupom.isActive}
+                  disabled={couponIsZero}
+                  onCheckedChange={async () => {
+                    setIsLoading(true);
+                    try {
+                      await couponService.updateActive(cupom.guid, {
+                        isActive: !cupom.isActive,
+                      });
 
-                    await queryClient.invalidateQueries(["cupons"]);
-                  } finally {
-                    setIsLoading(false);
-                  }
-                }}
-              />
+                      await queryClient.invalidateQueries(["cupons"]);
+                    } finally {
+                      setIsLoading(false);
+                    }
+                  }}
+                />
+              </div>
             </TooltipTrigger>
             {couponIsZero && (
               <TooltipContent>
@@ -108,7 +110,7 @@ export const Cupom: React.FC<CupomProps> = ({ cupom }) => {
         </TooltipProvider>
 
         <Popover>
-          <PopoverTrigger>
+          <PopoverTrigger asChild>
             <Button
               variant="ghost"
               size="icon"

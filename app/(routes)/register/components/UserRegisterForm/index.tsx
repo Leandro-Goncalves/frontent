@@ -41,7 +41,7 @@ export function UserRegisterForm({
           <div className="grid after:content-[' '] after:absolute after:top-0 after:h-[8px] after:w-[70%] after:left-[50%] after:bg-primary after:transform after:translate-x-[-50%] after:rounded">
             <div className="flex items-center gap-3 mb-4 flex-col">
               <h2 className="text-3xl font-bold text-primary">Registrar</h2>
-              <h3 className="text-base font-medium text-[#221A3F] text-center">
+              <h3 className="text-base font-medium text-foreground text-center">
                 Registre-se e fique por dentro das novidades todos os dias
               </h3>
             </div>

@@ -2,10 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import {
+  AlignVerticalSpaceAround,
   BadgePercent,
   Package,
   ShoppingBasket,
-  ShoppingCart,
+  HelpCircle,
+  LockKeyhole,
+  PencilLine,
+  Shirt,
 } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
@@ -18,11 +22,6 @@ const routes = [
     icon: <Package className="w-4 h-4 mr-1" />,
     href: "/products/",
   },
-  // {
-  //   name: "Loja",
-  //   icon: <ShoppingCart className="w-4 h-4 mr-1" />,
-  //   href: "/store",
-  // },
   {
     name: "pedidos",
     icon: <ShoppingBasket className="w-4 h-4 mr-1" />,
@@ -32,6 +31,31 @@ const routes = [
     name: "Cupom de desconto",
     icon: <BadgePercent className="w-4 h-4 mr-1" />,
     href: "/coupon/",
+  },
+  {
+    name: "carrossel",
+    icon: <AlignVerticalSpaceAround className="w-4 h-4 mr-1" />,
+    href: "/carousel/",
+  },
+  {
+    name: "Tecidos",
+    icon: <Shirt className="w-4 h-4 mr-1" />,
+    href: "/fabrics/",
+  },
+  {
+    name: "Duvidas",
+    icon: <HelpCircle className="w-4 h-4 mr-1" />,
+    href: "/doubts/",
+  },
+  {
+    name: "Personalização",
+    icon: <PencilLine className="w-4 h-4 mr-1" />,
+    href: "/customization/",
+  },
+  {
+    name: "Bloqueio",
+    icon: <LockKeyhole className="w-4 h-4 mr-1" />,
+    href: "/block/",
   },
 ];
 
@@ -48,7 +72,6 @@ export const LateralBar: React.FC<LateralBarProps> = () => {
       <Image src="/logo.png" alt="Logo" width={200} height={200} />
       <div className="w-full flex flex-col gap-4">
         {routes.map((route) => {
-          console.log(path);
           const isActive = path === `/painel${route.href}`;
           const Icon = route.icon;
 
@@ -69,7 +92,7 @@ export const LateralBar: React.FC<LateralBarProps> = () => {
             <Button
               onClick={() => handleClick(route.href)}
               key={route.name}
-              className="w-full hover:bg-[#ffd2e3] bg-[#FFEFF5] text-primary justify-start"
+              className="w-full hover:bg-card hover:g-card/50 bg-card/50 text-primary justify-start"
             >
               {Icon}
               {route.name}

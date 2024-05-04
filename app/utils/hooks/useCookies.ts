@@ -7,7 +7,7 @@ interface cookieLibProps {
   deleteCookie: (key: string) => void;
 }
 
-export const useCookies = () => {
+const content = () => {
   let cookieLib: cookieLibProps = {
     getCookie: (key: string) => {
       return CookiesClientSide.getCookie(key);
@@ -38,3 +38,12 @@ export const useCookies = () => {
 
   return cookieLib;
 };
+
+export const useCookies = () => {
+  return content();
+};
+
+useCookies.getCookie = (key: string) => content().getCookie(key);
+useCookies.setCookie = (key: string, value: string) =>
+  content().setCookie(key, value);
+useCookies.deleteCookie = (key: string) => content().deleteCookie(key);

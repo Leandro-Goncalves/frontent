@@ -16,15 +16,23 @@ import {
 } from "@/app/components/AddItemDialog";
 import { AccountButton } from "./components/AccountButton";
 import { MessageCircleHeart } from "@/app/assets/MessageCircleHeart";
+import env from "@/app/env";
 
 interface ContentProps {
   phone: string;
   alert?: string;
+  icon: string;
 }
 
-const hideRoutes = ["/register", "/login", "/resetPassword", "/painel"];
+const hideRoutes = [
+  "/register",
+  "/login",
+  "/resetPassword",
+  "/painel",
+  "/themePreview",
+];
 
-export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
+export const Content: React.FC<ContentProps> = ({ phone, alert, icon }) => {
   const router = useRouter();
   const { cart } = useCart();
   const pageScroll = useScrollPosition();
@@ -63,7 +71,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
   return (
     <>
       {alert && (
-        <p className="py-2 px-4 text-center bg-[#DC024F] text-white text-xs font-semibold italic">
+        <p className="py-2 px-4 text-center bg-primary text-white text-xs font-semibold italic">
           {alert}
         </p>
       )}
@@ -78,7 +86,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           onClick={goHome}
         >
           <Image
-            src={"/logo2.png"}
+            src={`${env.CDN_URL}/${icon}`}
             alt="Logo escrita Cacau"
             width={195}
             height={195}
@@ -87,7 +95,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
         </div>
         <IconInput
           icon={<Search className="w-5 h-5" />}
-          className="max-w-[700px] bg-transparent border-black w-full"
+          className="max-w-[700px] bg-transparent border-foreground w-full"
           placeholder="O que você procura?"
           id="search"
           onKeyDown={(e) => {
@@ -100,7 +108,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           <div className="relative">
             <IconButton
               badge={cart.length}
-              icon={<ShoppingBasket className="w-6 h-6 text-[#1B123D]" />}
+              icon={<ShoppingBasket className="w-6 h-6 text-foreground" />}
               onClick={handleOpenCart}
               title="Carrinho"
             />
@@ -108,7 +116,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           </div>
           <FavoriteButton />
           <IconButton
-            icon={<MessageCircleHeart className="w-6 h-6 text-[#1B123D]" />}
+            icon={<MessageCircleHeart className="w-6 h-6 text-foreground" />}
             onClick={() => {
               sendWhatsappMessage(phone, "Olá, gostaria de mais informações");
             }}
@@ -117,10 +125,7 @@ export const Content: React.FC<ContentProps> = ({ phone, alert }) => {
           <AccountButton />
         </div>
       </header>
-      <div
-        style={isFixed ? { height: "162px" } : {}}
-        className="bg-[#F8DEE5]"
-      />
+      <div style={isFixed ? { height: "162px" } : {}} />
     </>
   );
 };

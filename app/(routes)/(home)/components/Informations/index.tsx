@@ -3,6 +3,8 @@ import { Models } from "./components/Models";
 import Image from "next/image";
 import { Doubts } from "./components/Doubts";
 import { BackToHomeButton } from "@/app/components/BackToHomeButton";
+import { Suspense } from "react";
+import { ModelsLoading } from "./components/Models/loading";
 
 interface InformationsProps {}
 
@@ -10,7 +12,9 @@ export const Informations: React.FC<InformationsProps> = () => {
   return (
     <div>
       <Title>Nossos modelos</Title>
-      <Models />
+      <Suspense fallback={<ModelsLoading />}>
+        <Models />
+      </Suspense>
 
       {/* <Title className="mt-[70px]">Nossos tamanhos</Title>
       <Image

@@ -83,7 +83,7 @@ export const Filters: React.FC<FiltersProps> = ({
                 <ToggleGroupItem
                   key={guid}
                   value={guid}
-                  className="bg-[#fa9dc0] hover:text-white data-[state=on]:text-white data-[state=on]:bg-primary hover:bg-primary"
+                  className="bg-primary/40 hover:text-white data-[state=on]:text-white data-[state=on]:bg-primary hover:bg-primary"
                 >
                   {name.toLocaleUpperCase()}
                 </ToggleGroupItem>

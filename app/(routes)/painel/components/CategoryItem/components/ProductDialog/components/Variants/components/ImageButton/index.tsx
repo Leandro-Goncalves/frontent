@@ -39,6 +39,8 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
             setIsOpen(undefined);
             setImage(file);
           }}
+          height={501}
+          aspectRatio={3 / 4}
         />
       )}
       <div
@@ -48,7 +50,7 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
       >
         <div
           {...getRootProps()}
-          className="mx-auto flex items-center justify-center w-28 h-28 rounded-lg bg-[#FFCFCF] cursor-pointer"
+          className="mx-auto flex items-center justify-center w-28 h-28 rounded-lg bg-card cursor-pointer"
         >
           <input {...getInputProps()} />
           {image ? (
@@ -80,7 +82,7 @@ export const ImageButton: React.FC<ImageButtonProps> = ({
               )}
             </>
           ) : (
-            <PlusCircle color="#e16767" />
+            <PlusCircle className="text-primary" />
           )}
         </div>
         {image && (

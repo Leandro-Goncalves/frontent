@@ -48,10 +48,10 @@ export const AddItemDialog: React.FC<AddItemDialogProps> = ({ dialogRef }) => {
     <div
       className={cn(
         isOpen ? "opacity-100" : "opacity-0 pointer-events-none",
-        "absolute bottom-[-110px] right-[40px] bg-[#DC024F] p-4 rounded-sm text-white font-semibold w-[240px]",
+        "absolute bottom-[-110px] right-[40px] bg-primary p-4 rounded-sm text-white font-semibold w-[240px]",
         "transition-opacity animate-bounce",
         "after:content-[''] after:absolute after:top-[-18px] after:right-0 after:w-5 after:h-5 after:bg-black",
-        "after:[clip-path:polygon(100%_0,_0_100%,_100%_100%)] after:bg-[#DC024F]",
+        "after:[clip-path:polygon(100%_0,_0_100%,_100%_100%)] after:bg-primary",
         "max-[1000px]:after:[clip-path:polygon(0_0,_0%_100%,_100%_100%)] max-[1000px]:after:right-auto max-[1000px]:after:left-0",
         "max-[1000px]:right-[-200px]"
       )}

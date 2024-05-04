@@ -1,4 +1,6 @@
+import { BlockAlert } from "./components/BlockAlert";
 import { LateralBar } from "./components/LateralBar";
+import { TokenVerify } from "./components/TokenVerify";
 
 export default function RootLayout({
   children,
@@ -9,7 +11,11 @@ export default function RootLayout({
     <>
       <main className="flex">
         <LateralBar />
-        {children}
+        <TokenVerify />
+        <div className="w-full">
+          <BlockAlert />
+          {children}
+        </div>
       </main>
     </>
   );

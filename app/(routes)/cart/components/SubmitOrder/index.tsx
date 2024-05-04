@@ -179,7 +179,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
             <TooltipProvider delayDuration={0}>
               <Tooltip>
-                <TooltipTrigger className="w-full">
+                <TooltipTrigger className="w-full" asChild>
                   <Button
                     disabled={!selectedFreight || isLessThenMinimumValue}
                     className="w-full rounded-lg h-12 mt-3"

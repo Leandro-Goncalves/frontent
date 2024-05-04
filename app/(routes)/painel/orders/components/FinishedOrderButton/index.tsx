@@ -33,7 +33,7 @@ export const FinishedOrderButton: React.FC<FinishedOrderButtonProps> = ({
           Concluir pedido
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent className="bg-white">
+      <AlertDialogContent className="bg-card">
         <AlertDialogHeader>
           <AlertDialogCancel asChild className="absolute right-6">
             <Button

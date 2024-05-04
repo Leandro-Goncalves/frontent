@@ -49,7 +49,7 @@ export const SelectAddressForm: React.FC<SelectAddressFormProps> = ({
               <h2 className="text-3xl font-bold text-primary">
                 {showOnlyCPF ? "Dados" : "Endereço"}
               </h2>
-              <h3 className="text-base font-medium text-[#221A3F] text-center">
+              <h3 className="text-base font-medium text-foreground text-center">
                 {showOnlyCPF
                   ? "Confirme seus dados para a retirada do seu produto"
                   : "Confirme seu endereço para a entrega do seu produto"}

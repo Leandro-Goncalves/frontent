@@ -55,8 +55,8 @@ export const Sizes: React.FC<SizesProps> = ({
             variant={isSelected ? "default" : "outline"}
             key={guid}
             className={cn(
-              "rounded-full text-black border-black text-sm font-extrabold min-w-[28px] h-7 p-1 bg-transparent z-10",
-              "disabled:bg-[#DC024F] disabled:opacity-100 disabled:text-white",
+              "rounded-full text-foreground border-foreground text-sm font-extrabold min-w-[28px] h-7 p-1 bg-transparent z-10",
+              "disabled:bg-primary disabled:opacity-100 disabled:text-white",
               "data-[disabled=true]:opacity-20 data-[disabled=true]:cursor-auto data-[disabled=true]:hover:bg-transparent"
             )}
           >

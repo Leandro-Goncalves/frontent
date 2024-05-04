@@ -72,3 +72,60 @@ api["patchAuth"] = async (url, data, config) => {
 };
 
 export default api;
+
+/*
+api["get"] = cache(async (url, config) => {
+  return api.get(url, config);
+});
+
+api["getAuth"] = cache(async (url, config) => {
+  return api.get(url, {
+    ...config,
+    headers: { ...config?.headers, [AUTH_HEADER]: true },
+  });
+});
+
+api["delete"] = cache(async (url, config) => {
+  return api.delete(url, config);
+});
+
+api["deleteAuth"] = cache(async (url, config) => {
+  return api.delete(url, {
+    ...config,
+    headers: { ...config?.headers, [AUTH_HEADER]: true },
+  });
+});
+
+api["post"] = cache(async (url, data, config) => {
+  return api.post(url, data, config);
+});
+
+api["postAuth"] = cache(async (url, data, config) => {
+  return api.post(url, data, {
+    ...config,
+    headers: { ...config?.headers, [AUTH_HEADER]: true },
+  });
+});
+
+api["put"] = cache(async (url, data, config) => {
+  return api.put(url, data, config);
+});
+
+api["putAuth"] = cache(async (url, data, config) => {
+  return api.put(url, data, {
+    ...config,
+    headers: { ...config?.headers, [AUTH_HEADER]: true },
+  });
+});
+
+api["patch"] = cache(async (url, data, config) => {
+  return api.patch(url, data, config);
+});
+
+api["patchAuth"] = cache(async (url, data, config) => {
+  return api.patch(url, data, {
+    ...config,
+    headers: { ...config?.headers, [AUTH_HEADER]: true },
+  });
+});
+*/

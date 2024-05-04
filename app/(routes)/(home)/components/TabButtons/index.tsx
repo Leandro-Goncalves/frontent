@@ -1,52 +1,50 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { after, cn } from "@/lib/utils";
+import { Tabs, TabsContent, TabsList } from "@/components/ui/tabs";
 import { ContentWrapper } from "./components/ContentWrapper";
 import { Catalog } from "../Catalog";
 import { Informations } from "../Informations";
 import { CacauStore } from "../CacauStore";
+import { Trigger } from "./components/Trigger";
+import { GAEvents } from "@/app/utils/GAEvents";
 
 interface TabButtonsProps {}
 
-export const tabButtons = [
+interface Tab {
+  name: string;
+  label: string;
+  Component: React.FC;
+  eventName: keyof GAEvents["tabs"];
+}
+
+export const tabButtons: Tab[] = [
   {
     name: "catalog",
     label: "CATALOGO",
     Component: Catalog,
+    eventName: "openCatalog",
   },
   {
     name: "info",
     label: "INFORMAÇÕES",
     Component: Informations,
+    eventName: "openInfo",
   },
   {
     name: "cacauStore",
     label: "CACAU STORE",
     Component: CacauStore,
+    eventName: "openCacauStore",
   },
 ];
 
 export const TabButtons: React.FC<TabButtonsProps> = () => {
   return (
     <Tabs defaultValue={tabButtons[0].name}>
-      <TabsList className="absolute left-1/2 translate-x-[-50%] shadow-xl !bg-[#FBDCEB] rounded-xl mt-[-62px] max-md:mt-[-30px] gap-1 h-auto p-0 bg-transparent">
-        {tabButtons.map(({ name, label }) => (
-          <TabsTrigger
-            id={`tab-${name}`}
-            key={name}
-            value={name}
-            className={cn(
-              "py-8 px-16  text-[#221A3F] rounded-xl relative scroll-mt-[200px]",
-              "data-[state=active]:!bg-[#FA9DC0]",
-              "after:absolute after:right-[-4px] after:top-5 max-md:after:top-2 after:bottom-5 max-md:after:bottom-2 after:w-1 max-md:after:w-0.5 after:rounded-full after:bg-[#FFAEC5]",
-              "last:after:opacity-0",
-              "max-md:py-4 max-md:px-4 max-md:text-xs"
-            )}
-          >
-            {label}
-          </TabsTrigger>
+      <TabsList className="absolute left-1/2 translate-x-[-50%] shadow-xl !bg-card rounded-xl mt-[-62px] max-md:mt-[-30px] gap-1 h-auto p-0">
+        {tabButtons.map(({ name, label, eventName }) => (
+          <Trigger key={name} name={name} label={label} eventName={eventName} />
         ))}
       </TabsList>
-      {tabButtons.map(({ name, label, Component }) => (
+      {tabButtons.map(({ name, Component }) => (
         <TabsContent value={name} key={name}>
           <ContentWrapper>
             <Component />

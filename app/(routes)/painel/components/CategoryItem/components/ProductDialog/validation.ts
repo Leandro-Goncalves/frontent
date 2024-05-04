@@ -19,7 +19,7 @@ export const AddProductValidation = z.object({
           message: "O nome deve ter pelo menos 3 caracteres",
         }),
         price: z.number().min(1, { message: "O preço deve ser maior que 0" }),
-        promotionalPrice: z.number().optional(),
+        promotionalPrice: z.number().nullable().optional(),
         sizes: z
           .array(
             z.object({

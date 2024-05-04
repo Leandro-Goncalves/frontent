@@ -1,14 +1,7 @@
 import { Form as FormC } from "@/app/components/Form";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input, InputProps } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import FocusTrap from "focus-trap-react";
@@ -134,7 +127,7 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
 
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         {cupomToEdit ? (
           <Button className="w-full">
             <Edit className="w-4 h-4 mr-2" /> Editar

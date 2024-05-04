@@ -6,7 +6,8 @@ import { rotateSize } from "./rotateSize";
 export const getCroppedImage = async (
   src: string,
   pixelCrop: Area,
-  rotation = 0
+  rotation = 0,
+  type: string
 ) => {
   const image = await createImage(src);
   const canvas = document.createElement("canvas");
@@ -57,6 +58,6 @@ export const getCroppedImage = async (
   return new Promise<Blob>((resolve) => {
     croppedCanvas.toBlob((file) => {
       resolve(file!);
-    }, "image/jpeg");
+    }, type);
   });
 };

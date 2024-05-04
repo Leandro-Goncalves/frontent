@@ -33,12 +33,12 @@ export const ExitButton: React.FC<ExitButtonProps> = () => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="bg-[#DC024F] text-white hover:bg-[#B40000] hover:text-white">
+          <AlertDialogCancel className="bg-primary text-white hover:bg-primary hover:text-white">
             Cancelar
           </AlertDialogCancel>
           <AlertDialogAction
             onClick={logout}
-            className="bg-trasparent text-black border-black border-[1px] hover:bg-slate-100 hover:text-black"
+            className="bg-transparent text-foreground border-foreground border-[1px] hover:bg-transparent hover:text-foreground"
           >
             Sair
           </AlertDialogAction>

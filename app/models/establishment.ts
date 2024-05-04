@@ -6,4 +6,7 @@ export type Establishment = CreatedUpdateAt<{
   description: string;
   phone: string;
   installments: number;
+  themeGuid: string;
+  blockGuid?: string;
+  icon: string;
 }>;
