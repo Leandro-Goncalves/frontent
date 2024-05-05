@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Establishment } from "../models/establishment";
 
 interface EstablishmentUpdateDto {
@@ -8,9 +8,11 @@ interface EstablishmentUpdateDto {
   themeGuid?: string;
 }
 
+const establishmentRoute = api.route("establishment/");
+
 const get = async (establishmentId: string) => {
-  return api
-    .get<Establishment>(`establishment/${establishmentId}`)
+  return establishmentRoute
+    .get<Establishment>(establishmentId)
     .then(serviceAdapter);
 };
 
@@ -24,8 +26,8 @@ const update = async (
   if (icon) bodyFormData.append("icon", icon);
   if (themeGuid) bodyFormData.append("themeGuid", themeGuid);
 
-  return api
-    .patchAuth<Establishment>(`establishment/${establishmentId}`, bodyFormData)
+  return establishmentRoute
+    .patchAuth<Establishment>(establishmentId, bodyFormData)
     .then(serviceAdapter);
 };
 

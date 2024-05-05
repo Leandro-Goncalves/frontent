@@ -30,7 +30,7 @@ export const DoubtsContent: React.FC<DoubtsContentProps> = ({ data }) => {
     <SortableImageTemplate
       showImage={false}
       name="doubts"
-      title="Duvidas"
+      title="Dúvidas"
       description="Aqui aparece as dúvidas que estão no site, troque de posição, edite ou delete."
       fetchData={() =>
         doubtsService.getAll().then((res) => formatData(res.data))

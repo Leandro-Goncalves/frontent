@@ -1,4 +1,5 @@
 import { axiosAdapter } from "./axios";
+import { ofetchAdapter } from "./ofetch";
 
 export interface AdapterReturn<T, RAW = any> {
   data: T;
@@ -7,4 +8,6 @@ export interface AdapterReturn<T, RAW = any> {
   raw: RAW;
 }
 
-export const serviceAdapter = axiosAdapter;
+export const serviceAdapter = <T>(data: T) => ({
+  data,
+});

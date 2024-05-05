@@ -19,7 +19,11 @@ export const SocialMedia: React.FC<SocialMediaProps> = ({ className }) => {
           <Instagram className="w-5 h-5 text-primary" />
         </button>
         <button
-          onClick={() => handleOpen("")}
+          onClick={() =>
+            handleOpen(
+              "https://www.facebook.com/people/Cacau-Store/100092337534974/"
+            )
+          }
           className="text-sm font-bold text-foreground flex items-center py-3 px-3 border border-primary rounded-lg"
         >
           <FacebookIcon className="w-5 h-5 text-primary" />

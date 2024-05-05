@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Fabrics, FabricsPanel } from "../models/fabrics";
 
 const getAll = async () => {

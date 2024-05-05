@@ -20,7 +20,7 @@ interface NavigationColumnProps {
   title: string;
   itens: Item[];
   className?: string;
-  onClick: (item: Item) => void;
+  onClick(item: Item): void;
 }
 export const NavigationColumn: React.FC<NavigationColumnProps> = ({
   title,
@@ -30,13 +30,21 @@ export const NavigationColumn: React.FC<NavigationColumnProps> = ({
 }) => {
   const searchParams = useSearchParams();
   const link = searchParams?.get("link");
+  const scrollId = searchParams?.get("scrollId");
 
   useEffect(() => {
     if (link) {
-      const item = itens.find((item) => item.link === link);
-      if (item) onClick(item);
+      const item = itens.find(
+        (item) =>
+          item.link === link &&
+          (item.type === "external" || item.scrollId === scrollId)
+      );
+      if (item) {
+        console.log("focus", item);
+        onClick(item);
+      }
     }
-  }, [link, onClick, itens]);
+  }, [link, scrollId, onClick, itens]);
 
   return (
     <div className={className}>

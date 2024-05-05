@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Order } from "../models/orders";
 
 export interface Address {

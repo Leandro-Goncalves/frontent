@@ -17,9 +17,6 @@ import { establishmentService } from "./services/establishment";
 import env from "./env";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AlertDialogProvider } from "@/components/AlertDialogProvider";
-import { Gui } from "./components/Gui";
-import { HideOnProduction } from "./utils/misc/HideOnProduction";
-import { getItem } from "./utils/misc/isSsr";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,8 +51,6 @@ export const metadata: Metadata = {
   },
 };
 
-export const revalidate = 3600;
-
 export default async function RootLayout({
   children,
 }: {
@@ -64,9 +59,6 @@ export default async function RootLayout({
   const { data: establishment } = await establishmentService.get(
     env.ESTABLISHMENT_ID
   );
-
-  const data = await getItem("asd");
-  console.log(env.API_URL, data);
 
   return (
     <html lang="pt-BR">

@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Block } from "../models/block";
 
 type CreateBlockDto = Pick<Block, "name" | "description" | "link">;

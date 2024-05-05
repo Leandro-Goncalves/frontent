@@ -142,7 +142,7 @@ export const SortableImageTemplate = <
 
   return (
     <div className="py-24 px-8">
-      <h1 className="font-bold text-2xl">{title}</h1>
+      <h1 className="font-bold text-2xl uppercase">{title}</h1>
       <h3 className="font-medium text-sm">{description}</h3>
 
       <div className="flex gap-2 mt-8 w-full">

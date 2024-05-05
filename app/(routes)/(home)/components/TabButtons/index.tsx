@@ -6,7 +6,9 @@ import { CacauStore } from "../CacauStore";
 import { Trigger } from "./components/Trigger";
 import { GAEvents } from "@/app/utils/GAEvents";
 
-interface TabButtonsProps {}
+interface TabButtonsProps {
+  defaultTab?: string;
+}
 
 interface Tab {
   name: string;
@@ -36,9 +38,11 @@ export const tabButtons: Tab[] = [
   },
 ];
 
-export const TabButtons: React.FC<TabButtonsProps> = () => {
+export const TabButtons: React.FC<TabButtonsProps> = ({ defaultTab }) => {
   return (
-    <Tabs defaultValue={tabButtons[0].name}>
+    <Tabs
+      defaultValue={defaultTab ? defaultTab.split("-")[1] : tabButtons[0].name}
+    >
       <TabsList className="absolute left-1/2 translate-x-[-50%] shadow-xl !bg-card rounded-xl mt-[-62px] max-md:mt-[-30px] gap-1 h-auto p-0">
         {tabButtons.map(({ name, label, eventName }) => (
           <Trigger key={name} name={name} label={label} eventName={eventName} />

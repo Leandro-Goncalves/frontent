@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Carousel, CarouselPainel } from "../models/carousel";
 
 const getAll = async (establishmentId: string) => {

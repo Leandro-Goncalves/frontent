@@ -65,8 +65,10 @@ export const CustomizationContent: React.FC<CustomizationContentProps> = ({
 
   return (
     <div className="py-24 px-8">
-      <h1 className="font-bold text-2xl">TEMAS</h1>
-      <h3 className="font-medium text-sm">Todo</h3>
+      <h1 className="font-bold text-2xl">Personalização</h1>
+      <h3 className="font-medium text-sm">
+        Personalize o site, com as cores pré-definidas no sistema
+      </h3>
 
       <div className="flex flex-col gap-2 mt-8 w-full">
         <Section title="Logo" description="Utilize a logo da sua loja!">

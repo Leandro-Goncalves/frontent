@@ -8,7 +8,6 @@ import { Navigation } from "./components/Navigation";
 import { Help } from "./components/Help";
 import { Treatment } from "./components/Treatment";
 import { SocialMedia } from "./components/SocialMedia";
-import queryString from "query-string";
 
 interface FooterProps {
   phone: string;
@@ -20,7 +19,14 @@ export const Footer: React.FC<FooterProps> = ({ phone }) => {
   const isPainel = path?.startsWith("/painel");
 
   const moveToHome = (link: string, scrollId?: string) => {
-    router.push(`/?${queryString.stringify({ link, scrollId })}`);
+    let path = "/";
+    if (link) {
+      path += `?link=${link}`;
+    }
+    if (scrollId) {
+      path += `&scrollId=${scrollId}`;
+    }
+    router.push(path);
   };
 
   const focus = (item: Item) => {
@@ -34,21 +40,35 @@ export const Footer: React.FC<FooterProps> = ({ phone }) => {
       return;
     }
 
-    const element = document.getElementById(item.link);
-    if (!element) return;
-    element.focus({ preventScroll: true });
-
-    if (item.scrollId) {
+    const focusOnScrollId = (ttl = 50) => {
       setTimeout(() => {
-        if (!item.scrollId) return;
+        const element = document.getElementById(item.link);
+        if (!element) {
+          if (ttl === 0) return;
+          focusOnScrollId(ttl - 1);
+          return;
+        }
+        element.focus({ preventScroll: true });
+
+        if (!item.scrollId) {
+          element.scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+
+        console.log("item", item);
         const scrollElement = document.getElementById(item.scrollId);
-        if (!scrollElement) return;
+        console.log(scrollElement);
+        if (!scrollElement) {
+          console.log("retry");
+          if (ttl === 0) return;
+          focusOnScrollId(ttl - 1);
+          return;
+        }
         scrollElement.scrollIntoView({ behavior: "smooth" });
       }, 300);
-      return;
-    }
+    };
 
-    element.scrollIntoView({ behavior: "smooth" });
+    focusOnScrollId();
   };
 
   if (isPainel) return <></>;

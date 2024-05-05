@@ -44,7 +44,7 @@ export const BlockContent: React.FC<BlockContentProps> = ({ data }) => {
       showImage={false}
       name="block"
       title="TELA DE BLOQUEIO"
-      description="Todo"
+      description="Ative o modo bloqueio no site quando necessário. Nessa função ninguém poderá mais comprar no site até que seja desbloqueado"
       fetchData={() =>
         blockService.getAll().then((res) => formatData(res.data))
       }

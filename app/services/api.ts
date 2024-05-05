@@ -1,13 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import env from "../env";
 import { AuthInterceptor } from "./interceptors/authInterceptor";
-import MockAdapter from "axios-mock-adapter";
-import establishmentHandler from "../mock/api/establishment/[guid]";
-import carouselHandler from "../mock/api/carousel/[guid]";
-import categoryHandler from "../mock/api/category/[guid]";
-import SearchHandler from "../mock/api/products/search";
-import productHandler from "../mock/api/products/[establishmentGuid]/[guid]";
-import { ErrorInterceptor } from "./interceptors/errorInterceptor";
 
 type axiosFunction = <T = any, R = AxiosResponse<T, any>, D = any>(
   url: string,
@@ -32,7 +25,7 @@ const api = axios.create({
   baseURL: env.API_URL,
 }) as AxiosInstanceExtended;
 
-api.interceptors.request.use(AuthInterceptor);
+// api.interceptors.request.use(AuthInterceptor);
 
 export const AUTH_HEADER = "useAuthHeader";
 

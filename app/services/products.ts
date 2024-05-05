@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Products } from "../models/products";
 import { ProductModelWithoutImage } from "../(routes)/painel/components/CategoryItem/components/ProductDialog";
 

@@ -1,5 +1,5 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 import { Cupom } from "../models/cupom";
 
 const create = async (coupon: Omit<Cupom, "guid" | "isActive">) => {

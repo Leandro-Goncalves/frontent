@@ -43,7 +43,7 @@ const routes = [
     href: "/fabrics/",
   },
   {
-    name: "Duvidas",
+    name: "Dúvidas",
     icon: <HelpCircle className="w-4 h-4 mr-1" />,
     href: "/doubts/",
   },

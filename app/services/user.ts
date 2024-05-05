@@ -1,6 +1,6 @@
 import { User } from "@models/user";
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
-import api from "./api";
+import api from "./ofetchApi";
 
 const login = async (email: string, password: string) => {
   return api
