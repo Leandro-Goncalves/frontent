@@ -55,7 +55,9 @@ const remove = async (productId: string) => {
 };
 
 const update = async (productId: string, product: ProductModelWithoutImage) => {
-  return api.patchAuth(`products/${productId}`, product).then(serviceAdapter);
+  return api
+    .patchAuth<Products>(`products/${productId}`, product)
+    .then(serviceAdapter);
 };
 
 export const productService = {
