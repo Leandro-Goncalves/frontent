@@ -43,7 +43,7 @@ const makeMethods = (route: string = "", op?: ApiOptions) => ({
       body,
     }),
   getAuth<T>(request: string, options?: ApiOptions) {
-    return this.get<T>(`${route}${request}`, {
+    return this.get<T>(request, {
       ...op,
       ...options,
       headers: {
@@ -54,7 +54,7 @@ const makeMethods = (route: string = "", op?: ApiOptions) => ({
     });
   },
   postAuth<T>(request: string, body: any, options?: ApiOptions) {
-    return this.post<T>(`${route}${request}`, body, {
+    return this.post<T>(request, body, {
       ...op,
       ...options,
       headers: {
@@ -65,7 +65,7 @@ const makeMethods = (route: string = "", op?: ApiOptions) => ({
     });
   },
   deleteAuth<T>(request: string, options?: ApiOptions) {
-    return this.delete<T>(`${route}${request}`, {
+    return this.delete<T>(request, {
       ...op,
       ...options,
       headers: {
@@ -76,7 +76,7 @@ const makeMethods = (route: string = "", op?: ApiOptions) => ({
     });
   },
   putAuth<T>(request: string, body: any, options?: ApiOptions) {
-    return this.put<T>(`${route}${request}`, body, {
+    return this.put<T>(request, body, {
       ...op,
       ...options,
       headers: {
@@ -87,7 +87,7 @@ const makeMethods = (route: string = "", op?: ApiOptions) => ({
     });
   },
   patchAuth<T>(request: string, body: any, options?: ApiOptions) {
-    return this.patch<T>(`${route}${request}`, body, {
+    return this.patch<T>(request, body, {
       ...op,
       ...options,
       headers: {
