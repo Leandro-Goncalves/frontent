@@ -12,6 +12,7 @@ export const SSRCreate = <A>(
       storage: {
         getItem: (name: any) => JSON.parse(Cookies.get(name) || "{}"),
         setItem: (name: any, value: any) => {
+          console.log("set item", name, value);
           Cookies.set(name, JSON.stringify(value));
         },
         removeItem: (name: any) => Cookies.remove(name),
