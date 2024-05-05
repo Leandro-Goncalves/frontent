@@ -22,11 +22,9 @@ export const handleHydrateZustandSSR = <A>(
 ) => {
   if (!isSsr()) return;
   const key = state.persist.getOptions().name;
-  console.log("persist key", key);
   if (!key) return;
 
   const stateValue = useCookies.getCookie(key);
   const stateValueParse = JSON.parse(stateValue || "{}");
-  console.log("persist state", stateValueParse?.state);
   state.setState(stateValueParse?.state, true);
 };

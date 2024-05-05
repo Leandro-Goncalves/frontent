@@ -7,7 +7,24 @@ const nextConfig = {
   reactStrictMode: false,
   trailingSlash: true,
   images: {
-    domains: ["api3.caacaustore.com", "cacau.b-cdn.net", "localhost"],
+    remotePatterns: [
+      {
+        hostname: "api3.caacaustore.com",
+        pathname: "**",
+      },
+      {
+        hostname: "cacau.b-cdn.net",
+        pathname: "**",
+      },
+      {
+        hostname: "caacaustore.com",
+        pathname: "**",
+      },
+      {
+        hostname: "localhost",
+        pathname: "**",
+      },
+    ],
   },
 };
 
