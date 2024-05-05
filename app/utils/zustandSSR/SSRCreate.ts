@@ -10,9 +10,14 @@ export const SSRCreate = <A>(
     persist<A>(initializer, {
       ...options,
       storage: {
-        getItem: (name: any) => JSON.parse(Cookies.get(name) || "{}"),
+        getItem: (name: any) => {
+          const cookie = JSON.parse(Cookies.get(name) || "{}");
+          console.log("get item", name, cookie);
+
+          return cookie;
+        },
         setItem: (name: any, value: any) => {
-          console.log("set item", name, value);
+          // console.log("set item", name, value);
           Cookies.set(name, JSON.stringify(value));
         },
         removeItem: (name: any) => Cookies.remove(name),
