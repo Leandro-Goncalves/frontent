@@ -29,6 +29,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
 
   handleHydrateZustandSSR(useFavorites);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
+  console.log("favorites2", favorites);
 
   const isMyProductFavorite = favorites.some(
     (favorite) =>

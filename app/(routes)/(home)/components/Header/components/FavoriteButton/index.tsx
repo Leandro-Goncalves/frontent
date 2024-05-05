@@ -16,6 +16,7 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = () => {
   const routes = useRouter();
   handleHydrateZustandSSR(useFavorites);
   const favorites = useFavorites((state) => state.favorites);
+  console.log("favorites1", favorites);
 
   return (
     <Popover>
