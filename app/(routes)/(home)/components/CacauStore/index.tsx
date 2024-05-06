@@ -19,14 +19,6 @@ export const CacauStore: React.FC<CacauStoreProps> = () => {
         width={1174}
         height={650}
       />
-
-      <Image
-        className="mt-40"
-        alt="cacau store"
-        src={"/images/banner3.png"}
-        width={1447}
-        height={276}
-      />
     </div>
   );
 };

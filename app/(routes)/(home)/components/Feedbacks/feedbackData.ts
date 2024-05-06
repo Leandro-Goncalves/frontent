@@ -4,18 +4,18 @@ export interface FeedbacksData {
 
 export const feedbackData: FeedbacksData[] = [
   {
-    img: "/feedbacks/feedback1.png",
+    img: "/feedbacks/feedback1.jpg",
   },
   {
-    img: "/feedbacks/feedback1.png",
+    img: "/feedbacks/feedback2.jpg",
   },
   {
-    img: "/feedbacks/feedback1.png",
+    img: "/feedbacks/feedback3.jpg",
   },
   {
-    img: "/feedbacks/feedback1.png",
+    img: "/feedbacks/feedback4.jpg",
   },
   {
-    img: "/feedbacks/feedback1.png",
+    img: "/feedbacks/feedback5.jpg",
   },
 ];

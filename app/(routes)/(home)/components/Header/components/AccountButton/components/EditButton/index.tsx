@@ -19,7 +19,7 @@ export const EditButton: React.FC<EditButtonProps> = () => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger>
-        <Button className="w-full">Editar</Button>
+        <Button className="w-full">Editar usuario</Button>
       </DialogTrigger>
       <DialogContent className="p-0 border-0">
         <UserEditForm

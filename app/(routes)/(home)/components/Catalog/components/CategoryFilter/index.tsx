@@ -23,7 +23,7 @@ export const CategoryFilter: React.FC<CategoryFilterProps> = ({
         {categories.map((category) => (
           <Button
             onClick={() => handleGoToCategory(category.name)}
-            className="my-3"
+            className="my-3 h-auto min-h-[36px] break-all"
             size="sm"
             key={category.uuid}
           >

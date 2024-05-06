@@ -22,7 +22,7 @@ export const PageContent: React.FC<PageContentProps> = ({ cupons }) => {
     <div className="py-24 px-8">
       <h1 className="font-bold text-2xl uppercase">Cupons de desconto</h1>
       <h3 className="font-medium text-sm">
-        Crie cupons personalizados e potencialize as vendas do seu cardápio
+        Crie cupons personalizados e potencialize as vendas.
       </h3>
 
       <div className="mt-8">

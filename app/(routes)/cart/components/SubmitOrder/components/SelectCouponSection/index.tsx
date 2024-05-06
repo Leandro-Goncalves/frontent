@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Info, X } from "lucide-react";
+import { FetchError } from "ofetch";
 import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -39,9 +40,9 @@ export const SelectCouponSection: React.FC<SelectCouponSectionProps> = () => {
         toast.success("Cupom aplicado com sucesso!");
         setCouponCode("");
       })
-      .catch((e) => {
-        if (e.response.data?.message) {
-          toast.error(e.response.data.message);
+      .catch((e: FetchError) => {
+        if (e.data?.message) {
+          toast.error(e.data.message);
         }
       });
     setCouponLoading(false);
