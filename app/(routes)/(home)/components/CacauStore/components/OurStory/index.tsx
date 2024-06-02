@@ -12,7 +12,7 @@ export const OurStory: React.FC<OurStoryProps> = ({ image, text }) => {
     <div className="mt-10 flex gap-7 align-top items-start max-[1300px]:flex-col max-[1300px]:items-center max-[1300px]:text-center">
       <Image
         alt="imagem Carol e do Felipe"
-        src={"/images/carolAndFelipe.png"}
+        src={`${env.CDN_URL}/${image}`}
         width={551}
         height={650}
         className="w-[650px] flex-shrink-0"
