@@ -20,7 +20,14 @@ export default async function handler(
   const buffer = await blob.arrayBuffer();
   console.log("buffer", buffer);
 
+  const ID = Array.isArray(id) ? id[0] ?? "" : id ?? "";
+
+  const IDType = ID.split(".").at(-1);
+
   res.setHeader("Content-Type", blob.type);
-  res.setHeader("Content-Disposition", `attachment; filename=${randomUUID()}`);
+  res.setHeader(
+    "Content-Disposition",
+    `attachment; filename=${randomUUID()}.${IDType}`
+  );
   res.send(Buffer.from(buffer) as any);
 }
