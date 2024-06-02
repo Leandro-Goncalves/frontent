@@ -256,7 +256,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={isOpen} onOpenChange={(state) => setIsOpen(state)}>
       <DialogTrigger className={productToEdit ? "" : "ml-auto"}>
         {ActionButton}
       </DialogTrigger>

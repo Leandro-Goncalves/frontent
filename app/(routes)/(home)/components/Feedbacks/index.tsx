@@ -20,7 +20,7 @@ export const Feedbacks: React.FC<FeedbacksProps> = ({ feedbackData }) => {
           Feedback das nossas Cacauzetes
         </p>
         <p className="text-2xl font-bold text-white mb-8 mt-2 max-[1000px]:text-xl max-[1000px]:mb-2">
-          Veja oque os nossos clientes estão falando!
+          Veja o que as nossas clientes estão falando!
         </p>
 
         <div className="relative mt-20 max-[500px]:mt-8">
