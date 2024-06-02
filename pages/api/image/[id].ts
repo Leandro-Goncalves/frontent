@@ -1,3 +1,4 @@
+import { randomUUID } from "crypto";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 type ResponseData = {
@@ -20,6 +21,6 @@ export default async function handler(
   console.log("buffer", buffer);
 
   res.setHeader("Content-Type", blob.type);
-  res.setHeader("Content-Disposition", `attachment; filename=${id}`);
+  res.setHeader("Content-Disposition", `attachment; filename=${randomUUID()}`);
   res.send(Buffer.from(buffer) as any);
 }
