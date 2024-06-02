@@ -29,6 +29,11 @@ export const StoreCarousel: React.FC<StoreCarouselProps> = ({
       });
     }
   }, [api]);
+
+  if (!storeCarousel || storeCarousel.length === 0) {
+    return null;
+  }
+
   return (
     <>
       <Title className="mt-[70px] mb-4 scroll-mt-[200px]" id="ourStore">
