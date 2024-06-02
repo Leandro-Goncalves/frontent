@@ -111,7 +111,7 @@ export const CustomizationContent: React.FC<CustomizationContentProps> = ({
         </Section>
         <Section
           position="bottom"
-          title="parcelas"
+          title="Parcelas"
           description="Quantidade de parcelas para o pagamento da sua loja."
         >
           <Select

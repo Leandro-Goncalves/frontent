@@ -56,13 +56,13 @@ export const OurStoryContent: React.FC<OurStoryContentProps> = ({ data }) => {
 
   return (
     <div className="py-24 px-8">
-      <h1 className="font-bold text-2xl">Nossa História</h1>
+      <h1 className="font-bold text-2xl">NOSSA HISTÓRIA</h1>
       <h3 className="font-medium text-sm">
         Adicione a história de vocês e de como tudo começou!
       </h3>
 
       <div className="flex flex-col gap-2 mt-8 w-full">
-        <Section title="Imagem" description="Todo">
+        <Section title="Imagem" description="">
           <SelectImage
             disableRemove
             size={{
@@ -76,7 +76,7 @@ export const OurStoryContent: React.FC<OurStoryContentProps> = ({ data }) => {
             className="w-full max-w-[90px] border-2 rounded-md"
           />
         </Section>
-        <Section position="bottom" title="Texto" description="Todo">
+        <Section position="bottom" title="Texto" description="">
           <Textarea
             autoResize
             {...register("storyText")}

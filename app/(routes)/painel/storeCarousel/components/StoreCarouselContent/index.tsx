@@ -31,7 +31,7 @@ export const StoreCarouselContent: React.FC<StoreCarouselContentProps> = ({
     <SortableImageTemplate
       showImage
       name="carousel"
-      title="Carousel"
+      title="Carrossel"
       description="Essas imagens aparecerão nas informações da sua loja, cada imagem pode ter seu próprio título e isso mudará na página oficial. Portanto cuidado com nomes e pontuações. "
       fetchData={() =>
         storeCarouselService.getAll().then((res) => formatData(res.data))
@@ -46,7 +46,7 @@ export const StoreCarouselContent: React.FC<StoreCarouselContentProps> = ({
           },
         },
       }}
-      addButtonMessage="Adicionar Carousel"
+      addButtonMessage="Adicionar Carrossel"
       addItem={{
         onAddItem: async (item) => {
           await storeCarouselService.create(item.image, item.title);
