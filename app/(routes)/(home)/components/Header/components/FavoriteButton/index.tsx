@@ -8,13 +8,11 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { handleHydrateZustandSSR } from "@/app/utils/zustandSSR/handleHydrateZustandSSR";
 
 interface FavoriteButtonProps {}
 
 export const FavoriteButton: React.FC<FavoriteButtonProps> = () => {
   const routes = useRouter();
-  handleHydrateZustandSSR(useFavorites);
   const favorites = useFavorites((state) => state.favorites);
 
   return (

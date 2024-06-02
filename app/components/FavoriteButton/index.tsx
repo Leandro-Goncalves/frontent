@@ -9,7 +9,6 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import { themes } from "@/app/themes";
 import { Heart2 } from "@/app/assets/Heart2";
 import { LazyLottie } from "@/components/LazyLottie";
-import { handleHydrateZustandSSR } from "@/app/utils/zustandSSR/handleHydrateZustandSSR";
 
 interface FavoriteButtonProps {
   product: Products;
@@ -27,7 +26,6 @@ export const FavoriteButton: React.FC<FavoriteButtonProps> = ({
   const [h, s, l] = selectedTheme.foreground.replaceAll("%", "").split(" ");
   const playerRef = useRef<Player>(null);
 
-  handleHydrateZustandSSR(useFavorites);
   const { favorites, addFavorite, removeFavorite } = useFavorites();
 
   const isMyProductFavorite = favorites.some(

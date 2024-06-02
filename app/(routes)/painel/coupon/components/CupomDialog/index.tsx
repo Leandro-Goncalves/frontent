@@ -136,7 +136,7 @@ export const CupomDialog: React.FC<CupomDialogProps> = ({ cupomToEdit }) => {
           <Button>+ NOVO CUPOM</Button>
         )}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-h-screen  overflow-y-auto">
         <FocusTrap>
           <FormC.Container className={"grid gap-6 min-w-[380px]"}>
             <FormC.Item>

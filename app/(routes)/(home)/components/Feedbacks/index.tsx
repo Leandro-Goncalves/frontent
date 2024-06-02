@@ -1,5 +1,5 @@
+import { Feedback as IFeedback } from "@/app/models/feedback";
 import { Feedback } from "./components/Feedback";
-import { feedbackData } from "./feedbackData";
 import {
   Carousel,
   CarouselContent,
@@ -8,9 +8,11 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-interface FeedbacksProps {}
+interface FeedbacksProps {
+  feedbackData: Pick<IFeedback, "uuid" | "url">[];
+}
 
-export const Feedbacks: React.FC<FeedbacksProps> = () => {
+export const Feedbacks: React.FC<FeedbacksProps> = ({ feedbackData }) => {
   return (
     <div className="p-[76px] px-[47px] bg-primary/40 max-[1000px]:p-4">
       <div className="overflow-hidden">
@@ -32,9 +34,9 @@ export const Feedbacks: React.FC<FeedbacksProps> = () => {
               <CarouselNext className="w-10 h-10 bg-primary text-white hover:bg-primary hover:text-white" />
             </div>
             <CarouselContent>
-              {feedbackData.map((data, index) => (
+              {feedbackData.map((data) => (
                 <CarouselItem
-                  key={index}
+                  key={data.uuid}
                   className="basis-[425px] max-[500px]:basis-[80%]"
                 >
                   <div>

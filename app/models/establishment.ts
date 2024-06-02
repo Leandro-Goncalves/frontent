@@ -1,3 +1,4 @@
+import { Feedback } from "./feedback";
 import { CreatedUpdateAt } from "./utils";
 
 export type Establishment = CreatedUpdateAt<{
@@ -9,4 +10,7 @@ export type Establishment = CreatedUpdateAt<{
   themeGuid: string;
   blockGuid?: string;
   icon: string;
+  feedback: Pick<Feedback, "uuid" | "url">[];
+  storyText?: string;
+  storyImage?: string;
 }>;

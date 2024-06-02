@@ -5,6 +5,7 @@ export enum OrderStatus {
   success = "success",
   cancelled = "cancelled",
   finished = "finished",
+  expired = "expired",
 }
 
 interface ProductOrder {

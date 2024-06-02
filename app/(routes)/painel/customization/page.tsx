@@ -6,7 +6,7 @@ const Page = async () => {
   const establishment = await establishmentService.get(env.ESTABLISHMENT_ID);
 
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <CustomizationContent data={establishment.data} />
     </div>
   );

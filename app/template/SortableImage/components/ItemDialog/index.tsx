@@ -138,7 +138,7 @@ export const ItemDialog = ({
 
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         {itemToEdit ? (
           <Button className="w-full px-3">
             <Edit className="w-4 h-4" />

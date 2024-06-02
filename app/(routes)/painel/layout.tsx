@@ -12,7 +12,7 @@ export default function RootLayout({
       <main className="flex">
         <LateralBar />
         <TokenVerify />
-        <div className="w-full">
+        <div className="w-full h-[100vh] overflow-auto">
           <BlockAlert />
           {children}
         </div>

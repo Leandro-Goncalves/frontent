@@ -1,11 +1,12 @@
 "use client";
+
+import env from "@/app/env";
+import { Feedback as IFeedback } from "@/app/models/feedback";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 interface FeedbackProps {
-  feedback: {
-    img: string;
-  };
+  feedback: Pick<IFeedback, "uuid" | "url">;
 }
 
 export const Feedback: React.FC<FeedbackProps> = ({ feedback }) => {
@@ -17,7 +18,7 @@ export const Feedback: React.FC<FeedbackProps> = ({ feedback }) => {
     >
       <Image
         className="w-full h-auto bg-red-400"
-        src={feedback.img}
+        src={`${env.CDN_URL}/${feedback.url}`}
         alt="feedback"
         width={400}
         height={400}

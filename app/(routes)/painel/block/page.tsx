@@ -5,7 +5,7 @@ const Page = async () => {
   const { data } = await blockService.getAll();
 
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <BlockContent data={data} />
     </div>
   );

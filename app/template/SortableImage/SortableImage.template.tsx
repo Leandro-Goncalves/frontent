@@ -90,9 +90,9 @@ interface SortableImageTemplateProps<
     successMessage?: string;
   };
   onChangeVisibility?: (guid: string, isActive: boolean) => Promise<void>;
-  fetchData: () => Promise<Item<ShowImage>[]>;
+  fetchData(): Promise<Item<ShowImage>[]>;
   initialData?: Item<ShowImage>[];
-  updateItemPosition: (guids: string[]) => void;
+  updateItemPosition(guids: string[]): void;
   size: {
     width: number;
     height: number;
@@ -123,6 +123,7 @@ export const SortableImageTemplate = <
 
   const { data, refetch } = useQuery([name], fetchData, {
     initialData,
+    cacheTime: 0,
   });
 
   const filteredItems = useMemo(() => {

@@ -90,7 +90,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           width={size.width}
           height={size.height}
           style={{
-            height: size.height,
+            maxWidth: 300,
+            width: "100%",
           }}
         />
       )}

@@ -34,7 +34,7 @@ export const FabricContent: React.FC<FabricContentProps> = ({ data }) => {
       showImage
       name="fabrics"
       title="nossos tecidos"
-      description="Crie tecidos personalizados e adicione links!"
+      description="Adicione os modelos que você trabalha atualmente para que seus clientes conheçam e reordene da forma que preferir para dar mais destaque a um produto específico"
       fetchData={() =>
         fabricsService.getAll().then((res) => formatData(res.data))
       }

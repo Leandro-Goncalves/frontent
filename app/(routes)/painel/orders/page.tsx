@@ -11,7 +11,7 @@ const Page = async () => {
     },
   }));
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <PageContent ordersInitial={orders} />
     </div>
   );

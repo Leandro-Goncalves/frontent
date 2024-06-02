@@ -14,14 +14,21 @@ import { ExitButton } from "./components/ExitButton";
 import { useUser } from "@/app/states/useUser.state";
 import { EditButton } from "./components/EditButton";
 import { useRouter } from "next/navigation";
-import { handleHydrateZustandSSR } from "@/app/utils/zustandSSR/handleHydrateZustandSSR";
+import { isSsr } from "@/app/utils/misc/isSsr";
+
+const getUserSSR = () => {
+  const { cookies } = require("next/headers") as typeof import("next/headers");
+  const stateValue = cookies().get("user")?.value;
+  const stateValueParse = JSON.parse(stateValue || "{}");
+  return stateValueParse?.state?.user;
+};
 
 interface AccountButtonProps {}
 
 export const AccountButton: React.FC<AccountButtonProps> = () => {
   const [open, setOpen] = useState(false);
-  handleHydrateZustandSSR(useUser);
-  const { user } = useUser();
+  const { user: u } = useUser();
+  const user = isSsr() ? getUserSSR() : u;
   const route = useRouter();
 
   const handleCloseDialog = () => {

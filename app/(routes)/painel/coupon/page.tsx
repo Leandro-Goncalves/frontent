@@ -5,7 +5,7 @@ const Page = async () => {
   const coupon = await couponService.listAll().catch(() => ({ data: [] }));
 
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <PageContent cupons={coupon.data} />
     </div>
   );

@@ -5,7 +5,7 @@ const Page = async () => {
   const doubts = await doubtsService.getAll().catch(() => ({ data: [] }));
 
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <DoubtsContent data={doubts.data} />
     </div>
   );

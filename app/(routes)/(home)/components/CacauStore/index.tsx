@@ -1,24 +1,26 @@
 import { Title } from "@/app/components/Title";
-import Image from "next/image";
 import { OurStory } from "./components/OurStory";
+import { storeCarouselService } from "@/app/services/storeCarousel";
+import { StoreCarousel } from "./components/StoreCarousel";
+import { establishmentService } from "@/app/services/establishment";
+import env from "@/app/env";
 
 interface CacauStoreProps {}
 
-export const CacauStore: React.FC<CacauStoreProps> = () => {
+export const CacauStore: React.FC<CacauStoreProps> = async () => {
+  const { data } = await storeCarouselService.get();
+  const { data: establishment } = await establishmentService.get(
+    env.ESTABLISHMENT_ID
+  );
   return (
     <div>
       <Title>Nossa história</Title>
-      <OurStory />
-
-      <Title className="mt-[70px] mb-4 scroll-mt-[200px]" id="ourStore">
-        Nossa loja
-      </Title>
-      <Image
-        alt="cacau store"
-        src={"/images/banner2.png"}
-        width={1174}
-        height={650}
+      <OurStory
+        image={establishment.storyImage ?? ""}
+        text={establishment.storyText ?? ""}
       />
+
+      <StoreCarousel storeCarousel={data} />
     </div>
   );
 };

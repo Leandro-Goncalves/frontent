@@ -19,7 +19,7 @@ export const StatusOrder: React.FC<StatusOrderProps> = ({ status }) => {
     );
   }
 
-  if (status === OrderStatus.cancelled) {
+  if (status === OrderStatus.cancelled || status === OrderStatus.expired) {
     return (
       <div className="px-2 py-1 rounded-md bg-[#fe4a4a] flex items-center text-white">
         <XCircle className="mr-1 w-4 h-4" />

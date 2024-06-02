@@ -50,12 +50,17 @@ const alertDataObject: alertDataObjectFunction = (
       textColor: "text-white",
     },
     [OrderStatus.pending]: {
-      text: "Pagamento pendente, clique no card para pagar (o pedido sera cancelado em 30 minutos)",
+      text: "Pagamento pendente, clique no card para pagar (o pedido será cancelado em 30 minutos)",
       color: "#FFCC6D",
     },
     [OrderStatus.finished]: {
       text: `Pagamento finalizado, obrigado por comprar conosco`,
       color: "#4bb543",
+      textColor: "text-white",
+    },
+    [OrderStatus.expired]: {
+      text: "Seu pedido foi cancelado, clique no card para recolocar no carrinho",
+      color: "#fe4a4a",
       textColor: "text-white",
     },
     cancelled: {
@@ -192,6 +197,7 @@ export const OrderCard: React.FC<OrderCardProps> = ({ order }) => {
   const handleClick = () => {
     if (order.status === OrderStatus.pending) pendingAction();
     if (order.status === OrderStatus.cancelled) canceledAction();
+    if (order.status === OrderStatus.expired) canceledAction();
     if (order.status === OrderStatus.success) successAction(order.tracking);
   };
 

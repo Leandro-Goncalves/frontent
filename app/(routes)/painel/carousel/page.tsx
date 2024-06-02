@@ -8,7 +8,7 @@ const Page = async () => {
     .catch(() => ({ data: [] }));
 
   return (
-    <div className="w-full h-[100vh] overflow-auto">
+    <div className="w-full">
       <CarouselContent data={carousel.data} />
     </div>
   );

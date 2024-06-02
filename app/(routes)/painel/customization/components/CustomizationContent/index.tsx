@@ -11,6 +11,13 @@ import { establishmentService } from "@/app/services/establishment";
 import env from "@/app/env";
 import { toast } from "react-toastify";
 import { themes } from "@/app/themes";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CustomizationContentProps {
   data: Establishment;
@@ -34,11 +41,13 @@ export const CustomizationContent: React.FC<CustomizationContentProps> = ({
     alert: string;
     themeGuid: string;
     icon?: string | File;
+    installments: number;
   }>({
     defaultValues: {
       alert: data.alert,
       themeGuid: data.themeGuid,
       icon: data.icon && `${env.CDN_URL}/${data.icon}`,
+      installments: data.installments,
     },
   });
   const values = watch();
@@ -52,6 +61,7 @@ export const CustomizationContent: React.FC<CustomizationContentProps> = ({
       alert: values.alert,
       themeGuid: values.themeGuid,
       icon: typeof values.icon === "object" ? values.icon : undefined,
+      installments: values.installments,
     });
 
     toast.success("Configurações salvas");
@@ -98,6 +108,29 @@ export const CustomizationContent: React.FC<CustomizationContentProps> = ({
             type="text"
             placeholder="Frase acima"
           />
+        </Section>
+        <Section
+          position="bottom"
+          title="parcelas"
+          description="Quantidade de parcelas para o pagamento da sua loja."
+        >
+          <Select
+            onValueChange={(value) => {
+              setValue("installments", Number(value));
+            }}
+            defaultValue={String(values.installments)}
+          >
+            <SelectTrigger className="bg-card">
+              <SelectValue placeholder="Selecione o parcelamento" />
+            </SelectTrigger>
+            <SelectContent>
+              {Array.from({ length: 12 }, (_, i) => i + 1).map((i) => (
+                <SelectItem key={i} value={String(i)}>
+                  {i}x {i === 1 && "(a vista)"}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </Section>
         <ThemeSection
           themeGuid={values.themeGuid}

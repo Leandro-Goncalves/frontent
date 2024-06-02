@@ -1,19 +1,25 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { BadgePercent, Gift, Instagram, PackageCheck } from "lucide-react";
+import {
+  BadgePercent,
+  Gift,
+  Instagram,
+  LockKeyhole,
+  PackageCheck,
+} from "lucide-react";
 
 interface InformativeProps {}
 
 const data = [
   {
     Icon: PackageCheck,
-    subtitle: "Ganhe frete grátis",
-    description: "Ganhe frete grátis a partir de R$299 em compras",
+    subtitle: "Enviamos seus pedidos!",
+    description: "Entregamos em todo Brasil.",
   },
   {
     Icon: Gift,
-    subtitle: "Presente na primeira compra",
-    description: "Ative o cupom: Soucacauzete",
+    subtitle: "Pague como quiser!",
+    description: "Cartão, pix ou boleto.",
   },
   {
     Icon: BadgePercent,
@@ -22,9 +28,14 @@ const data = [
   },
   {
     Icon: Instagram,
-    subtitle: "Siga a Cacau Store",
+    subtitle: "Siga a Cacau Store",
     description: "@caacaustore",
     link: "https://www.instagram.com/caacaustore/",
+  },
+  {
+    Icon: LockKeyhole,
+    subtitle: "Compre com segurança!",
+    description: "Seus dados estão protegidos.",
   },
 ];
 
