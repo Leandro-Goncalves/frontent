@@ -18,6 +18,7 @@ export const Product: React.FC<ProductProps> = ({
   installments,
   selectedVariant,
 }) => {
+  const isSoldOut = selectedVariant.isSoldOut;
   const router = useRouter();
 
   const [hover, setHover] = useState(false);
@@ -53,7 +54,16 @@ export const Product: React.FC<ProductProps> = ({
         isHover={hover}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-      />
+        disable={isSoldOut}
+      >
+        {isSoldOut && (
+          <div className="absolute inset-0 flex items-end justify-center bg-black/30 z-10">
+            <p className="text-white text-center bg-primary w-full p-3">
+              Produto esgotado
+            </p>
+          </div>
+        )}
+      </Images>
       <div className="text-foreground font-bold">
         <p className="text-sm mt-2">
           {product.name} {selectedVariant && `- ${selectedVariant.name}`}

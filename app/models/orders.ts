@@ -8,7 +8,7 @@ export enum OrderStatus {
   expired = "expired",
 }
 
-interface ProductOrder {
+export interface ProductOrder {
   id: string;
   title: string;
   description: string;

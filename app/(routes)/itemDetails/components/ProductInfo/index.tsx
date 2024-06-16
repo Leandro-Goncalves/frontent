@@ -58,6 +58,10 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
   );
 
   const images = product.variants.flatMap((v) => v.Image);
+  const isSoldOut =
+    selectedVariant.size.reduce((acc, size) => {
+      return acc + size.quantity;
+    }, 0) === 0;
 
   return (
     <div className="mt-5 flex gap-8 max-[1000px]:flex-col max-[1000px]:items-center flex-shrink-0">
@@ -90,6 +94,10 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
           </p>
           <div className="flex gap-3 flex-wrap">
             {product.variants.map((variant) => {
+              const isSoldOut =
+                variant.size.reduce((acc, size) => {
+                  return acc + size.quantity;
+                }, 0) === 0;
               const isSelected = variant.guid === selectedVariant.guid;
               const handleSelectVariant = () => {
                 setSelectedVariant(variant);
@@ -104,10 +112,12 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
               if (!variant.Image[0]) {
                 return (
                   <button
+                    disabled={isSoldOut}
                     onClick={handleSelectVariant}
                     className={cn([
                       "bg-secondary",
                       isSelected && "border-2 border-primary",
+                      isSoldOut && "opacity-50",
                     ])}
                     key={variant.name}
                     style={{
@@ -120,11 +130,16 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
               }
 
               return (
-                <button key={variant.name} onClick={handleSelectVariant}>
+                <button
+                  disabled={isSoldOut}
+                  key={variant.name}
+                  onClick={handleSelectVariant}
+                >
                   <Image
                     className={cn([
                       "bg-secondary",
                       isSelected && "border-2 border-primary",
+                      isSoldOut && "opacity-50",
                     ])}
                     src={`${env.CDN_URL}/${variant.Image[0].imageId}`}
                     alt={variant.name}
@@ -148,6 +163,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
             <p className="text-sm font-extrabold">Tamanho:</p>
             <div className="mb-4">
               <Sizes
+                disabled={selectedVariant.isSoldOut}
                 sizes={selectedVariant.size}
                 selectedSize={size}
                 updateSize={(newSize) => {
@@ -167,6 +183,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
         </div>
         <div>
           <CartActions
+            text={isSoldOut ? "Produto esgotado" : undefined}
             isDisabled={!size}
             variant={selectedVariant}
             product={product}

@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils";
 import {
   BadgePercent,
-  Gift,
+  CreditCard,
   Instagram,
   LockKeyhole,
   PackageCheck,
@@ -17,7 +17,7 @@ const data = [
     description: "Entregamos em todo Brasil.",
   },
   {
-    Icon: Gift,
+    Icon: CreditCard,
     subtitle: "Pague como quiser!",
     description: "Cartão, pix ou boleto.",
   },
@@ -41,7 +41,7 @@ const data = [
 
 export const Informative: React.FC<InformativeProps> = () => {
   return (
-    <div className="w-full p-6 bg-[#DC024F1A] mt-16 justify-center gap-6 grid grid-cols-4 max-lg:grid-cols-3 max-sm:grid-cols-2 max-[410px]:grid-cols-1">
+    <div className="w-full p-6 bg-[#DC024F1A] mt-16 justify-center gap-6 grid grid-cols-5 max-lg:grid-cols-3 max-sm:grid-cols-2 max-[410px]:grid-cols-1">
       {data.map(({ Icon, subtitle, description, link }, index) => (
         <div
           key={index}

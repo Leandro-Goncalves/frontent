@@ -10,6 +10,7 @@ interface CartActionsProps {
   onAddToCart?: () => void;
   variant: Variant;
   isDisabled?: boolean;
+  text?: string;
 }
 
 export const CartActions: React.FC<CartActionsProps> = ({
@@ -19,10 +20,12 @@ export const CartActions: React.FC<CartActionsProps> = ({
   onAddToCart,
   variant,
   isDisabled,
+  text,
 }) => {
   return (
     <div className="flex justify-between items-center gap-2 mt-3 w-full">
       <AddToCart
+        text={text}
         product={product}
         quantity={quantity}
         selectedSize={selectedSize}

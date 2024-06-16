@@ -16,10 +16,14 @@ export const useQueryParams = () => {
     },
     set: (key: string, value: string) => {
       const current = new URLSearchParams(Array.from(searchParams.entries()));
+      console.log("current", current);
       current.set(key, value);
 
       const search = current.toString();
+      console.log("current", search);
+
       const query = search ? `?${search}` : "";
+      console.log("current", query);
 
       router.push(`${pathname}${query}`);
     },

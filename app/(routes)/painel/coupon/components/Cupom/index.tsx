@@ -146,7 +146,7 @@ export const Cupom: React.FC<CupomProps> = ({ cupom }) => {
       </div>
       <p className="font-light text-base mb-2">{discountText}</p>
       <p>
-        <b>Qualidade:</b> {cupom.isUnlimited ? "Ilimitado" : cupom.quantity}
+        <b>Quantidade:</b> {cupom.isUnlimited ? "Ilimitado" : cupom.quantity}
       </p>
       <p>
         <b>Tipo:</b> {cupomTypeText[cupom.cupomType]}

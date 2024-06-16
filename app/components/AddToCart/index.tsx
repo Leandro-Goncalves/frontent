@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/tooltip";
 
 interface AddToCartProps {
+  text?: string;
   product: Products;
   quantity: number;
   variant: Variant;
@@ -25,6 +26,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
   onAddToCart,
   variant,
   isDisabled,
+  text = "Adicionar ao carrinho",
 }) => {
   const addProduct = useCart((state) => state.addProduct);
 
@@ -54,7 +56,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
               disabled
               className="rounded-full font-bold text-xs w-full relative overflow-hidden"
             >
-              Adicionar ao carrinho
+              {text}
             </Button>
           </TooltipTrigger>
           <TooltipContent>
@@ -70,7 +72,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
       className="rounded-full font-bold text-xs w-full relative overflow-hidden"
       onClick={handleCartProduct}
     >
-      Adicionar ao carrinho
+      {text}
     </Button>
   );
 };

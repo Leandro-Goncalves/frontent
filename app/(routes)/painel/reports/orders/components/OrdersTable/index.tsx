@@ -5,11 +5,9 @@ import {
   reportsService,
 } from "@/app/services/reports";
 import { useQuery } from "@tanstack/react-query";
-import * as React from "react";
+import React, { useState } from "react";
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
   VisibilityState,
   flexRender,
   getCoreRowModel,
@@ -18,19 +16,15 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -40,6 +34,13 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { toCurrencyValue } from "@/app/utils/misc/toCurrencyValue";
+import { SelectDate } from "./components/SelectDate";
+import { createParser, useQueryState } from "nuqs";
+import { ProductOrder } from "@/app/models/orders";
+import { getSize } from "@/app/(routes)/itemDetails/components/Sizes";
+import { OrderLine } from "./components/OrderLine";
+import { ExportButton } from "../../../components/ExportButton";
+import { useCookieState } from "@/app/utils/hooks/useCookieState";
 
 export const columns: ColumnDef<findSalesUser>[] = [
   {
@@ -65,16 +66,18 @@ export const columns: ColumnDef<findSalesUser>[] = [
     enableHiding: false,
   },
   {
+    accessorKey: "products",
+    header: "Pedido",
+    cell: ({ row }) => (
+      <OrderLine orders={row.getValue<ProductOrder[]>("products")} />
+    ),
+  },
+  {
     accessorKey: "userName",
     header: "Usuário",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("userName")}</div>
     ),
-  },
-  {
-    accessorKey: "email",
-    header: "Usuário",
-    cell: ({ row }) => <div>{row.getValue("email")}</div>,
   },
   {
     accessorKey: "total",
@@ -100,67 +103,147 @@ interface OrdersTableProps {
   orders: findSalesReturnDto;
 }
 
+const parseAsIsoDateTimeWithoutHours = createParser({
+  parse: (v) => {
+    const date = new Date(v);
+
+    if (Number.isNaN(date.valueOf())) {
+      return null;
+    }
+    return date;
+  },
+  serialize: (v: Date) => v.toISOString(),
+});
+
 export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
-  const [pagination, setPagination] = React.useState({
+  const [from, setFrom] = useQueryState("from", parseAsIsoDateTimeWithoutHours);
+  const [to, setTo] = useQueryState("to", parseAsIsoDateTimeWithoutHours);
+  const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   });
 
   const { data } = useQuery({
     initialData: orders,
-    queryKey: ["reportsOrders", pagination],
+    queryKey: ["reportsOrders", pagination, from, to],
     refetchOnMount: false,
     queryFn: () =>
       reportsService
         .findSales({
           page: pagination.pageIndex,
           size: pagination.pageSize,
+          startDate: from ? from.toISOString() : undefined,
+          endDate: to ? to.toISOString() : undefined,
         })
         .then((r) => r.data),
   });
 
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+    useCookieState<VisibilityState>("ColumnVisibility", {});
+  const [rowSelection, setRowSelection] = useState({});
 
   const table = useReactTable({
     data: data.results,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
+    onColumnVisibilityChange: (old) => {
+      if (typeof old === "function") {
+        setColumnVisibility(old(columnVisibility));
+        return;
+      }
+      setColumnVisibility(old);
+    },
     onRowSelectionChange: setRowSelection,
     manualPagination: true,
     rowCount: data.totalItems,
     onPaginationChange: setPagination,
     state: {
       pagination,
-      sorting,
-      columnFilters,
       columnVisibility,
       rowSelection,
     },
   });
 
+  const formatData = (
+    data: findSalesUser[],
+    hideColumns?: ("freightValue" | "products" | "total" | "userName")[]
+  ) => {
+    const shouldHide = (
+      column: "freightValue" | "products" | "total" | "userName"
+    ) => hideColumns?.includes(column) || false;
+    return data.map(({ products, userName, total, freightValue }) => {
+      const data: {
+        Pedido?: string;
+        Usuário?: string;
+        Total?: number;
+        Frete?: number;
+      } = {
+        Pedido: products
+          .map(
+            (p) =>
+              `${p.quantity}x ${p.title}-${p.variant.name} (${
+                getSize(p.sizeGuid)?.name
+              })`
+          )
+          .join(", "),
+        Usuário: userName,
+        Total: total,
+        Frete: freightValue,
+      };
+      if (shouldHide("freightValue")) delete data.Frete;
+      if (shouldHide("products")) delete data.Pedido;
+      if (shouldHide("total")) delete data.Total;
+      if (shouldHide("userName")) delete data.Usuário;
+
+      return data;
+    });
+  };
+
+  const getFullData = async () => {
+    const fullData: findSalesUser[] = [];
+
+    const getData = async (page: number) => {
+      const { data } = await reportsService.findSales({
+        page: page,
+        size: 10,
+        startDate: from ? from.toISOString() : undefined,
+        endDate: to ? to.toISOString() : undefined,
+      });
+
+      fullData.push(...data.results);
+
+      if (data.currentPage < data.totalPages - 1) {
+        await getData(data.currentPage + 1);
+      }
+    };
+
+    await getData(0);
+
+    return formatData(fullData);
+  };
+
+  const getSelectedData = async () => {
+    const data2 = Object.keys(rowSelection).map((i: any) => data.results[i]);
+    const hide = Object.keys(columnVisibility).filter(
+      (column) => columnVisibility[column] === false
+    );
+
+    return formatData(data2, hide as any);
+  };
+
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
-        {/* <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        /> */}
+      <div className="flex items-center py-4 pb-2">
+        <SelectDate
+          data={{ from, to }}
+          onSetDate={(data) => {
+            data.from && setFrom(data.from);
+            data.to && setTo(data.to);
+          }}
+        />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
@@ -187,6 +270,21 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
               })}
           </DropdownMenuContent>
         </DropdownMenu>
+      </div>
+      <div className="flex items-center gap-2 pb-4">
+        <ExportButton
+          tableName="Vendas"
+          fileName="Vendas"
+          text="Exportar tudo"
+          data={getFullData}
+        />
+        <ExportButton
+          tableName="Vendas"
+          fileName="Vendas"
+          text="Exportar selecionados"
+          data={getSelectedData}
+          disabled={!Object.keys(rowSelection).length}
+        />
       </div>
       <div className="rounded-md border">
         <Table>
@@ -231,7 +329,7 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  No results.
+                  Nenhum resultado.
                 </TableCell>
               </TableRow>
             )}
@@ -240,8 +338,8 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {table.getFilteredSelectedRowModel().rows.length} de{" "}
+          {table.getFilteredRowModel().rows.length} linha(s) selecionada(s).
         </div>
         <div className="space-x-2">
           <Button
@@ -250,7 +348,7 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            Previous
+            Anterior
           </Button>
           <Button
             variant="outline"
@@ -258,7 +356,7 @@ export const OrdersTable: React.FC<OrdersTableProps> = ({ orders }) => {
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            Next
+            Proximo
           </Button>
         </div>
       </div>

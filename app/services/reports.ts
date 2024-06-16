@@ -1,11 +1,12 @@
 import { serviceAdapter } from "@utils/adapters/serviceAdapters";
 import api from "./ofetchApi";
-import { Products } from "../models/products";
-import { Order } from "../models/orders";
+import { Order, ProductOrder } from "../models/orders";
 
 export interface PaginationQueryDto {
   page: number;
   size: number;
+  startDate?: String;
+  endDate?: String;
 }
 
 export interface PaginationResponseDto<T> {
@@ -28,10 +29,23 @@ export interface findSalesUser
   complement: string;
   userName: string;
   email: string;
+  products: ProductOrder[];
 }
 
 export interface findSalesReturnDto
   extends PaginationResponseDto<findSalesUser> {}
+
+export interface findUsers {
+  uuid: string;
+  name: string;
+  email: string;
+  phone: string;
+  cpf: string;
+  orders: Order[];
+  OrderTakeout: Order[];
+}
+
+export interface findUsersReturnDto extends PaginationResponseDto<findUsers> {}
 
 const findSales = async (paginationQueryDto: PaginationQueryDto) => {
   return api
@@ -39,6 +53,13 @@ const findSales = async (paginationQueryDto: PaginationQueryDto) => {
     .then(serviceAdapter);
 };
 
+const findUsers = async (paginationQueryDto: PaginationQueryDto) => {
+  return api
+    .getAuth<findUsersReturnDto>(`reports/users`, { query: paginationQueryDto })
+    .then(serviceAdapter);
+};
+
 export const reportsService = {
   findSales,
+  findUsers,
 };

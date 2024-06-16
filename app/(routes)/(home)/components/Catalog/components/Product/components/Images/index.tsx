@@ -8,6 +8,8 @@ interface ImagesProps {
   onMouseEnter: () => void;
   onMouseLeave: () => void;
   onClick: () => void;
+  children?: React.ReactNode;
+  disable?: boolean;
 }
 
 export const Images: React.FC<ImagesProps> = ({
@@ -16,6 +18,8 @@ export const Images: React.FC<ImagesProps> = ({
   onMouseEnter,
   onMouseLeave,
   onClick,
+  children,
+  disable,
 }) => {
   const firstImage = ProductImages[0];
   const lastImage = ProductImages[ProductImages.length - 1];
@@ -23,9 +27,15 @@ export const Images: React.FC<ImagesProps> = ({
 
   return (
     <div
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
+      onClick={() => {
+        if (!disable) onClick();
+      }}
+      onMouseEnter={() => {
+        if (!disable) onMouseEnter();
+      }}
+      onMouseLeave={() => {
+        if (!disable) onMouseLeave();
+      }}
       style={{
         display: "flex",
         borderRadius: "0.5rem",
@@ -33,9 +43,10 @@ export const Images: React.FC<ImagesProps> = ({
         position: "relative",
         height: "400px",
         width: "100%",
-        cursor: "pointer",
+        cursor: disable ? "auto" : "pointer",
       }}
     >
+      {children}
       {firstImage && (
         <Image
           src={`${env.CDN_URL}/${firstImage.imageId}`}

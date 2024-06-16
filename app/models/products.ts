@@ -9,6 +9,7 @@ export interface Variant {
   name: string;
   price: number;
   promotionalPrice: number;
+  isSoldOut: boolean;
   size: ProductsSize[];
   Image: Image[];
 }

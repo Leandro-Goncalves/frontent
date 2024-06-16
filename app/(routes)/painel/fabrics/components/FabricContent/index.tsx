@@ -33,8 +33,8 @@ export const FabricContent: React.FC<FabricContentProps> = ({ data }) => {
     <SortableImageTemplate
       showImage
       name="fabrics"
-      title="nossos tecidos"
-      description="Adicione os modelos que você trabalha atualmente para que seus clientes conheçam e reordene da forma que preferir para dar mais destaque a um produto específico"
+      title="nossos Modelos"
+      description=""
       fetchData={() =>
         fabricsService.getAll().then((res) => formatData(res.data))
       }
