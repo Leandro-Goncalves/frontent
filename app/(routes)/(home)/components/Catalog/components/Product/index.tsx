@@ -18,7 +18,12 @@ export const Product: React.FC<ProductProps> = ({
   installments,
   selectedVariant,
 }) => {
-  const isSoldOut = selectedVariant.isSoldOut;
+  console.log(selectedVariant);
+  const isSoldOut =
+    selectedVariant.size.reduce((acc, size) => {
+      return acc + size.quantity;
+    }, 0) === 0;
+
   const router = useRouter();
 
   const [hover, setHover] = useState(false);
