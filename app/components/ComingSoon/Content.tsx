@@ -60,14 +60,14 @@ export const Content: React.FC<ContentProps> = ({ block }) => {
             "max-[850px]:rounded-none max-[850px]:p-4"
           )}
         >
-          <p className="max-[850px]:mt-10 text-8xl text-center text-primary font-bold max-[850px]:text-7xl">
+          <p className="max-[850px]:mt-10  text-8xl text-center text-primary font-bold max-[850px]:text-4xl">
             {block.name}
           </p>
-          <p className="text-2xl mb-4 text-center mt-auto max-w-4xl mx-auto font-medium">
+          <p className="text-2xl mb-4 text-center mt-auto max-w-4xl mx-auto font-medium max-[850px]:text-lg">
             {block.description}
           </p>
           <Button
-            className="h-auto px-20 mx-auto mt-auto font-bold text-xl"
+            className="h-auto px-20 mx-auto mt-auto font-bold text-xl max-[850px]:text-base"
             onClick={handleOpenLink}
           >
             {block.buttonText}
