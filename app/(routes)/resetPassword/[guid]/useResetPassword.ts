@@ -33,7 +33,7 @@ export const useResetPassword = (guid: string): useResetPasswordProps => {
       form.setFocus("newPassword");
     },
     onSuccess: () => {
-      toast.success("User password reset successfully");
+      toast.success("Senha alterada com sucesso");
       push("/");
       form.reset();
     },
