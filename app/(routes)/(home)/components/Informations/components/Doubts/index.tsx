@@ -14,7 +14,9 @@ export const Doubts: React.FC<DoubtsProps> = async () => {
     <Accordion type="multiple" className="border-t-[1px]">
       {doubts.data.map((doubt) => (
         <AccordionItem value={doubt.question} key={doubt.question}>
-          <AccordionTrigger>{doubt.question}</AccordionTrigger>
+          <AccordionTrigger className="text-start">
+            {doubt.question}
+          </AccordionTrigger>
           <AccordionContent>{doubt.answer}</AccordionContent>
         </AccordionItem>
       ))}
