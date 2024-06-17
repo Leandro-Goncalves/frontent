@@ -22,20 +22,12 @@ export const AddProductValidation = z.object({
           .number({ required_error: "O preço é obrigatório" })
           .min(1, { message: "O preço deve ser maior que 0" }),
         promotionalPrice: z.number().nullable().optional(),
-        sizes: z
-          .array(
-            z.object({
-              sizeGuid: z.string(),
-              quantity: z.number().optional(),
-            })
-          )
-          .refine(
-            (data) =>
-              data.reduce((acc, cur) => acc + (cur.quantity ?? 0), 0) > 0,
-            {
-              message: "Pelo menos um tamanho deve ser selecionado",
-            }
-          ),
+        sizes: z.array(
+          z.object({
+            sizeGuid: z.string(),
+            quantity: z.number().optional(),
+          })
+        ),
         images: z.object({
           0: z.any(),
           1: z.any(),
