@@ -36,6 +36,7 @@ export const OrderIndicators: React.FC<OrderIndicatorsProps> = ({ fee }) => {
   const subtotalAndDiscount = subtotal - discount;
   const orderTotal =
     (fee ?? 0) + (subtotalAndDiscount < 0 ? 0 : subtotalAndDiscount);
+  console.log(typeof fee);
 
   return (
     <div>

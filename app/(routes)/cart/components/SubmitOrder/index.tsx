@@ -174,12 +174,14 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
             <div className="w-full h-[1px] bg-secondary my-4" />
             <SelectCouponSection />
             <div className="w-full h-[1px] bg-secondary my-4" />
-            <OrderIndicators fee={selectedFreight?.price} />
+            <OrderIndicators
+              fee={selectedFreight?.price && Number(selectedFreight?.price)}
+            />
             <div className="w-full h-[1px] bg-secondary my-4" />
 
             <TooltipProvider delayDuration={0}>
               <Tooltip>
-                <TooltipTrigger className="w-full" asChild>
+                <TooltipTrigger className="w-full">
                   <Button
                     disabled={!selectedFreight || isLessThenMinimumValue}
                     className="w-full rounded-lg h-12 mt-3"

@@ -51,7 +51,7 @@ export const AddToCart: React.FC<AddToCartProps> = ({
     return (
       <TooltipProvider delayDuration={0}>
         <Tooltip>
-          <TooltipTrigger className="w-full" asChild>
+          <TooltipTrigger className="w-full">
             <Button
               disabled
               className="rounded-full font-bold text-xs w-full relative overflow-hidden"
