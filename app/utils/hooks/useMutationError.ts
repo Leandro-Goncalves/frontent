@@ -31,9 +31,9 @@ export const useMutationError = <
         }, 1);
         return;
       }
-      const { data } = error?.response ?? {};
-      if (data?.message) {
-        toast.error(data.message);
+      const { _data } = error?.response ?? {};
+      if (_data?.message) {
+        toast.error(_data.message);
       }
       setTimeout(() => {
         onError?.(error, ...props);
