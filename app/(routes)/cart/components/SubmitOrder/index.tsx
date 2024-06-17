@@ -71,11 +71,11 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
         }, 100);
       })
       .catch((err) => {
-        if (err.response.data?.message) {
+        if (err.data?.message) {
           removeCoupon();
           Swal.fire({
             icon: "error",
-            text: err.response.data.message,
+            text: err.data.message,
           });
         }
       });
@@ -119,11 +119,11 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
         }, 100);
       })
       .catch((err) => {
-        if (err.response.data?.message) {
+        if (err.data?.message) {
           removeCoupon();
           Swal.fire({
             icon: "error",
-            text: err.response.data.message,
+            text: err.data.message,
           });
         }
       });

@@ -21,6 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AddProductValidation } from "./validation";
 import env from "@/app/env";
 import { toast } from "react-toastify";
+import { useConfirm } from "@/components/AlertDialogProvider";
 
 interface ProductDialogProps {
   productToEdit?: Products;
@@ -72,6 +73,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isVariantTab, setIsVariantTab] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const confirm = useConfirm();
   const [uploadQuantity, setUploadQuantity] = useState<
     | {
         quantity: number;
@@ -84,23 +86,25 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     resolver: zodResolver(AddProductValidation),
     defaultValues: {
       ...productToEdit,
-      variants: productToEdit?.variants.map((variant) => ({
-        guid: (variant as any).uuid,
-        name: variant.name,
-        price: variant.price,
-        promotionalPrice: variant.promotionalPrice,
-        isFavorite: (variant as any).isFavorite,
-        sizes: (variant as any).size.map((s: any) => ({
-          sizeGuid: s.sizeUuid,
-          quantity: s.quantity,
-        })),
-        images: {
-          0: variant.Image[0]?.imageId,
-          1: variant.Image[1]?.imageId,
-          2: variant.Image[2]?.imageId,
-          3: variant.Image[3]?.imageId,
-        },
-      })),
+      variants: productToEdit
+        ? productToEdit.variants.map((variant) => ({
+            guid: (variant as any).uuid,
+            name: variant.name,
+            price: variant.price,
+            promotionalPrice: variant.promotionalPrice,
+            isFavorite: (variant as any).isFavorite,
+            sizes: (variant as any).size.map((s: any) => ({
+              sizeGuid: s.sizeUuid,
+              quantity: s.quantity,
+            })),
+            images: {
+              0: variant.Image[0]?.imageId,
+              1: variant.Image[1]?.imageId,
+              2: variant.Image[2]?.imageId,
+              3: variant.Image[3]?.imageId,
+            },
+          }))
+        : [],
     },
   });
 
@@ -145,6 +149,11 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
     handleSubmit(
       async (data) => {
         try {
+          if (data.variants.length === 0) {
+            toast.error("Adicione pelo menos uma estampa");
+            setIsVariantTab(true);
+            return;
+          }
           setIsLoading(true);
           const dataWithGuid = {
             ...data,
@@ -216,6 +225,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
       },
       (err) => {
         if (!err.description && !err.name) {
+          toast.error("Preencha todos os campos");
           setIsVariantTab(true);
         }
       }
@@ -223,7 +233,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
   };
 
   useEffect(() => {
-    if (productToEdit) {
+    if (productToEdit && isOpen) {
       reset({
         ...productToEdit,
         variants: productToEdit?.variants.map((variant) => ({
@@ -245,7 +255,7 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
         })),
       });
     }
-  }, [reset, productToEdit]);
+  }, [reset, productToEdit, isOpen]);
 
   const ActionButton = productToEdit ? (
     <Button className="w-6 h-6" variant="outline" size="icon">
@@ -256,7 +266,31 @@ export const ProductDialog: React.FC<ProductDialogProps> = ({
   );
 
   return (
-    <Dialog open={isOpen} onOpenChange={(state) => setIsOpen(state)}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={async (state) => {
+        if (!state) {
+          if (isLoading) return;
+          const isClose = await confirm({
+            title: "Descartar edição ?",
+            actionButton: "Sim",
+            cancelButton: "Não",
+          });
+          if (isClose) {
+            setIsVariantTab(false);
+            setIsLoading(false);
+            form.reset({
+              name: "",
+              description: "",
+              variants: [],
+            });
+          } else {
+            return;
+          }
+        }
+        setIsOpen(state);
+      }}
+    >
       <DialogTrigger className={productToEdit ? "" : "ml-auto"}>
         {ActionButton}
       </DialogTrigger>
