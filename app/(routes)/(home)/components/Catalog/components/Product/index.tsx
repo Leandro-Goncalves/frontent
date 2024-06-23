@@ -62,17 +62,29 @@ export const Product: React.FC<ProductProps> = ({
         disable={isSoldOut}
       >
         {isSoldOut && (
-          <div className="absolute inset-0 flex items-end justify-center bg-black/30 z-10">
-            <p className="text-white text-center bg-primary w-full p-3">
+          <div className="absolute uppercase font-bold inset-0 flex items-end justify-center bg-black/30 z-10">
+            <p className="text-white text-center bg-gray-700 w-full p-3">
               Produto esgotado
             </p>
           </div>
+        )}
+        {selectedVariant.promotionalPrice && (
+          <p className="text-white uppercase font-bold text-center bg-primary w-full p-3 absolute z-10 bottom-0">
+            Promoção
+          </p>
         )}
       </Images>
       <div className="text-foreground font-bold">
         <p className="text-sm mt-2">
           {product.name} {selectedVariant && `- ${selectedVariant.name}`}
         </p>
+        {selectedVariant.promotionalPrice ? (
+          <p className="text-base font-semibold pt-2 text-foreground leading-3 line-through">
+            {toCurrencyValue(selectedVariant.price)}
+          </p>
+        ) : (
+          <></>
+        )}
         <p className="text-3xl">
           {toCurrencyValue(
             selectedVariant.promotionalPrice || selectedVariant.price
