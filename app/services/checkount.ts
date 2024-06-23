@@ -13,6 +13,7 @@ export interface Address {
 }
 
 interface GeneratePaymentLinkDTO {
+  type: "pix" | "boleto" | "card";
   to: Address;
   freightId: string;
   couponCode?: string;
@@ -26,6 +27,7 @@ interface GeneratePaymentLinkDTO {
 
 interface GeneratePaymentTakeoutLinkDTO {
   couponCode?: string;
+  type: "card" | "pix" | "boleto";
   items: Array<{
     quantity: number;
     productGuid: string;

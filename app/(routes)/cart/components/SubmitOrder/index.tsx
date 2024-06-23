@@ -19,6 +19,7 @@ import { TakeoutItem } from "./TakeoutItem";
 import { SelectCouponSection } from "./components/SelectCouponSection";
 import { OrderIndicators } from "./components/OrderIndicators";
 import Swal from "sweetalert2";
+import { useSelectPaymentType } from "../SelectPaymentType";
 
 interface SubmitOrderProps {
   phone: string;
@@ -32,6 +33,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
   const user = useUser((state) => state.user);
   const { LoginDialog, handleLogin } = useLoginDialog();
   const { SelectAddressDialog, handleSelectAddress } = useSelectAddress();
+  const [SelectPaymentType, selectPaymentTypeCommands] = useSelectPaymentType();
   const [selectedCEP, setSelectedCEP] = useState<string>("");
   const [isDelivery, setIsDelivery] = useState(true);
 
@@ -50,9 +52,10 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
     return false;
   }, [cart, coupon]);
-  const handleTakeout = async () => {
+  const handleTakeout = async (type: "pix" | "card" | "boleto") => {
     await checkoutService
       .generateTakeoutPaymentLink({
+        type,
         couponCode: coupon?.code,
         items: cart.map((c) => ({
           quantity: c.quantity,
@@ -86,8 +89,10 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
       await handleLogin();
     }
 
+    const type = await selectPaymentTypeCommands.open();
+
     if (!isDelivery) {
-      handleTakeout();
+      handleTakeout(type);
       return;
     }
 
@@ -99,6 +104,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
     await checkoutService
       .generatePaymentLink({
+        type,
         to: address,
         freightId: selectedFreight.id,
         couponCode: coupon?.code,
@@ -135,6 +141,7 @@ export const SubmitOrder: React.FC<SubmitOrderProps> = ({ phone }) => {
 
   return (
     <>
+      <SelectPaymentType />
       {SelectAddressDialog}
       {LoginDialog}
       <div className="ml-auto max-[1420px]:ml-0 max-[1420px]:mr-auto p-5 border-2 rounded-3xl w-full max-w-[444px]">
