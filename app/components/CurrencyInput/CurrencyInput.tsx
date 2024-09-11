@@ -12,6 +12,7 @@ const currencyFormatter = (value: any, prefix: boolean): string => {
 
 interface CurrencyInputProps extends NumberFormatBaseProps {
   error?: string;
+  containerClassName?: string;
 }
 
 export const CurrencyInput = React.forwardRef<any, CurrencyInputProps>(

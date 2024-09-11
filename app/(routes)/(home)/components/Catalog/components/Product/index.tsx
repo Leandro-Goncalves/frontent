@@ -62,7 +62,7 @@ export const Product: React.FC<ProductProps> = ({
         disable={isSoldOut}
       >
         {isSoldOut && (
-          <div className="absolute uppercase font-bold inset-0 flex items-end justify-center bg-black/30 z-10">
+          <div className="absolute uppercase font-bold inset-0 flex items-end justify-center bg-black/30 z-[11]">
             <p className="text-white text-center bg-gray-700 w-full p-3">
               Produto esgotado
             </p>

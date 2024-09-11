@@ -44,7 +44,7 @@ export const OrderIndicators: React.FC<OrderIndicatorsProps> = ({ fee }) => {
         <p className="text-base font-medium">Subtotal</p>
         <p className="text-base font-bold">{toCurrencyValue(subtotal)}</p>
       </div>
-      {fee && (
+      {fee !== undefined && (
         <div className="flex justify-between">
           <p className="text-base font-medium">Frete</p>
           <p className="text-base font-bold">{toCurrencyValue(fee)}</p>

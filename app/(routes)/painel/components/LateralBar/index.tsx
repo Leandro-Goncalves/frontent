@@ -9,6 +9,7 @@ import {
   Shirt,
   Heart,
   GalleryThumbnails,
+  Truck,
 } from "lucide-react";
 import Image from "next/image";
 import { RouteItem } from "./components/RouteItem";
@@ -39,6 +40,11 @@ const routes = [
     icon: <PencilLine className="w-4 h-4 mr-1" />,
     href: "/customization/",
   },
+  // {
+  //   name: "Delivery e retirada",
+  //   icon: <Truck className="w-4 h-4 mr-1" />,
+  //   href: "/delivery/",
+  // },
   {
     name: "Catalogo",
     content: [
