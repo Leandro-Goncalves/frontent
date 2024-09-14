@@ -14,11 +14,6 @@ interface InfoIndicatorsProps {
 
 const itens = [
   {
-    Icon: Package,
-    title:
-      "<b>Entrega Grátis.</b> Em compras a partir de R$299,00 para sul e sudeste.",
-  },
-  {
     Icon: Gift,
     title:
       "<b>Primeira compra.</b> Use o cupom soucacauzete e ganhe um presente pela sua primeira compra!",

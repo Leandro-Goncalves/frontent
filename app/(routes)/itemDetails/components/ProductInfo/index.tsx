@@ -70,7 +70,7 @@ export const ProductInfo: React.FC<ProductInfoProps> = ({
         selectedImageIndex={selectedImageIndex}
         setSelectedImageIndex={setSelectedImageIndex}
       />
-      <div className="max-w-xs flex flex-col max-[1000px]:max-w-2xl w-full">
+      <div className="max-w-[22rem] flex flex-col max-[1000px]:max-w-2xl w-full">
         <p className="text-2xl font-medium">{product.name}</p>
         {selectedVariant.promotionalPrice ? (
           <p className="text-base font-semibold mt-8 text-foreground leading-3 line-through">
